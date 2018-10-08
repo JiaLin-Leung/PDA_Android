@@ -1,7 +1,8 @@
-package com.pda.pda_android.Base;
+package com.pda.pda_android.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -9,7 +10,7 @@ import android.view.WindowManager;
  * 梁佳霖创建于：2018/10/8 13:48
  * 功能：Activity基类
  */
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,4 +38,9 @@ public abstract class BaseActivity extends Activity {
      * 初始化数据方法
      */
     public abstract void initData();
+
+    @Override
+    public void onClick(View view) {
+
+    }
 }
