@@ -1,5 +1,6 @@
 package com.pda.pda_android.activity;
 
+import android.content.Intent;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
@@ -77,6 +78,8 @@ public class LoginActivity extends BaseActivity {
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 LogUtils.showLog("信息信息信息信息",s);
+                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         },params);
     }

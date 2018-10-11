@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PDA_Android</string>
+    <string name="item_home">PDA_Android</string>
+    <string name="tips">Hello</string>
+    <string name="home_main_string">主页</string>
+    <string name="user_main_string">患者</string>
+    <string name="talk_main_string">沟通</string>
+    <string name="me_main_string">我的</string>
 </resources>

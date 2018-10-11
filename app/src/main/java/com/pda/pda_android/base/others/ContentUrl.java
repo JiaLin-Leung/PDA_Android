@@ -15,5 +15,5 @@ public class ContentUrl {
      * 学生登录接口地址
      */
     public static final String stu_login = "/account/login/";
-
+    public static final String ARGS = "args";
 }
