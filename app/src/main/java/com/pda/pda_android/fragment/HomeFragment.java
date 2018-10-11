@@ -1,6 +1,7 @@
 package com.pda.pda_android.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pda.pda_android.R;
@@ -22,6 +27,9 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.Nullable;
 
@@ -34,6 +42,12 @@ public class HomeFragment extends Fragment implements OnBannerListener {
     private ArrayList<String> list_path;
     private ArrayList<String> list_title;
     private Banner banner;
+    private TextView tv_tixing;
+    private TextView tv_daiban;
+    private GridView gridView;
+    private List<Map<String, Object>> dataList;
+    private SimpleAdapter adapter;
+
     public static HomeFragment newInstance(String s) {
         HomeFragment homeFragment = new HomeFragment();
         Bundle bundle = new Bundle();
@@ -48,17 +62,64 @@ public class HomeFragment extends Fragment implements OnBannerListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sub_content, container, false);
         initView(view);
+        initData();
+        String[] from={"img","text"};
+
+        int[] to={R.id.img,R.id.text};
+
+        adapter=new SimpleAdapter(getActivity(), dataList, R.layout.gridview_item, from, to);
+
+        gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
+                builder.setTitle("提示").setMessage(dataList.get(arg2).get("text").toString()).create().show();
+            }
+        });
         LogUtils.showLog("生命周期-----"+"home onCreateView");
         return view;
     }
 
+    private void initData() {
+        //图标
+        int icno[] = { R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,
+                R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,
+                R.drawable.black_background,R.drawable.black_background,R.drawable.black_background};
+        //图标下的文字
+        String name[]={"时钟","信号","宝箱","秒钟","大象","FF","记事本","书签","印象","商店","主题","迅雷"};
+        dataList = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i <icno.length; i++) {
+            Map<String, Object> map=new HashMap<String, Object>();
+            map.put("img", icno[i]);
+            map.put("text",name[i]);
+            dataList.add(map);
+        }
+    }
+
     private void initView(View view) {
         banner = view.findViewById(R.id.banner);
+        tv_daiban = view.findViewById(R.id.tv_daiban);
+        gridView = view.findViewById(R.id.gridview);
+        tv_daiban.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO 打开待办页面
+            }
+        });
+        tv_tixing = view.findViewById(R.id.tv_tixing);
+        tv_tixing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO 打开提醒页面
+            }
+        });
         //放图片地址的集合
         list_path = new ArrayList<>();
         //放标题的集合
         list_title = new ArrayList<>();
-
         list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
         list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
         list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
@@ -89,8 +150,10 @@ public class HomeFragment extends Fragment implements OnBannerListener {
                 .start();
     }
 
-    //轮播图的监听方法
     @Override
+    /**
+     * 轮播图点击时间
+     */
     public void OnBannerClick(int position) {
         Log.e("tag", "你点了第"+position+"张轮播图");
     }
