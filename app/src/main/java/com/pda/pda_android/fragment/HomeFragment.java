@@ -87,9 +87,10 @@ public class HomeFragment extends Fragment implements OnBannerListener {
         //图标
         int icno[] = { R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,
                 R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,
-                R.drawable.black_background,R.drawable.black_background,R.drawable.black_background};
+                R.drawable.black_background,R.drawable.black_background,R.drawable.black_background
+                ,R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,R.drawable.black_background};
         //图标下的文字
-        String name[]={"时钟","信号","宝箱","秒钟","大象","FF","记事本","书签","印象","商店","主题","迅雷"};
+        String name[]={"时钟","信号","宝箱","秒钟","大象","FF","记事本","书签","印象","商店","主题","迅雷","主题","迅雷","主题","迅雷","主题","迅雷"};
         dataList = new ArrayList<Map<String, Object>>();
         for (int i = 0; i <icno.length; i++) {
             Map<String, Object> map=new HashMap<String, Object>();
