@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="#3333"
-    android:paddingRight="10dp">
+    android:background="#3333">
 
     <TextView
         android:id="@+id/teacher_details"
@@ -15,7 +14,7 @@
         android:textColor="@color/white"
         android:textSize="18sp" />
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -23,9 +22,19 @@
         >
         <ImageView
             android:id="@+id/activity_back"
-            android:layout_width="10dp"
-            android:layout_height="17dp"
-            android:src="@drawable/new_baiback"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/new_baiback"
             android:layout_centerVertical="true"/>
+
+        <TextView
+            android:visibility="gone"
+            android:textSize="18dp"
+            android:id="@+id/tv_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="完成！" />
     </RelativeLayout>
 </RelativeLayout>

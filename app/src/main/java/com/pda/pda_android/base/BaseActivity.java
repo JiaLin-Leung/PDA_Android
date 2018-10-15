@@ -49,7 +49,7 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
 
     }
     /**
-     * 设置标题
+     * 设置标题,不包含右边完成按钮
      *
      * @param title 标题的文本
      */
@@ -58,6 +58,22 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
         baseTitle.setText(title);
         initBack();
     }
+
+    /**
+     * 设置标题,不包含右边完成按钮
+     * @param title1 中间标题
+     * @param title2 右边标题
+     */
+    public void setTitleWithFinish(String title1,String title2) {
+        TextView baseTitle = findViewById(R.id.teacher_details);
+        TextView tv_finish = findViewById(R.id.tv_finish);
+        tv_finish.setVisibility(View.VISIBLE);
+        baseTitle.setText(title1);
+        tv_finish.setText(title2);
+        initBack();
+    }
+
+
 
     private void initBack() {
         ImageView ivBack = findViewById(R.id.activity_back);

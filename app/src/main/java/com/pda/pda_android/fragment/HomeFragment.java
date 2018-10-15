@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.AllAppActivity;
 import com.pda.pda_android.activity.DaibanActivity;
 import com.pda.pda_android.activity.TixingActivity;
 import com.pda.pda_android.base.BaseFragment;
@@ -48,6 +49,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     private Banner banner;
     private TextView tv_tixing;
     private TextView tv_daiban;
+    private TextView tv_allapp;
     private GridView gridView;
     private List<Map<String, Object>> dataList;
     private SimpleAdapter adapter;
@@ -68,13 +70,9 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         initView(view);
         initData();
         String[] from={"img","text"};
-
         int[] to={R.id.img,R.id.text};
-
         adapter=new SimpleAdapter(getActivity(), dataList, R.layout.gridview_item, from, to);
-
         gridView.setAdapter(adapter);
-
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -108,6 +106,14 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         banner = view.findViewById(R.id.banner);
         tv_daiban = view.findViewById(R.id.tv_daiban);
         gridView = view.findViewById(R.id.gridview);
+        tv_allapp = view.findViewById(R.id.tv_allapp);
+        tv_allapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),AllAppActivity.class);
+                startActivity(intent);
+            }
+        });
         tv_daiban.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

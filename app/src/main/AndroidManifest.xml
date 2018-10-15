@@ -25,6 +25,7 @@
         <activity android:name="com.pda.pda_android.activity.MainActivity"/>
         <activity android:name="com.pda.pda_android.activity.TixingActivity"/>
         <activity android:name="com.pda.pda_android.activity.DaibanActivity"/>
+        <activity android:name="com.pda.pda_android.activity.AllAppActivity"/>
     </application>
 
 </manifest>
