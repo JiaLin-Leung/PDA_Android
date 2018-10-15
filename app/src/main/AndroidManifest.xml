@@ -23,6 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.pda.pda_android.activity.MainActivity"/>
+        <activity android:name="com.pda.pda_android.activity.TixingActivity"/>
+        <activity android:name="com.pda.pda_android.activity.DaibanActivity"/>
     </application>
 
 </manifest>

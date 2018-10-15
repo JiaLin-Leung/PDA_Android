@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.util.Log;
@@ -18,6 +19,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.DaibanActivity;
+import com.pda.pda_android.activity.TixingActivity;
+import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.youth.banner.Banner;
@@ -35,10 +39,10 @@ import androidx.annotation.Nullable;
 
 /**
  * 梁佳霖创建于：2018/10/11 14:11
- * 功能：
+ * 功能：首页fragment
  */
 @SuppressLint("NewApi")
-public class HomeFragment extends Fragment implements OnBannerListener {
+public class HomeFragment extends BaseFragment implements OnBannerListener {
     private ArrayList<String> list_path;
     private ArrayList<String> list_title;
     private Banner banner;
@@ -107,14 +111,16 @@ public class HomeFragment extends Fragment implements OnBannerListener {
         tv_daiban.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO 打开待办页面
+                Intent intent = new Intent(getActivity(),DaibanActivity.class);
+                startActivity(intent);
             }
         });
         tv_tixing = view.findViewById(R.id.tv_tixing);
         tv_tixing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO 打开提醒页面
+                Intent intent = new Intent(getActivity(),TixingActivity.class);
+                startActivity(intent);
             }
         });
         //放图片地址的集合
@@ -176,5 +182,20 @@ public class HomeFragment extends Fragment implements OnBannerListener {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         LogUtils.showLog("现在的现隐形-----"+hidden);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()){
+            case R.id.tv_tixing:
+                LogUtils.showLog("11111111");
+                Intent intent = new Intent(getActivity(),TixingActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_daiban:
+
+                break;
+        }
     }
 }

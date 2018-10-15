@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.pda.pda_android.R;
 
 /**
  * 梁佳霖创建于：2018/10/8 13:48
@@ -43,4 +48,25 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
     public void onClick(View view) {
 
     }
+    /**
+     * 设置标题
+     *
+     * @param title 标题的文本
+     */
+    public void setTitle(String title) {
+        TextView baseTitle = findViewById(R.id.teacher_details);
+        baseTitle.setText(title);
+        initBack();
+    }
+
+    private void initBack() {
+        ImageView ivBack = findViewById(R.id.activity_back);
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
 }

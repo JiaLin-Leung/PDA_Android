@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#5e89ef</color>
+    <color name="colorPrimaryDark">#5e89ef</color>
+    <color name="colorAccent">#5e89ef</color>
+    <color name="themeColor">#5e89ef</color>
+    <color name="white">#FFFFFF</color>
+    <color name="huise">#666666</color>
+    <color name="black">#000000</color>
+    <!--按钮不能点击颜色 -->
+    <color name="bt_noselecter">#dcdcdc</color>
+    <color name="bt_noseleter_text">#b8b8b8</color>
+
+    <!--获取验证码按钮可点击状态的背景色 -->
+    <color name="bt_code_clickable_bg">#fca134</color>
+    <!--布局的背景色 -->
+    <color name="bg_layout">#f5f9ff</color>
+
+    <!--线条的颜色 -->
+    <color name="line_color">#eaeaea</color>
+
+    <!--通知未读的颜色 -->
+    <color name="notice_noread">#fff9e6</color>
+
+    <!--通知已读的颜色 -->
+    <color name="notice_read">#99CCFF</color>
 </resources>
