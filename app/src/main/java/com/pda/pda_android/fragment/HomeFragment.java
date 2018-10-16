@@ -132,6 +132,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                 Bundle bundle = new Bundle();
                 String title = indexDataList.get(position).getTitle();
                 String strId = indexDataList.get(position).getId();
+                LogUtils.showLog("111111",strId);
                 LogUtils.showLog(title + strId);
                 if (strId.equals("all")) {// 更多
                     intent.setClass(getActivity(), MenuManageActivity.class);
@@ -163,14 +164,6 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         gridView = view.findViewById(R.id.gv_lanuch_start);
         gridView.setFocusable(false);
         tv_daiban = view.findViewById(R.id.tv_daiban);
-        tv_allapp = view.findViewById(R.id.tv_allapp);
-        tv_allapp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),AllAppActivity.class);
-                startActivity(intent);
-            }
-        });
         tv_daiban.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
