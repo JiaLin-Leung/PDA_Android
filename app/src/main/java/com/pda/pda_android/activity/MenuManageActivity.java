@@ -70,14 +70,14 @@ public class MenuManageActivity extends BaseActivity {
 		tv_top_title = (TextView) findViewById(R.id.tv_top_title);
 		tv_top_sure = (TextView) findViewById(R.id.tv_top_sure);
 		tv_top_title.setText("全部应用");
-		tv_top_sure.setText("管理");
+		tv_top_sure.setText("编辑");
 		tv_top_sure.setVisibility(View.VISIBLE);
 		tv_drag_tip= (TextView) findViewById(R.id.tv_drag_tip);
 		sv_index= (DragForScrollView)findViewById(R.id.sv_index);
 		ll_top_sure.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (tv_top_sure.getText().toString().equals("管理")) {
+				if (tv_top_sure.getText().toString().equals("编辑")) {
 					tv_top_sure.setText("完成");
 					adapterSelect.setEdit();
 					if(menuParentAdapter!=null){
@@ -85,7 +85,7 @@ public class MenuManageActivity extends BaseActivity {
 					}
 					tv_drag_tip.setVisibility(View.VISIBLE);
 				} else {
-					tv_top_sure.setText("管理");
+					tv_top_sure.setText("编辑");
 					tv_drag_tip.setVisibility(View.GONE);
 					adapterSelect.endEdit();
 					if(menuParentAdapter!=null){
@@ -139,7 +139,7 @@ public class MenuManageActivity extends BaseActivity {
 		dragGridView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-				if (tv_top_sure.getText().toString().equals("管理")) {
+				if (tv_top_sure.getText().toString().equals("编辑")) {
 					tv_top_sure.setText("完成");
 					adapterSelect.setEdit();
 					if(menuParentAdapter!=null){
@@ -264,7 +264,7 @@ public class MenuManageActivity extends BaseActivity {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 					// TODO Auto-generated method stub
-					if (tv_top_sure.getText().toString().equals("管理")) {
+					if (tv_top_sure.getText().toString().equals("编辑")) {
 						MenuEntity cateModel = menuList.get(arg2);
 						initUrl(cateModel);
 					}
@@ -275,7 +275,7 @@ public class MenuManageActivity extends BaseActivity {
 				@Override
 				public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 					// TODO Auto-generated method stub
-					if (tv_top_sure.getText().toString().equals("管理")) {
+					if (tv_top_sure.getText().toString().equals("编辑")) {
 						tv_top_sure.setText("完成");
 						adapterSelect.setEdit();
 						menuParentAdapter.setEdit();
@@ -291,7 +291,7 @@ public class MenuManageActivity extends BaseActivity {
 
 	public void initUrl(MenuEntity cateModel) {
 		// TODO Auto-generated method stub
-		if (tv_top_sure.getText().toString().equals("管理")) {
+		if (tv_top_sure.getText().toString().equals("编辑")) {
 			Intent intent = new Intent();
 			Bundle bundle = new Bundle();
 			String title = cateModel.getTitle();
