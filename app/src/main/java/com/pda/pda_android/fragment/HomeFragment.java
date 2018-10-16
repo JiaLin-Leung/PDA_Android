@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.util.Log;
@@ -18,19 +19,34 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.AllAppActivity;
 import com.pda.pda_android.activity.DaibanActivity;
+import com.pda.pda_android.activity.MainActivity;
+import com.pda.pda_android.activity.MenuManageActivity;
 import com.pda.pda_android.activity.TixingActivity;
+import com.pda.pda_android.adapter.IndexDataAdapter;
 import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.entity.MenuEntity;
+import com.pda.pda_android.widget.AppConfig;
+import com.pda.pda_android.widget.AppContext;
+import com.pda.pda_android.widget.LineGridView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +68,11 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     private TextView tv_allapp;
     private GridView gridView;
     private List<Map<String, Object>> dataList;
-    private SimpleAdapter adapter;
+    private IndexDataAdapter adapter;
+    private static AppContext appContext;
+    private List<MenuEntity> indexDataList = new ArrayList<MenuEntity>();
+    private List<MenuEntity> indexDataAll = new ArrayList<MenuEntity>();
+    private final static String fileName = "menulist";
 
     public static HomeFragment newInstance(String s) {
         HomeFragment homeFragment = new HomeFragment();
@@ -67,45 +87,82 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sub_content, container, false);
+        appContext = (AppContext) this.getActivity().getApplication();
         initView(view);
         initData();
-        String[] from={"img","text"};
-        int[] to={R.id.img,R.id.text};
-        adapter=new SimpleAdapter(getActivity(), dataList, R.layout.gridview_item, from, to);
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
-                builder.setTitle("提示").setMessage(dataList.get(arg2).get("text").toString()).create().show();
-            }
-        });
         LogUtils.showLog("生命周期-----"+"home onCreateView");
         return view;
     }
 
     private void initData() {
-        //图标
-        int icno[] = { R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,
-                R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,
-                R.drawable.black_background,R.drawable.black_background,R.drawable.black_background
-                ,R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,R.drawable.black_background,R.drawable.black_background};
-        //图标下的文字
-        String name[]={"时钟","信号","宝箱","秒钟","大象","FF","记事本","书签","印象","商店","主题","迅雷","主题","迅雷","主题","迅雷","主题","迅雷"};
-        dataList = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i <icno.length; i++) {
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("img", icno[i]);
-            map.put("text",name[i]);
-            dataList.add(map);
+        String strByJson=getJson(getActivity(),fileName);
+        //Json的解析类对象
+        JsonParser parser = new JsonParser();
+        //将JSON的String 转成一个JsonArray对象
+        JsonArray jsonArray = parser.parse(strByJson).getAsJsonArray();
+        Gson gson = new Gson();
+        //加强for循环遍历JsonArray
+        for (JsonElement indexArr : jsonArray) {
+            //使用GSON，直接转成Bean对象
+            MenuEntity menuEntity = gson.fromJson(indexArr, MenuEntity.class);
+            indexDataAll.add(menuEntity);
         }
+        //appContext.delFileData(AppConfig.KEY_All);
+
+        String key = AppConfig.KEY_All;
+        String keyUser = AppConfig.KEY_USER;
+        indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
+        appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_All);
+        List<MenuEntity> indexDataUser = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
+        if(indexDataUser==null||indexDataUser.size()==0) {
+            appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_USER);
+        }
+        indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
+        MenuEntity allMenuEntity=new MenuEntity();
+        allMenuEntity.setIco("");
+        allMenuEntity.setId("all");
+        allMenuEntity.setTitle("全部");
+        indexDataList.add(allMenuEntity);
+        adapter = new IndexDataAdapter(getActivity(), indexDataList);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                String title = indexDataList.get(position).getTitle();
+                String strId = indexDataList.get(position).getId();
+                LogUtils.showLog(title + strId);
+                if (strId.equals("all")) {// 更多
+                    intent.setClass(getActivity(), MenuManageActivity.class);
+                    startActivity(intent);
+                }
+            }
+        });
+    }
+
+    public static String getJson(Context context, String fileName) {
+        StringBuilder stringBuilder = new StringBuilder();
+        try {
+            AssetManager assetManager = context.getAssets();
+            BufferedReader bf = new BufferedReader(new InputStreamReader(
+                    assetManager.open(fileName)));
+            String line;
+            while ((line = bf.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            LogUtils.showLog(e.toString());
+        }
+        return stringBuilder.toString();
     }
 
     private void initView(View view) {
         banner = view.findViewById(R.id.banner);
+        gridView = view.findViewById(R.id.gv_lanuch_start);
+        gridView.setFocusable(false);
         tv_daiban = view.findViewById(R.id.tv_daiban);
-        gridView = view.findViewById(R.id.gridview);
         tv_allapp = view.findViewById(R.id.tv_allapp);
         tv_allapp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,6 +239,15 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     public void onResume() {
         super.onResume();
         LogUtils.showLog("生命周期-----"+"home onResume");
+        indexDataList.clear();
+        indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
+        MenuEntity allMenuEntity=new MenuEntity();
+        allMenuEntity.setIco("all_big_ico");
+        allMenuEntity.setId("all");
+        allMenuEntity.setTitle("全部");
+        indexDataList.add(allMenuEntity);
+        adapter = new IndexDataAdapter(getActivity(), indexDataList);
+        gridView.setAdapter(adapter);
     }
 
     @Override

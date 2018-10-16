@@ -24,4 +24,5 @@
 
     <!--通知已读的颜色 -->
     <color name="notice_read">#99CCFF</color>
+    <color name="bg_12b7f5">#12b7f5</color>
 </resources>

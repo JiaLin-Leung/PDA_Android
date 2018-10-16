@@ -12,7 +12,7 @@ import com.pda.pda_android.fragment.UserFragment;
 
 /**
  * 梁佳霖创建于：2018/10/10 17:48
- * 功能：
+ * 功能：Mainactivity
  */
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener{
 
@@ -65,12 +65,14 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
         switch (position) {
             case 0:
+                //点击主页Fragment
                 if (mHomeFragment == null) {
                     mHomeFragment = HomeFragment.newInstance(getString(R.string.item_home));
                 }
                 beginTransaction.replace(R.id.sub_content, mHomeFragment);
                 break;
             case 1:
+                //点击患者Fragment
                 if (userFragment == null) {
                     userFragment = UserFragment.newInstance(getString(R.string.item_home));
                 }

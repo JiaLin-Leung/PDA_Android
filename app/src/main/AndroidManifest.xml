@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <application
+        android:name=".widget.AppContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,6 +27,7 @@
         <activity android:name="com.pda.pda_android.activity.TixingActivity"/>
         <activity android:name="com.pda.pda_android.activity.DaibanActivity"/>
         <activity android:name="com.pda.pda_android.activity.AllAppActivity"/>
+        <activity android:name="com.pda.pda_android.activity.MenuManageActivity"/>
     </application>
 
 </manifest>
