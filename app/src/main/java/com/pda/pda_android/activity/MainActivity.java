@@ -8,6 +8,7 @@ import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.fragment.HomeFragment;
+import com.pda.pda_android.fragment.MeFragment;
 import com.pda.pda_android.fragment.UserFragment;
 
 /**
@@ -19,6 +20,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private BottomNavigationBar bottom_navigation_bar;
     private HomeFragment mHomeFragment;
     private UserFragment userFragment;
+    private MeFragment meFragment;
 
 
     @Override
@@ -76,6 +78,13 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                     userFragment = UserFragment.newInstance(getString(R.string.item_home));
                 }
                 beginTransaction.replace(R.id.sub_content, userFragment);
+                break;
+            case 2:
+                //点击患者Fragment
+                if (meFragment == null) {
+                    meFragment = MeFragment.newInstance(getString(R.string.item_home));
+                }
+                beginTransaction.replace(R.id.sub_content, meFragment);
                 break;
         }
         beginTransaction.commit();
