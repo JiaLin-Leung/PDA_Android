@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 
@@ -17,7 +18,7 @@ import androidx.annotation.Nullable;
  * 梁佳霖创建于：2018/10/11 14:26
  * 功能：
  */
-public class UserFragment extends Fragment {
+public class UserFragment extends BaseFragment {
     public static UserFragment newInstance(String s) {
         UserFragment userFragment = new UserFragment();
         Bundle bundle = new Bundle();
@@ -26,17 +27,20 @@ public class UserFragment extends Fragment {
         return userFragment;
     }
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_content, container, false);
-        Bundle bundle = getArguments();
-        LogUtils.showLog("生命周期-----"+"user onCreateView");
-//        String s = bundle.getString(ContentUrl.ARGS);
-//        TextView textView = (TextView) view.findViewById(R.id.fragment_text_view);
-//        textView.setText(s);
-        return view;
+    public void initData() {
+
+    }
+
+    @Override
+    public void initView(View view) {
+        TextView textView = view.findViewById(R.id.fragment_text_view);
+        textView.setText("哈哈哈哈");
+    }
+
+    @Override
+    public int getlayout() {
+        return R.layout.fragment_user_content;
     }
 
     @Override

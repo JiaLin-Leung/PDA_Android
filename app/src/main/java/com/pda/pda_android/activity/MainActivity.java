@@ -12,7 +12,7 @@ import com.pda.pda_android.fragment.UserFragment;
 
 /**
  * 梁佳霖创建于：2018/10/10 17:48
- * 功能：Mainactivity
+ * 功能：承载着fragmentMainactivity
  */
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener{
 
@@ -33,7 +33,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         bottom_navigation_bar.setMode(BottomNavigationBar.MODE_FIXED);
         bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, getString(R.string.home_main_string)).setInactiveIconResource(R.drawable.ic_launcher_background).setActiveColorResource(R.color.colorAccent).setInActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, getString(R.string.user_main_string)).setInactiveIconResource(R.drawable.ic_launcher_background).setActiveColorResource(R.color.colorAccent).setInActiveColorResource(R.color.colorPrimary))
-                .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, getString(R.string.talk_main_string)).setInactiveIconResource(R.drawable.ic_launcher_background).setActiveColorResource(R.color.colorAccent).setInActiveColorResource(R.color.colorPrimary))
                 .addItem(new BottomNavigationItem(R.drawable.ic_launcher_background, getString(R.string.me_main_string)).setInactiveIconResource(R.drawable.ic_launcher_background).setActiveColorResource(R.color.colorAccent).setInActiveColorResource(R.color.colorPrimary))
                 .setFirstSelectedPosition(0)
                 .initialise();

@@ -94,7 +94,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         return view;
     }
 
-    private void initData() {
+    public void initData() {
         String strByJson=getJson(getActivity(),fileName);
         //Json的解析类对象
         JsonParser parser = new JsonParser();
@@ -159,34 +159,18 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         return stringBuilder.toString();
     }
 
-    private void initView(View view) {
+    public void initView(View view) {
         banner = view.findViewById(R.id.banner);
         gridView = view.findViewById(R.id.gv_lanuch_start);
         gridView.setFocusable(false);
-        tv_daiban = view.findViewById(R.id.tv_daiban);
-        tv_daiban.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),DaibanActivity.class);
-                startActivity(intent);
-            }
-        });
-        tv_tixing = view.findViewById(R.id.tv_tixing);
-        tv_tixing.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),TixingActivity.class);
-                startActivity(intent);
-            }
-        });
         //放图片地址的集合
         list_path = new ArrayList<>();
         //放标题的集合
         list_title = new ArrayList<>();
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
+        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912582&di=c0f035086fd8c8bc7c0f1bef523c9f6a&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201301%2F29%2F20130129004107_AtQZK.jpeg");
+        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912582&di=9d371199e3504895f657e735fb163b07&imgtype=0&src=http%3A%2F%2Fimg.zybus.com%2Fuploads%2Fallimg%2F140929%2F1-140929155Z1.jpg");
+        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912582&di=3e3b79ae6cdf713a374e0a4e557a0640&imgtype=0&src=http%3A%2F%2Ftva2.sinaimg.cn%2Fcrop.0.55.1198.674%2F90eb2137ly1fke3qognq0j20y60ma40j.jpg");
+        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912579&di=355ed96ede1500a312128235d1962d28&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320144551_ZJAwB.jpeg");
         list_title.add("好好学习");
         list_title.add("天天向上");
         list_title.add("热爱劳动");
@@ -198,7 +182,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         //设置图片网址或地址的集合
         banner.setImages(list_path);
         //设置轮播的动画效果，内含多种特效，可点入方法内查找后内逐一体验
-        banner.setBannerAnimation(Transformer.DepthPage);
+        banner.setBannerAnimation(Transformer.ZoomOut);
         //设置轮播图的标题集合
         banner.setBannerTitles(list_title);
         //设置轮播间隔时间
@@ -211,6 +195,11 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                 .setOnBannerListener(this)
                 //必须最后调用的方法，启动轮播图。
                 .start();
+    }
+
+    @Override
+    public int getlayout() {
+        return R.layout.fragment_sub_content;
     }
 
     @Override
@@ -253,14 +242,6 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()){
-            case R.id.tv_tixing:
-                LogUtils.showLog("11111111");
-                Intent intent = new Intent(getActivity(),TixingActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.tv_daiban:
-
-                break;
         }
     }
 }
