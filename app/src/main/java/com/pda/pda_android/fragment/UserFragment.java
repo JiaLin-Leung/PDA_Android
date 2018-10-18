@@ -1,18 +1,24 @@
 package com.pda.pda_android.fragment;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.hss01248.lib.MyDialogListener;
+import com.hss01248.lib.StytledDialog;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 
 import androidx.annotation.Nullable;
+
+import static com.pda.pda_android.utils.Util.showToast;
 
 /**
  * 梁佳霖创建于：2018/10/11 14:26
@@ -35,7 +41,7 @@ public class UserFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         TextView textView = view.findViewById(R.id.fragment_text_view);
-        textView.setText("哈哈哈哈");
+        textView.setText("患者页面");
     }
 
     @Override

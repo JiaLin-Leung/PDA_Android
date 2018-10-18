@@ -1,10 +1,16 @@
 package com.pda.pda_android.base;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.TextView;
 
 import com.pda.pda_android.R;
 
@@ -43,5 +49,52 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View view) {
 
+    }
+
+    /**
+     * 升级对话框
+     * @param context 上下文
+     * @param flag 升级标记1 非强制 2 强制（无法取消）
+     * @param o 升级对象
+     */
+    public void showVersionDialog(final Context context, Object o ,int flag) {
+        final AlertDialog dialog = new AlertDialog.Builder(context, R.style.MyDialog).setCancelable(false).create();
+        dialog.show();
+        Window window = dialog.getWindow();
+        assert window != null;
+        window.setGravity(Gravity.CENTER);  //此处可以设置dialog显示的位置
+        View view = View.inflate(context, R.layout.dialog_version, null);
+        window.setContentView(view);
+        dialog.setCanceledOnTouchOutside(false);
+        TextView tvContent = view.findViewById(R.id.tv_content);
+        TextView tvCancel = view.findViewById(R.id.cancel);
+        TextView tvOk = view.findViewById(R.id.ok);
+        TextView tv_title = view.findViewById(R.id.tv_title);
+        View line = view.findViewById(R.id.line);
+        tvContent.setMovementMethod(ScrollingMovementMethod.getInstance());
+        if (flag == 2) {
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
+            tvCancel.setVisibility(View.GONE);
+            line.setVisibility(View.GONE);
+        }
+//        tv_title.setText(checkVersonBean.getData().getTitle());
+//        tvContent.setText(checkVersonBean.getData().getContent());
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                SpUtils.getInstance(getActivity()).save("currtime", System.currentTimeMillis());
+                dialog.dismiss();
+            }
+        });
+
+//        tvOk.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+////                Toast.makeText(context,"开始更新",Toast.LENGTH_SHORT).show();
+//                progress(checkVersonBean);
+//            }
+//        });
     }
 }

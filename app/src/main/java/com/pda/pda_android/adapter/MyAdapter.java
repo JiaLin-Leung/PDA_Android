@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.MenuManageActivity;
@@ -70,10 +71,15 @@ public class MyAdapter extends BaseAdapter implements DragAdapterInterface {
 		holder.deleteImg.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				context.DelMeun(datas.get(position),position);
-				datas.remove(position);
-				String key = AppConfig.KEY_USER_TEMP;
-				appContext.saveObject((Serializable) datas, key);
+				if(datas.size() != 1){
+					context.DelMeun(datas.get(position),position);
+					datas.remove(position);
+					String key = AppConfig.KEY_USER_TEMP;
+					appContext.saveObject((Serializable) datas, key);
+				}else{
+					Toast.makeText(context,"最后一个了！不能删除！", Toast.LENGTH_LONG).show();
+				}
+
 			}
 		});
 		if (IsEdit) {

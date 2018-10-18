@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.others.ContentUrl;
+import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.utils.Util;
 
 /**
@@ -17,9 +18,26 @@ import com.pda.pda_android.utils.Util;
  * 功能：
  */
 public class MeFragment extends BaseFragment {
+    /**
+     * 版本号
+     */
     private TextView ver_code;
-    private TextView tvChangeHeadFrame;
-    private LinearLayout layoutAddChild;
+    /**
+     * 护士病区
+     */
+    private LinearLayout layoutChangeBingqu;
+    /**
+     * 更改密码
+     */
+    private LinearLayout layout_password;
+    /**
+     * 检测更新
+     */
+    private LinearLayout layoutCheckVersion;
+    /**
+     * 退出按钮
+     */
+    private Button btnQuit;
 
     public static MeFragment newInstance(String s) {
         MeFragment meFragment = new MeFragment();
@@ -37,18 +55,12 @@ public class MeFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         ver_code = view.findViewById(R.id.ver_code);
-        tvChangeHeadFrame = view.findViewById(R.id.tv_change_head_frame);
-        LinearLayout layoutChangeName = view.findViewById(R.id.layout_change_name);
-        LinearLayout layoutChangePassword = view.findViewById(R.id.layout_change_password);
-        layoutAddChild = view.findViewById(R.id.layout_add_child);
-        LinearLayout layoutFeedback = view.findViewById(R.id.layout_feedback);
-        LinearLayout layoutCheckVersion = view.findViewById(R.id.layout_check_version);
-        Button btnQuit = view.findViewById(R.id.btn_quit);
-        tvChangeHeadFrame.setOnClickListener(this);
-        layoutChangeName.setOnClickListener(this);
-        layoutChangePassword.setOnClickListener(this);
-        layoutAddChild.setOnClickListener(this);
-        layoutFeedback.setOnClickListener(this);
+        layoutChangeBingqu = view.findViewById(R.id.layoutChangeBingqu);
+        layout_password = view.findViewById(R.id.layout_password);
+        layoutCheckVersion = view.findViewById(R.id.layout_check_version);
+        btnQuit = view.findViewById(R.id.btn_quit);
+        layoutChangeBingqu.setOnClickListener(this);
+        layout_password.setOnClickListener(this);
         layoutCheckVersion.setOnClickListener(this);
         btnQuit.setOnClickListener(this);
         ver_code.setText("当前版本号" + Util.getLocalVersionName(getActivity()));
@@ -57,5 +69,23 @@ public class MeFragment extends BaseFragment {
     @Override
     public int getlayout() {
         return R.layout.fragment_me_content;
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()){
+            case R.id.layoutChangeBingqu:
+                //切换病区
+                LogUtils.showLog("111111111","layoutChangeBingqu");
+                break;
+            case R.id.layout_password:
+                //更改密码
+                LogUtils.showLog("111111111","layout_password");
+                break;
+            case R.id.layout_check_version:
+                showVersionDialog(getActivity(),null,1);
+                break;
+        }
     }
 }

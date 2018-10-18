@@ -132,7 +132,7 @@
                 android:background="@color/line_color" />
 
             <LinearLayout
-                android:id="@+id/layout_change_password"
+                android:id="@+id/layoutChangeBingqu"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@color/white"
@@ -171,7 +171,7 @@
                 android:background="@color/line_color" />
 
             <LinearLayout
-                android:id="@+id/layout_feedback"
+                android:id="@+id/layout_password"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="12dp"
