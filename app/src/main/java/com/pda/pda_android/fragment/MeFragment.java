@@ -51,7 +51,7 @@ public class MeFragment extends BaseFragment {
         layoutFeedback.setOnClickListener(this);
         layoutCheckVersion.setOnClickListener(this);
         btnQuit.setOnClickListener(this);
-        ver_code.setText("当前版本号" + Util.getVersionName());
+        ver_code.setText("当前版本号" + Util.getLocalVersionName(getActivity()));
     }
 
     @Override

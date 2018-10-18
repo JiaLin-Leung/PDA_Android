@@ -71,7 +71,6 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     private IndexDataAdapter adapter;
     private static AppContext appContext;
     private List<MenuEntity> indexDataList = new ArrayList<MenuEntity>();
-    private List<MenuEntity> indexDataAll = new ArrayList<MenuEntity>();
     private final static String fileName = "menulist";
 
     public static HomeFragment newInstance(String s) {
@@ -95,6 +94,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     }
 
     public void initData() {
+        List<MenuEntity> indexDataAll = new ArrayList<MenuEntity>();
         String strByJson=getJson(getActivity(),fileName);
         //Json的解析类对象
         JsonParser parser = new JsonParser();
@@ -107,7 +107,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
             MenuEntity menuEntity = gson.fromJson(indexArr, MenuEntity.class);
             indexDataAll.add(menuEntity);
         }
-        //appContext.delFileData(AppConfig.KEY_All);
+        appContext.delFileData(AppConfig.KEY_All);
 
         String key = AppConfig.KEY_All;
         String keyUser = AppConfig.KEY_USER;
@@ -215,6 +215,12 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         public void displayImage(Context context, Object path, ImageView imageView) {
             Glide.with(context).load((String) path).into(imageView);
         }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        LogUtils.showLog("生命周期-----"+"home onActivityCreated");
     }
 
     @Override

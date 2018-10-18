@@ -81,13 +81,35 @@ public class Util {
         throw new NullPointerException("u should init first");
     }
 
+    public static int getLocalVersion(Context ctx) {
+        int localVersion = 0;
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = ctx.getApplicationContext()
+                    .getPackageManager()
+                    .getPackageInfo(ctx.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        localVersion = packageInfo.versionCode;
+        return localVersion;
+    }
+
     /**
-     * View获取Activity的工具
-     *
-     * @param view view
-     * @return Activity
+     * 获取本地软件版本号名称
      */
-    public static
+    public static String getLocalVersionName(Context ctx) {
+        String localVersion = "";
+        try {
+            PackageInfo packageInfo = ctx.getApplicationContext()
+                    .getPackageManager()
+                    .getPackageInfo(ctx.getPackageName(), 0);
+            localVersion = packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return localVersion;
+    }
     @NonNull
     Activity getAttachActivity(View view) {
         Context context = view.getContext();
