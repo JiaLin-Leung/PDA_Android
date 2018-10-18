@@ -1,6 +1,7 @@
 package com.pda.pda_android.activity;
 
 import android.app.FragmentTransaction;
+import android.os.Vibrator;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -21,7 +22,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private HomeFragment mHomeFragment;
     private UserFragment userFragment;
     private MeFragment meFragment;
-
+    private Vibrator vibrator;
 
     @Override
     public int setLayoutId() {
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView() {
+        vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
         bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
         bottom_navigation_bar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bottom_navigation_bar.setMode(BottomNavigationBar.MODE_FIXED);
@@ -58,7 +60,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         transaction.replace(R.id.sub_content, homeFragment).commit();
 
     }
-
     @Override
     public void onTabSelected(int position) {
         LogUtils.showLog("点击的条目",position+"");
@@ -66,6 +67,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
         switch (position) {
             case 0:
+//                vibrator.vibrate(100);
                 //点击主页Fragment
                 if (mHomeFragment == null) {
                     mHomeFragment = HomeFragment.newInstance(getString(R.string.item_home));
@@ -73,6 +75,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 beginTransaction.replace(R.id.sub_content, mHomeFragment);
                 break;
             case 1:
+//                vibrator.vibrate(100);
                 //点击患者Fragment
                 if (userFragment == null) {
                     userFragment = UserFragment.newInstance(getString(R.string.item_home));
@@ -80,6 +83,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 beginTransaction.replace(R.id.sub_content, userFragment);
                 break;
             case 2:
+//                vibrator.vibrate(100);
                 //点击患者Fragment
                 if (meFragment == null) {
                     meFragment = MeFragment.newInstance(getString(R.string.item_home));
