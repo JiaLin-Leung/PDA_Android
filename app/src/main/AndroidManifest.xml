@@ -28,6 +28,10 @@
         <activity android:name="com.pda.pda_android.activity.home.MenuManageActivity"/>
         <activity android:name="com.pda.pda_android.activity.me.ChangeBingQuActivity"/>
         <activity android:name="com.pda.pda_android.activity.me.ChangePasswordActivity"/>
+        <service
+            android:name="com.pda.pda_android.service.RemindService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

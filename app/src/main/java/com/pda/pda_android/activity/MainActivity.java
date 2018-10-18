@@ -1,6 +1,7 @@
 package com.pda.pda_android.activity;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Vibrator;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -11,6 +12,7 @@ import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.fragment.HomeFragment;
 import com.pda.pda_android.fragment.MeFragment;
 import com.pda.pda_android.fragment.UserFragment;
+import com.pda.pda_android.service.RemindService;
 
 /**
  * 梁佳霖创建于：2018/10/10 17:48
@@ -31,6 +33,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView() {
+        RemindService.getConnet(this);
         vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
         bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
         bottom_navigation_bar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
@@ -103,5 +106,14 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     public void onTabReselected(int position) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        RemindService.stop(this);
+        //停止由服务启动的循环
+        Intent intent = new Intent(this, RemindService.class);
+        stopService(intent);
+        super.onDestroy();
     }
 }
