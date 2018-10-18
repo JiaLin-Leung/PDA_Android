@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.activity.MenuManageActivity;
+import com.pda.pda_android.activity.home.MenuManageActivity;
 import com.pda.pda_android.entity.MenuEntity;
 
 import java.util.List;

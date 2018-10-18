@@ -104,32 +104,81 @@
     "num": "0",
     "title": "手术信息"
   },
-     {
-       "ico": "app_ggtz_ico",
-       "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
-       "sort": "15",
-       "num": "0",
-       "title": "输液巡视"
-     },
+ {
+   "ico": "app_ggtz_ico",
+   "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
+   "sort": "16",
+   "num": "0",
+   "title": "输液巡视"
+ },
     {
       "ico": "app_ggtz_ico",
       "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
-      "sort": "15",
+      "sort": "17",
       "num": "0",
       "title": "检查检验"
     },
    {
      "ico": "app_ggtz_ico",
      "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
-     "sort": "15",
+     "sort": "18",
      "num": "0",
      "title": "病人巡视"
    },
   {
     "ico": "app_ggtz_ico",
     "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
-    "sort": "15",
+    "sort": "19",
     "num": "0",
     "title": "管路管理"
-  }
+  },
+     {
+       "ico": "app_ggtz_ico",
+       "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
+       "sort": "20",
+       "num": "0",
+       "title": "管路管理"
+     },
+    {
+      "ico": "app_ggtz_ico",
+      "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
+      "sort": "21",
+      "num": "0",
+      "title": "管路管理"
+    },
+   {
+     "ico": "app_ggtz_ico",
+     "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
+     "sort": "22",
+     "num": "0",
+     "title": "管路管理"
+   },
+  {
+    "ico": "app_ggtz_ico",
+    "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
+    "sort": "23",
+    "num": "0",
+    "title": "管路管理"
+  },
+ {
+   "ico": "app_ggtz_ico",
+   "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
+   "sort": "24",
+   "num": "0",
+   "title": "管路管理"
+ },
+   {
+     "ico": "app_ggtz_ico",
+     "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
+     "sort": "25",
+     "num": "0",
+     "title": "管路管理"
+   },
+     {
+       "ico": "app_ggtz_ico",
+       "id": "a4f08830-adaa-4412-9adf-55b9e773118e",
+       "sort": "26",
+       "num": "0",
+       "title": "管路管理"
+     }
 ]

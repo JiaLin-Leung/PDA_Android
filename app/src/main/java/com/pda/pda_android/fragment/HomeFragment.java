@@ -1,13 +1,10 @@
 package com.pda.pda_android.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -24,11 +20,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.pda.pda_android.R;
-import com.pda.pda_android.activity.AllAppActivity;
-import com.pda.pda_android.activity.DaibanActivity;
-import com.pda.pda_android.activity.MainActivity;
-import com.pda.pda_android.activity.MenuManageActivity;
-import com.pda.pda_android.activity.TixingActivity;
+import com.pda.pda_android.activity.home.MenuManageActivity;
 import com.pda.pda_android.adapter.IndexDataAdapter;
 import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.others.ContentUrl;
@@ -36,7 +28,6 @@ import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.entity.MenuEntity;
 import com.pda.pda_android.widget.AppConfig;
 import com.pda.pda_android.widget.AppContext;
-import com.pda.pda_android.widget.LineGridView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -48,7 +39,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -89,13 +79,13 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         appContext = (AppContext) this.getActivity().getApplication();
         initView(view);
         initData();
-        LogUtils.showLog("生命周期-----"+"home onCreateView");
+        LogUtils.showLog("生命周期-----" + "home onCreateView");
         return view;
     }
 
     public void initData() {
         List<MenuEntity> indexDataAll = new ArrayList<MenuEntity>();
-        String strByJson=getJson(getActivity(),fileName);
+        String strByJson = getJson(getActivity(), fileName);
         //Json的解析类对象
         JsonParser parser = new JsonParser();
         //将JSON的String 转成一个JsonArray对象
@@ -114,11 +104,11 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
         appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_All);
         List<MenuEntity> indexDataUser = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
-        if(indexDataUser==null||indexDataUser.size()==0) {
+        if (indexDataUser == null || indexDataUser.size() == 0) {
             appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_USER);
         }
         indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
-        MenuEntity allMenuEntity=new MenuEntity();
+        MenuEntity allMenuEntity = new MenuEntity();
         allMenuEntity.setIco("");
         allMenuEntity.setId("all");
         allMenuEntity.setTitle("全部");
@@ -132,7 +122,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                 Bundle bundle = new Bundle();
                 String title = indexDataList.get(position).getTitle();
                 String strId = indexDataList.get(position).getId();
-                LogUtils.showLog("111111",strId);
+                LogUtils.showLog("111111", strId);
                 LogUtils.showLog(title + strId);
                 if (strId.equals("all")) {// 更多
                     intent.setClass(getActivity(), MenuManageActivity.class);
@@ -207,8 +197,9 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
      * 轮播图点击时间
      */
     public void OnBannerClick(int position) {
-        Log.e("tag", "你点了第"+position+"张轮播图");
+        Log.e("tag", "你点了第" + position + "张轮播图");
     }
+
     //自定义的图片加载器
     private class MyLoader extends ImageLoader {
         @Override
@@ -220,16 +211,16 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        LogUtils.showLog("生命周期-----"+"home onActivityCreated");
+        LogUtils.showLog("生命周期-----" + "home onActivityCreated");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtils.showLog("生命周期-----"+"home onResume");
+        LogUtils.showLog("生命周期-----" + "home onResume");
         indexDataList.clear();
         indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
-        MenuEntity allMenuEntity=new MenuEntity();
+        MenuEntity allMenuEntity = new MenuEntity();
         allMenuEntity.setIco("all_big_ico");
         allMenuEntity.setId("all");
         allMenuEntity.setTitle("全部");
@@ -241,13 +232,13 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        LogUtils.showLog("现在的现隐形-----"+hidden);
+        LogUtils.showLog("现在的现隐形-----" + hidden);
     }
 
     @Override
     public void onClick(View view) {
         super.onClick(view);
-        switch (view.getId()){
+        switch (view.getId()) {
         }
     }
 }

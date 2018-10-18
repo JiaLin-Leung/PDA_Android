@@ -3,7 +3,7 @@
     android:id="@+id/rl_top"
     android:layout_width="fill_parent"
     android:layout_height="50dp"
-    android:background="#12b7f5" >
+    android:background="#424242" >
 
     <TextView
         android:id="@+id/tv_top_title"

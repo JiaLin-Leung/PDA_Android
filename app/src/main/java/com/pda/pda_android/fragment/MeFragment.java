@@ -1,5 +1,6 @@
 package com.pda.pda_android.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.me.ChangeBingQuActivity;
+import com.pda.pda_android.activity.me.ChangePasswordActivity;
 import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
@@ -77,11 +80,15 @@ public class MeFragment extends BaseFragment {
         switch (view.getId()){
             case R.id.layoutChangeBingqu:
                 //切换病区
-                LogUtils.showLog("111111111","layoutChangeBingqu");
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),ChangeBingQuActivity.class);
+                startActivity(intent);
                 break;
             case R.id.layout_password:
                 //更改密码
-                LogUtils.showLog("111111111","layout_password");
+                Intent intent_password = new Intent();
+                intent_password.setClass(getActivity(),ChangePasswordActivity.class);
+                startActivity(intent_password);
                 break;
             case R.id.layout_check_version:
                 showVersionDialog(getActivity(),null,1);
