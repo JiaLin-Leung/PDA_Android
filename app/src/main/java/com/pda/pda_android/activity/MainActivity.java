@@ -2,6 +2,7 @@ package com.pda.pda_android.activity;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Vibrator;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -9,6 +10,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.broadcastreceive.MyBroadcastReceiver;
 import com.pda.pda_android.fragment.HomeFragment;
 import com.pda.pda_android.fragment.MeFragment;
 import com.pda.pda_android.fragment.UserFragment;
@@ -25,6 +27,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private UserFragment userFragment;
     private MeFragment meFragment;
     private Vibrator vibrator;
+    private MyBroadcastReceiver myBroadcastReceiver = null;
+    private IntentFilter intentFilter;
+    private static String ACTION = "com.scanner.broadcast";//PDA广播标记
 
     @Override
     public int setLayoutId() {
@@ -33,6 +38,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView() {
+        intentFilter = new IntentFilter(MainActivity.ACTION);   // 设置广播接收器的信息过滤器，
+        myBroadcastReceiver = new MyBroadcastReceiver();
+        registerReceiver(myBroadcastReceiver, intentFilter);
         RemindService.getConnet(this);
         vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
         bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
@@ -110,6 +118,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     protected void onDestroy() {
+        unregisterReceiver(myBroadcastReceiver); //页面生命结束之后注销广播
         RemindService.stop(this);
         //停止由服务启动的循环
         Intent intent = new Intent(this, RemindService.class);
