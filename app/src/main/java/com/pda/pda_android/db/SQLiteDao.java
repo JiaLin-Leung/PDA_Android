@@ -18,10 +18,10 @@ import androidx.annotation.Nullable;
  * 梁佳霖创建于：2018/10/24 09:40
  * 功能：数据库工具类
  */
-public final class LouSQLite extends SQLiteOpenHelper {
+public final class SQLiteDao extends SQLiteOpenHelper {
 
     private static final String TAG = "LouSQLite";
-    private static LouSQLite INSTANCE;
+    private static SQLiteDao INSTANCE;
     private final ICallBack callBack;
 
     /**
@@ -29,18 +29,18 @@ public final class LouSQLite extends SQLiteOpenHelper {
      * @param context 上下文
      * @param callBack 回调函数
      */
-    private LouSQLite(Context context, ICallBack callBack) {
+    private SQLiteDao(Context context, ICallBack callBack) {
         super(context, callBack.getDatabaseName(), null, callBack.getVersion());
         this.callBack = callBack;
     }
 
     public static void init(@NonNull Context context, @NonNull ICallBack callBack) {
-        INSTANCE = new LouSQLite(context, callBack);
+        INSTANCE = new SQLiteDao(context, callBack);
     }
 
 
     /**
-     * 插入方法
+     * 插入单个数据方法
      * @param tableName 表明
      * @param entity 插入参数
      * @param <T> 插入参数类型（泛型）

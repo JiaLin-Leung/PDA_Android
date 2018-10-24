@@ -1,4 +1,4 @@
-package com.pda.pda_android.db;
+package com.pda.pda_android.db.bean;
 
 import java.util.UUID;
 

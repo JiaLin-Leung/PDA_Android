@@ -25,6 +25,7 @@ import com.pda.pda_android.adapter.IndexDataAdapter;
 import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.db.testdb.DbActivity;
 import com.pda.pda_android.entity.MenuEntity;
 import com.pda.pda_android.widget.AppConfig;
 import com.pda.pda_android.widget.AppContext;
@@ -150,6 +151,8 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     }
 
     public void initView(View view) {
+        tv_tixing = view.findViewById(R.id.tixing);
+        tv_tixing.setOnClickListener(this);
         banner = view.findViewById(R.id.banner);
         gridView = view.findViewById(R.id.gv_lanuch_start);
         gridView.setFocusable(false);
@@ -239,6 +242,9 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
+            case R.id.tixing:
+                DbActivity.getDbInstance(getActivity());
+                break;
         }
     }
 }
