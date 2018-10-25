@@ -4,7 +4,7 @@ import android.provider.BaseColumns;
 
 
 /**
- * 梁佳霖创建于：2018/10/24 09:43
+ * 梁佳霖创建于：2018/10/24 09:43S
  * 功能：Phrase表字段
  */
 public class PhraseEntry implements BaseColumns {

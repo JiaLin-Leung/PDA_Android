@@ -48,7 +48,7 @@ public class MyCallBack implements SQLiteDao.ICallBack {
 
     private static final String TABLE_USER_INIT =
             "CREATE TABLE " + TABLE_USER + " (" +
-                    UserEntry._ID + TYPE_INTEGER + " PRIMARY KEY AUTOINCREMENT, " +
+                    UserEntry.USER_ID + TYPE_INTEGER + " PRIMARY KEY AUTOINCREMENT, " +
                     UserEntry.USER_NAME + TYPE_TEXT + SEP_COMMA +
                     UserEntry.USER_PASSWORD + TYPE_TEXT +
                     ")";
@@ -126,6 +126,7 @@ public class MyCallBack implements SQLiteDao.ICallBack {
             case TABLE_USER:
                 if(t instanceof User){
                     User user = (User) t;
+                    values.put(UserEntry.USER_ID,user.getId());
                     values.put(UserEntry.USER_NAME,user.getUsername());
                     values.put(UserEntry.USER_PASSWORD,user.getPassword());
                 }
@@ -150,8 +151,9 @@ public class MyCallBack implements SQLiteDao.ICallBack {
                 );
             case TABLE_USER:
                 return new User(
-                        cursor.getString(cursor.getColumnIndex(UserEntry.USER_PASSWORD)),
-                        cursor.getString(cursor.getColumnIndex(UserEntry.USER_NAME))
+                        cursor.getString(cursor.getColumnIndex(UserEntry.USER_ID)),
+                        cursor.getString(cursor.getColumnIndex(UserEntry.USER_NAME)),
+                        cursor.getString(cursor.getColumnIndex(UserEntry.USER_PASSWORD))
                 );
         }
 

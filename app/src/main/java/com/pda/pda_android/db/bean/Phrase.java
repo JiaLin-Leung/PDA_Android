@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  * 梁佳霖创建于：2018/10/24 09:42
- * 功能：数据库javabean
+ * 功能：Phrase表javabean
  */
 public class Phrase {
 

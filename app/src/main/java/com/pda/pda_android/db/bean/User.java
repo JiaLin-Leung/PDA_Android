@@ -6,16 +6,17 @@ import java.io.Serializable;
  * 梁佳霖创建于：2018/10/24 11:40
  * 功能：
  */
-public class User{
+public class User implements Serializable{
 
     private String id;
     private String username;
     private String password;
 
-    public User(String username,String password)
+    public User(String id,String username,String password)
     {
+        this.id = id;
         this.username = username;
-        this.password=password;
+        this.password = password;
     }
 
     public String getId() {

@@ -87,9 +87,9 @@ public final class SQLiteDao extends SQLiteOpenHelper {
     /**
      * 更新数据
      * @param tableName 表明
-     * @param entity 更新的参数
-     * @param whereClause 修改的数据
-     * @param whereArgs 查询条件
+     * @param entity 即将更新的参数
+     * @param whereClause 字段名
+     * @param whereArgs 字段对应的参数值
      * @param <T> 返回数据泛型
      */
     public static <T> void update(String tableName, T entity, String whereClause, String[] whereArgs) {
