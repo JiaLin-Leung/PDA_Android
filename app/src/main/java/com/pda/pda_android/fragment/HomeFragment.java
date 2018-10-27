@@ -25,7 +25,6 @@ import com.pda.pda_android.adapter.IndexDataAdapter;
 import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.db.testdb.DbActivity;
 import com.pda.pda_android.entity.MenuEntity;
 import com.pda.pda_android.widget.AppConfig;
 import com.pda.pda_android.widget.AppContext;
@@ -243,7 +242,6 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.tixing:
-                DbActivity.getDbInstance(getActivity());
                 break;
         }
     }
