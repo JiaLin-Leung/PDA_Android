@@ -32,9 +32,4 @@ public class YZYBHDActivity extends BaseActivity {
     public void initData() {
 
     }
-
-    public static void goJcjyActivity(Context context){
-        Intent intent = new Intent(context,YZYBHDActivity.class);
-        context.startActivity(intent);
-    }
 }

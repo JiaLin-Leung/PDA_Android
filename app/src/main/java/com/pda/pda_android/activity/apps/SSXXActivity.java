@@ -32,9 +32,4 @@ public class SSXXActivity extends BaseActivity {
     public void initData() {
 
     }
-
-    public static void goJcjyActivity(Context context){
-        Intent intent = new Intent(context,SSXXActivity.class);
-        context.startActivity(intent);
-    }
 }

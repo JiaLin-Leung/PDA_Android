@@ -9,5 +9,7 @@
     <include
         android:id="@+id/common"
         layout="@layout/layout_title_users" />
-
+    <include
+        android:id="@+id/common"
+        layout="@layout/layout_scan" />
 </LinearLayout>

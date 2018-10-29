@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.base.utils.LogUtils;
 
 /**
@@ -49,11 +50,13 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.users_all:
-                LogUtils.showLog("点击全部用户了！");
+                UsersListActivity.go_UsersListActivity(this);
                 break;
             case R.id.activity_back_users:
                 finish();
                 break;
+            case R.id.user_list_back:
+                finish();
         }
     }
     /**
