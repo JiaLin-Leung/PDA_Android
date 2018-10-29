@@ -105,18 +105,18 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         appContext.delFileData(AppConfig.KEY_USER);
         String key = AppConfig.KEY_All;
         String keyUser = AppConfig.KEY_USER;
-        indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
-        appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_All);
+//        indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
+//        appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_All);
         List<MenuEntity> indexDataUser = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
         if (indexDataUser == null || indexDataUser.size() == 0) {
             appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_USER);
         }
         indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
-        MenuEntity allMenuEntity = new MenuEntity();
-        allMenuEntity.setIco("");
-        allMenuEntity.setId("all");
-        allMenuEntity.setTitle("全部");
-        indexDataList.add(allMenuEntity);
+//        MenuEntity allMenuEntity = new MenuEntity();
+//        allMenuEntity.setIco("");
+//        allMenuEntity.setId("all");
+//        allMenuEntity.setTitle("全部");
+//        indexDataList.add(allMenuEntity);
         adapter = new IndexDataAdapter(getActivity(), indexDataList);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -142,16 +142,16 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
-                    case "YZYBHD": //医嘱药包执行
+                    case "YZYBHD": //医嘱药包核对
                         intent.setClass(getActivity(),YZYBHDActivity.class);
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
                 }
-                if (strId.equals("all")) {// 更多
-                    intent.setClass(getActivity(), MenuManageActivity.class);
-                    startActivity(intent);
-                }
+//                if (strId.equals("all")) {// 更多
+//                    intent.setClass(getActivity(), MenuManageActivity.class);
+//                    startActivity(intent);
+//                }
             }
         });
     }
@@ -174,11 +174,12 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     }
 
     public void initView(View view) {
-        tv_tixing = view.findViewById(R.id.tixing);
+        tv_tixing = view.findViewById(R.id.tv_tixing);
         tv_tixing.setOnClickListener(this);
         banner = view.findViewById(R.id.banner);
         gridView = view.findViewById(R.id.gv_lanuch_start);
         gridView.setFocusable(false);
+        tv_allapp=view.findViewById(R.id.all_application);
         //放图片地址的集合
         list_path = new ArrayList<>();
         //放标题的集合
@@ -211,6 +212,13 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                 .setOnBannerListener(this)
                 //必须最后调用的方法，启动轮播图。
                 .start();
+        tv_allapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent intent=new Intent(getActivity(), MenuManageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -246,11 +254,11 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         LogUtils.showLog("生命周期-----" + "home onResume");
         indexDataList.clear();
         indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
-        MenuEntity allMenuEntity = new MenuEntity();
-        allMenuEntity.setIco("all_big_ico");
-        allMenuEntity.setId("all");
-        allMenuEntity.setTitle("全部");
-        indexDataList.add(allMenuEntity);
+//        MenuEntity allMenuEntity = new MenuEntity();
+//        allMenuEntity.setIco("all_big_ico");
+//        allMenuEntity.setId("all");
+//        allMenuEntity.setTitle("全部");
+//        indexDataList.add(allMenuEntity);
         adapter = new IndexDataAdapter(getActivity(), indexDataList);
         gridView.setAdapter(adapter);
     }
@@ -265,7 +273,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
-            case R.id.tixing:
+            case R.id.tv_tixing:
                 break;
         }
     }

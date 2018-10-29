@@ -10,7 +10,7 @@ import com.pda.pda_android.base.BaseActivity;
 
 /**
  * 梁佳霖创建于：2018/10/29 10:16
- * 功能：
+ * 功能：医嘱药包核对
  */
 public class YZYBHDActivity extends BaseActivity {
 
