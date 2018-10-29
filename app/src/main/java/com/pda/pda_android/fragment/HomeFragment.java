@@ -23,6 +23,7 @@ import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.JcjyActivity;
 import com.pda.pda_android.activity.apps.SSXXActivity;
 import com.pda.pda_android.activity.apps.WJBQSActivity;
+import com.pda.pda_android.activity.apps.YZYBHDActivity;
 import com.pda.pda_android.activity.home.MenuManageActivity;
 import com.pda.pda_android.adapter.IndexDataAdapter;
 import com.pda.pda_android.base.BaseFragment;
@@ -101,7 +102,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
             indexDataAll.add(menuEntity);
         }
         appContext.delFileData(AppConfig.KEY_All);
-
+        appContext.delFileData(AppConfig.KEY_USER);
         String key = AppConfig.KEY_All;
         String keyUser = AppConfig.KEY_USER;
         indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
@@ -142,7 +143,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                         startActivity(intent);
                         break;
                     case "YZYBHD": //医嘱药包执行
-                        intent.setClass(getActivity(),WJBQSActivity.class);
+                        intent.setClass(getActivity(),YZYBHDActivity.class);
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
