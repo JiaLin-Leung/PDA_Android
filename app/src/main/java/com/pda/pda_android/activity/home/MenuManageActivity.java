@@ -58,6 +58,7 @@ public class MenuManageActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		List<MenuEntity> indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER_TEMP);
 		String key = AppConfig.KEY_USER;
+		//防止空指针
 		if (null!=indexDataList)
 		appContext.saveObject((Serializable) indexDataList, key);
 	}

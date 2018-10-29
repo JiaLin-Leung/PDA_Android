@@ -102,11 +102,11 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
             indexDataAll.add(menuEntity);
         }
         appContext.delFileData(AppConfig.KEY_All);
-        appContext.delFileData(AppConfig.KEY_USER);
+//        appContext.delFileData(AppConfig.KEY_USER);
         String key = AppConfig.KEY_All;
         String keyUser = AppConfig.KEY_USER;
-//        indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
-//        appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_All);
+        indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
+        appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_All);
         List<MenuEntity> indexDataUser = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
         if (indexDataUser == null || indexDataUser.size() == 0) {
             appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_USER);
