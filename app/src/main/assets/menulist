@@ -7,14 +7,14 @@
     "title": "检查检验"
   },
     {
-      "ico": "app_wdrw_i",
+      "ico": "app_wdrw_ico",
       "id": "SSXX",
       "sort": "1",
       "num": "0",
       "title": "手术信息"
     },
       {
-        "ico": "app_wdrw_ico",
+        "ico": "app_wdjh_ico",
         "id": "WJBQS",
         "sort": "1",
         "num": "0",
