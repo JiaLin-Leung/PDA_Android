@@ -20,6 +20,9 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.apps.JcjyActivity;
+import com.pda.pda_android.activity.apps.SSXXActivity;
+import com.pda.pda_android.activity.apps.WJBQSActivity;
 import com.pda.pda_android.activity.home.MenuManageActivity;
 import com.pda.pda_android.adapter.IndexDataAdapter;
 import com.pda.pda_android.base.BaseFragment;
@@ -124,6 +127,28 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                 String strId = indexDataList.get(position).getId();
                 LogUtils.showLog("111111", strId);
                 LogUtils.showLog(title + strId);
+                switch (strId){
+                    case "JCGX": //检查检验
+                        intent.setClass(getActivity(),JcjyActivity.class);
+                        intent.putExtra("title",title);
+                        startActivity(intent);
+                        break;
+                    case "SSXX": //手术信息
+                        intent.setClass(getActivity(),SSXXActivity.class);
+                        intent.putExtra("title",title);
+                        startActivity(intent);
+                        break;
+                    case "WJBQS"://无菌包签收
+                        intent.setClass(getActivity(),WJBQSActivity.class);
+                        intent.putExtra("title",title);
+                        startActivity(intent);
+                        break;
+                    case "YZYBHD"://无菌包签收
+                        intent.setClass(getActivity(),WJBQSActivity.class);
+                        intent.putExtra("title",title);
+                        startActivity(intent);
+                        break;
+                }
                 if (strId.equals("all")) {// 更多
                     intent.setClass(getActivity(), MenuManageActivity.class);
                     startActivity(intent);

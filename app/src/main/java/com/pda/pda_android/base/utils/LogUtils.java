@@ -21,7 +21,7 @@ public class LogUtils {
     public static void showLog(String information){
         if (!information.isEmpty())
             if (logSwitch){
-                Log.e("dbj",information);
+                Log.e("pda",information);
             }
     }
 }

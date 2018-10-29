@@ -29,6 +29,10 @@
         <activity android:name="com.pda.pda_android.activity.me.ChangeBingQuActivity"/>
         <activity android:name="com.pda.pda_android.activity.me.ChangePasswordActivity"/>
         <activity android:name="com.pda.pda_android.activity.LoginActivity"/>
+        <activity android:name="com.pda.pda_android.activity.apps.JcjyActivity"/>
+        <activity android:name="com.pda.pda_android.activity.apps.SSXXActivity"/>
+        <activity android:name="com.pda.pda_android.activity.apps.WJBQSActivity"/>
+        <activity android:name="com.pda.pda_android.activity.apps.YZYBHDActivity"/>
         <service
             android:name="com.pda.pda_android.service.RemindService"
             android:enabled="true"
