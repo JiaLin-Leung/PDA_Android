@@ -1,6 +1,8 @@
 package com.pda.pda_android.activity.welcome;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.LoginActivity;
+import com.pda.pda_android.activity.MainActivity;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.SpUtils;
 
@@ -32,10 +34,21 @@ public class WelcomeActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        if(is_frist == 0){ //第一次安装进来
-            
-        }else{ //不是第一次进来的
-
-        }
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    sleep(3000);
+                    if(is_frist != 0){ //第一次安装进来
+                        MainActivity.goMainActivity(WelcomeActivity.this);
+                    }else{ //不是第一次进来的
+                        LoginActivity.goLoginAcvtivity(WelcomeActivity.this);
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 }

@@ -2,12 +2,12 @@ package com.pda.pda_android.base.others;
 
 /**
  * 梁佳霖创建于：2018/10/8 14:26
- * 功能：
+ * 功能：存放服务器和接口地址
  */
 public class ContentUrl {
 
     /**
-     * 测试api地址
+     * 同步课堂域名地址
      */
     public static final String testUrl = "https://sapibase.m.tbkt.cn";
 

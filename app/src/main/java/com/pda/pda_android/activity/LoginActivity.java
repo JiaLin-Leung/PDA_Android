@@ -1,5 +1,6 @@
 package com.pda.pda_android.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Base64;
 import android.view.View;
@@ -82,5 +83,10 @@ public class LoginActivity extends BaseActivity {
                 startActivity(intent);
             }
         },params);
+    }
+
+    public static void goLoginAcvtivity(Context context){
+        Intent intent = new Intent(context,LoginActivity.class);
+        context.startActivity(intent);
     }
 }

@@ -1,6 +1,7 @@
 package com.pda.pda_android.activity;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Vibrator;
@@ -124,5 +125,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         Intent intent = new Intent(this, RemindService.class);
         stopService(intent);
         super.onDestroy();
+    }
+
+    public static void goMainActivity(Context context){
+        Intent intent = new Intent(context,MainActivity.class);
+        context.startActivity(intent);
     }
 }
