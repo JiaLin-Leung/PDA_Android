@@ -26,7 +26,6 @@ public class WelcomeActivity extends BaseActivity {
     public int setLayoutId() {
         return R.layout.activity_welcome;
     }
-
     @Override
     public void initView() {
         spManager = SpUtils.getInstance(WelcomeActivity.this);
@@ -42,14 +41,18 @@ public class WelcomeActivity extends BaseActivity {
         }
         new Thread(){
             @Override
+
             public void run() {
                 super.run();
                 try {
-                    sleep(3000);
+                    sleep(500);
                     if(is_frist != 0){ //第一次安装进来
                         MainActivity.goMainActivity(WelcomeActivity.this);
+                        finish();
                     }else{ //不是第一次进来的
                         LoginActivity.goLoginAcvtivity(WelcomeActivity.this);
+                        SpUtils.save("is_frist",1);
+                        finish();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
