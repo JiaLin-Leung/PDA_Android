@@ -6,6 +6,7 @@ import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.bean.User;
+import com.pda.pda_android.adapter.MyAdapter;
+import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
 
@@ -27,6 +30,8 @@ public class UsersListActivity extends BaseActivity {
 
     private ListView users_listview;
     private ArrayList<User> user_list;
+    private static String from;
+    private UserAdapter adapter;
 
     @Override
     public int setLayoutId() {
@@ -38,77 +43,30 @@ public class UsersListActivity extends BaseActivity {
         user_list = new ArrayList<>();
         for (int a = 0;a <= 10; a++){
             User u = new User("陈奕迅","44","男","一级护理","12","888");
+            User u1 = new User("电视","44","男","一级护理","12","888");
+            User u2 = new User("就哈","44","男","一级护理","12","888");
             user_list.add(u);
+            user_list.add(u1);
+            user_list.add(u2);
         }
         users_listview = findViewById(R.id.users_listview);
-        MyAdapter adapter = new MyAdapter(UsersListActivity.this);
+        adapter = new UserAdapter(UsersListActivity.this,user_list);
         users_listview.setAdapter(adapter);
-    }
+        users_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-    /**
-     * 用户信息适配器
-     */
-    private class MyAdapter extends BaseAdapter{
+                if (from.equals("JCJY")){ //检查检验过来的
 
-        private LayoutInflater mInflater;
+                }else if(from.equals("SSXX")){//手术信息过来的
 
-        public MyAdapter(Context context)
-        {
-            mInflater = LayoutInflater.from(context);
-        }
+                }else if(from.equals("WJBQS")){//无菌包签收过来的
 
-        @Override
-        public int getCount() {
-            return user_list.size();
-        }
+                }else if(from.equals("YZYBHD")){//医嘱药包核对过来的
 
-        @Override
-        public Object getItem(int i) {
-            return user_list.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup viewGroup) {
-            ViewHolder holder = null;
-            // 判断是否缓存
-            if (convertView == null)
-            {
-                holder = new ViewHolder();
-                // 通过LayoutInflater实例化布局
-                convertView = mInflater.inflate(R.layout.item_user, null);
-                holder.bad_num = (TextView) convertView.findViewById(R.id.bad_num);
-                holder.user_name = (TextView) convertView.findViewById(R.id.user_name);
-                holder.user_sex = (TextView) convertView.findViewById(R.id.user_sex);
-                holder.user_age = (TextView) convertView.findViewById(R.id.user_age);
-                holder.user_hulilevel = (TextView) convertView.findViewById(R.id.user_hulilevel);
-                convertView.setTag(holder);
+                }
             }
-            else
-            {
-                holder = (ViewHolder) convertView.getTag();
-            }
-
-            holder.bad_num.setText(user_list.get(position).getBad_num());
-            holder.user_name.setText(user_list.get(position).getUser_name());
-            holder.user_sex.setText(user_list.get(position).getSex());
-            holder.user_age.setText(user_list.get(position).getAge());
-            holder.user_hulilevel.setText(user_list.get(position).getHuli_level());
-
-            return convertView;
-        }
-
-        public final class ViewHolder{
-            public TextView user_name;
-            public TextView bad_num;
-            public TextView user_sex;
-            public TextView user_age;
-            public TextView user_hulilevel;
-        }
+        });
     }
 
     @Override
@@ -116,7 +74,13 @@ public class UsersListActivity extends BaseActivity {
 
     }
 
-    public static void go_UsersListActivity(Context context){
+    /**
+     * 静态方法页面跳转
+     * @param context 上下文
+     * @param from_activity 从哪里来的，用于后面用户列表跳转判断
+     */
+    public static void go_UsersListActivity(Context context,String from_activity){
+        from_activity = from;
         Intent intent = new Intent(context,UsersListActivity.class);
         context.startActivity(intent);
     }

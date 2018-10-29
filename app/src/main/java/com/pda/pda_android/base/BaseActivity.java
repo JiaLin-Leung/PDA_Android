@@ -49,9 +49,6 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.users_all:
-                UsersListActivity.go_UsersListActivity(this);
-                break;
             case R.id.activity_back_users:
                 finish();
                 break;

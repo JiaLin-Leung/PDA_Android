@@ -3,10 +3,12 @@ package com.pda.pda_android.activity.apps;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.base.BaseActivity;
 
 
@@ -29,6 +31,12 @@ public class JcjyActivity extends BaseActivity {
     public void initView() {
         title = getIntent().getStringExtra("title");
         users_all = findViewById(R.id.users_all);
+        users_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UsersListActivity.go_UsersListActivity(JcjyActivity.this,"JCJY");
+            }
+        });
         setTitle(title);
     }
 
