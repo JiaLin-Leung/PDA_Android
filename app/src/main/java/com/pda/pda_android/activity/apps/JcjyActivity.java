@@ -12,7 +12,7 @@ import com.pda.pda_android.base.BaseActivity;
 
 /**
  * 梁佳霖创建于：2018/10/29 10:16
- * 功能：
+ * 功能：检查检验模块
  */
 public class JcjyActivity extends BaseActivity {
 

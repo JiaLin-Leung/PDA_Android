@@ -3,16 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="#424242">
+    android:background="@color/white">
 
     <TextView
+        android:textColor="@color/black"
         android:id="@+id/teacher_details_users"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="18dp" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -21,22 +20,24 @@
         android:id="@+id/details_back"
         >
         <ImageView
+            android:layout_marginLeft="12dp"
             android:onClick="onClick"
             android:id="@+id/activity_back_users"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@mipmap/new_baiback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/title_back"
             android:layout_centerVertical="true"/>
 
         <ImageView
+            android:layout_marginRight="12dp"
             android:onClick="onClick"
             android:id="@+id/users_all"
             android:layout_alignParentRight="true"
             android:scaleType="fitEnd"
             android:layout_centerVertical="true"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/bg_btn_quit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/users"
             />
     </RelativeLayout>
 </RelativeLayout>

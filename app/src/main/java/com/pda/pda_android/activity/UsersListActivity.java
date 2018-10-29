@@ -2,10 +2,14 @@ package com.pda.pda_android.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
+import com.pda.pda_android.base.utils.LogUtils;
 
 /**
  * 梁佳霖创建于：2018/10/29 11:52
