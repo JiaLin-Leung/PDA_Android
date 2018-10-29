@@ -57,6 +57,7 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.user_list_back:
                 finish();
+                break;
         }
     }
     /**
