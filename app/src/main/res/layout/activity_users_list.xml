@@ -10,4 +10,8 @@
     <include
         layout="@layout/layout_title_serch"
         android:id="@+id/layout_title_serch"/>
+    <ListView
+        android:id="@+id/users_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>
