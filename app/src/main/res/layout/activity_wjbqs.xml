@@ -8,6 +8,6 @@
     tools:context=".activity.LoginActivity">
     <include
         android:id="@+id/common"
-        layout="@layout/layout_title" />
+        layout="@layout/layout_title_users" />
 
 </LinearLayout>

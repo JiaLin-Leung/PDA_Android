@@ -125,8 +125,6 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                 Bundle bundle = new Bundle();
                 String title = indexDataList.get(position).getTitle();
                 String strId = indexDataList.get(position).getId();
-                LogUtils.showLog("111111", strId);
-                LogUtils.showLog(title + strId);
                 switch (strId){
                     case "JCGX": //检查检验
                         intent.setClass(getActivity(),JcjyActivity.class);
@@ -138,12 +136,12 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
-                    case "WJBQS"://无菌包签收
+                    case "WJBQS": //无菌包签收
                         intent.setClass(getActivity(),WJBQSActivity.class);
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
-                    case "YZYBHD"://无菌包签收
+                    case "YZYBHD": //医嘱药包执行
                         intent.setClass(getActivity(),WJBQSActivity.class);
                         intent.putExtra("title",title);
                         startActivity(intent);

@@ -19,7 +19,7 @@ public class YZYBHDActivity extends BaseActivity {
 
     @Override
     public int setLayoutId() {
-        return R.layout.activity_wjbqs;
+        return R.layout.activity_yzybhd;
     }
 
     @Override
