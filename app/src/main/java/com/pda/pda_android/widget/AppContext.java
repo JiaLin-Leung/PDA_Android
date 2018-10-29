@@ -21,7 +21,7 @@ import java.util.Properties;
  */
 public class AppContext extends Application {
 	private static Context context;
-	private static final int CACHE_TIME = 60 * 60000;// 缓存失效时间
+	private static final int CACHE_TIME = 1000;// 缓存失效时间
 	private Hashtable<String, Object> memCacheRegion = new Hashtable<String, Object>();
 
 	@Override

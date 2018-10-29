@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.base.utils.LogUtils;
 
 /**
  * 梁佳霖创建于：2018/10/8 13:48
@@ -46,7 +47,14 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()){
+            case R.id.users_all:
+                LogUtils.showLog("点击全部用户了！");
+                break;
+            case R.id.activity_back_users:
+                finish();
+                break;
+        }
     }
     /**
      * 设置标题,不包含右边完成按钮
@@ -54,35 +62,7 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
      * @param title 标题的文本
      */
     public void setTitle(String title) {
-        TextView baseTitle = findViewById(R.id.teacher_details);
+        TextView baseTitle = findViewById(R.id.teacher_details_users);
         baseTitle.setText(title);
-        initBack();
     }
-
-    /**
-     * 设置标题,不包含右边完成按钮
-     * @param title1 中间标题
-     * @param title2 右边标题
-     */
-    public void setTitleWithFinish(String title1,String title2) {
-        TextView baseTitle = findViewById(R.id.teacher_details);
-        TextView tv_finish = findViewById(R.id.tv_finish);
-        tv_finish.setVisibility(View.VISIBLE);
-        baseTitle.setText(title1);
-        tv_finish.setText(title2);
-        initBack();
-    }
-
-
-
-    private void initBack() {
-        ImageView ivBack = findViewById(R.id.activity_back);
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
 }

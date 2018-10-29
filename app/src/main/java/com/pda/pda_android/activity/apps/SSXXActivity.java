@@ -19,7 +19,7 @@ public class SSXXActivity extends BaseActivity {
 
     @Override
     public int setLayoutId() {
-        return R.layout.activity_jcjy;
+        return R.layout.activity_ssxx;
     }
 
     @Override
