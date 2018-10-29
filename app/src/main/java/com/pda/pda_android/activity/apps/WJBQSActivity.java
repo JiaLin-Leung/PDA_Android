@@ -32,9 +32,4 @@ public class WJBQSActivity extends BaseActivity {
     public void initData() {
 
     }
-
-    public static void goJcjyActivity(Context context){
-        Intent intent = new Intent(context,WJBQSActivity.class);
-        context.startActivity(intent);
-    }
 }
