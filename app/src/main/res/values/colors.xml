@@ -20,6 +20,9 @@
     <!--线条的颜色 -->
     <color name="line_color">#eaeaea</color>
 
+    <!--分割线条的颜色 -->
+    <color name="fenge_line_color">#ededed</color>
+
     <!--通知未读的颜色 -->
     <color name="notice_noread">#fff9e6</color>
 
@@ -28,4 +31,6 @@
     <color name="bg_12b7f5">#12b7f5</color>
     <color name="text_color">#333333</color>
     <color name="text_hint_color">#cccccc</color>
+    <color name="text_lan">#6da5fd</color>
+    <color name="text_huise">#999999</color>
 </resources>

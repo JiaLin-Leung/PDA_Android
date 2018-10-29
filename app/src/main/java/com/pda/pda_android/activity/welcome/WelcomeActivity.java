@@ -1,5 +1,7 @@
 package com.pda.pda_android.activity.welcome;
 
+import android.content.Intent;
+
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.LoginActivity;
 import com.pda.pda_android.activity.MainActivity;

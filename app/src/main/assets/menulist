@@ -1,21 +1,15 @@
 [
-  {
-    "ico": "app_wdrw_ico",
-    "id": "JCGX",
-    "sort": "1",
-    "num": "0",
-    "title": "检查检验"
-  },
-    {
-      "ico": "app_wdrw_ico",
-      "id": "SSXX",
-      "sort": "1",
-      "num": "0",
-      "title": "手术信息"
-    },
+   {
+        "ico": "srsc",
+        "id": "JCGX",
+        "sort": "1",
+        "num": "0",
+        "title": "检查检验"
+      },
+
       {
-        "ico": "app_wdjh_ico",
-        "id": "WJBQS",
+        "ico": "srsc",
+        "id": "SRSC",
         "sort": "1",
         "num": "0",
         "title": "无菌包签收"
@@ -26,5 +20,61 @@
           "sort": "1",
           "num": "0",
           "title": "医嘱药包核对"
-        }
+        },
+        {
+            "ico": "smtz",
+            "id": "SMTZ",
+            "sort": "1",
+            "num": "0",
+            "title": "生命特征"
+          },
+            {
+              "ico": "yzzx",
+              "id": "YZZX",
+              "sort": "1",
+              "num": "0",
+              "title": "医嘱执行"
+            },
+              {
+                "ico": "srsc",
+                "id": "SRSC",
+                "sort": "1",
+                "num": "0",
+                "title": "输入输出"
+              },
+                {
+                  "ico": "twcl",
+                  "id": "TWCL",
+                  "sort": "1",
+                  "num": "0",
+                  "title": "体温测量"
+                },
+                {
+                   "ico": "rypg",
+                   "id": "RYPG",
+                   "sort": "1",
+                   "num": "0",
+                   "title": "入院评估"
+                 },
+                 {
+                  "ico": "ycpg",
+                  "id": "YCPG",
+                  "sort": "1",
+                   "num": "0",
+                   "title": "压疮评估"
+                 },
+                  {
+                  "ico": "ddzcpg",
+                   "id": "DDZCPG",
+                   "sort": "1",
+                   "num": "0",
+                   "title": "跌倒坠床评估"
+                    },
+        {
+                  "ico": "syxs",
+                   "id": "SYXS",
+                   "sort": "1",
+                   "num": "0",
+                   "title": "输液巡视"
+                    }
 ]

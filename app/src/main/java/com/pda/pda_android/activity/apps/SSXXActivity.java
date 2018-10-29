@@ -10,7 +10,7 @@ import com.pda.pda_android.base.BaseActivity;
 
 /**
  * 梁佳霖创建于：2018/10/29 10:16
- * 功能：
+ * 功能：手术信息
  */
 public class SSXXActivity extends BaseActivity {
 

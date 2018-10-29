@@ -58,6 +58,7 @@ public class MenuManageActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		List<MenuEntity> indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER_TEMP);
 		String key = AppConfig.KEY_USER;
+		if (null!=indexDataList)
 		appContext.saveObject((Serializable) indexDataList, key);
 	}
 
@@ -90,6 +91,9 @@ public class MenuManageActivity extends BaseActivity {
 					if(menuParentAdapter!=null){
 						menuParentAdapter.endEdit();
 					}
+					/**
+					 * 注释：解决返回上级页面空指针异常
+					 */
 					postMenu();
 				}
 			}
