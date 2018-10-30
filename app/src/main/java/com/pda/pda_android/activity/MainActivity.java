@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Vibrator;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -31,6 +33,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private MyBroadcastReceiver myBroadcastReceiver = null;
     private IntentFilter intentFilter;
     private static String ACTION = "com.scanner.broadcast";//PDA广播标记
+    private long firstTime=0;
 
     @Override
     public int setLayoutId() {
@@ -130,5 +133,20 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     public static void goMainActivity(Context context){
         Intent intent = new Intent(context,MainActivity.class);
         context.startActivity(intent);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK && event.getAction()==KeyEvent.ACTION_DOWN){
+            if (System.currentTimeMillis()-firstTime>2000){
+                Toast.makeText(MainActivity.this,"再按一次退出程序",Toast.LENGTH_SHORT).show();
+                firstTime=System.currentTimeMillis();
+            }else{
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

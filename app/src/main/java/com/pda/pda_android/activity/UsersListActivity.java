@@ -13,11 +13,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.activity.apps.bean.User;
-import com.pda.pda_android.adapter.MyAdapter;
 import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.db.Entry.User_db;
+import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.List;
 public class UsersListActivity extends BaseActivity {
 
     private ListView users_listview;
-    private ArrayList<User> user_list;
+    private List<User_db> user_list;
     private static String from;
     private UserAdapter adapter;
 
@@ -42,12 +42,13 @@ public class UsersListActivity extends BaseActivity {
     public void initView() {
         user_list = new ArrayList<>();
         for (int a = 0;a <= 10; a++){
-            User u = new User("陈奕迅","44","男","一级护理","12","888");
-            User u1 = new User("电视","44","男","一级护理","12","888");
-            User u2 = new User("就哈","44","男","一级护理","12","888");
+            User_db u = new User_db(null,"陈奕迅","44","男","一级护理","12","888");
             user_list.add(u);
-            user_list.add(u1);
-            user_list.add(u2);
+        }
+        UserDaoOpe.insertData(UsersListActivity.this,user_list);
+        List<User_db> aa = UserDaoOpe.queryAll(UsersListActivity.this);
+        for (int a = 0;a<aa.size();a++){
+            LogUtils.showLog("44444444",aa.get(a).toString());
         }
         users_listview = findViewById(R.id.users_listview);
         adapter = new UserAdapter(UsersListActivity.this,user_list);

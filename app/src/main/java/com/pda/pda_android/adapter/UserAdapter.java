@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.activity.apps.bean.User;
+import com.pda.pda_android.db.Entry.User_db;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,11 @@ import java.util.List;
 public class UserAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    private ArrayList<User> user_list;
+    private ArrayList<User_db> user_list;
 
-    public UserAdapter(Context context, List<User> user_list)
+    public UserAdapter(Context context, List<User_db> user_list)
     {
-        this.user_list = (ArrayList<User>) user_list;
+        this.user_list = (ArrayList<User_db>) user_list;
         mInflater = LayoutInflater.from(context);
     }
 
