@@ -47,7 +47,7 @@ public class OkHttpManager {
 
     private Handler handler;
 
-    public String tbkt_token;
+    public String nis_token;
     public SpUtils sp;
 
     private OkHttpManager() {
@@ -258,12 +258,12 @@ public class OkHttpManager {
                 if (cookies.size() != 0) {
                     String session = cookies.get(0).toString();
                     LogUtils.showLog("获取的cookie", "session" + session);
-                    if (session.contains("tbkt_token=")) {
+                    if (session.contains("nis_token=")) {
                         int start = session.indexOf("=");
                         int end = session.indexOf(";");
                         String sessionidSplit = session.substring(start + 1, end);
                         LogUtils.showLog("获取的cookieSplit:", "" + sessionidSplit);
-                        SpUtils.getInstance(context).save("tbkt_token", tbkt_token);
+                        SpUtils.getInstance(context).save("nis_token", nis_token);
                     }
                 }
                 if (resultBean.error.contains("no_user")) {//如果是no_user直接调到登录页!
@@ -321,12 +321,11 @@ public class OkHttpManager {
     private Request buildRequest(Context context, String url, Map<String, String> params, HttpMethodType methodType) {
 
         sp = SpUtils.getInstance(context);
-        tbkt_token = sp.getString("token", "");
-//        tbkt_token = "MH0yfTA0MjUzMTg1MjV9MDQyNTA3NDA1NA";
+        nis_token = sp.getString("nis_token", "");
         Request.Builder builder = new Request.Builder();
         builder.url(url);
-        builder.addHeader("tbkt-token", tbkt_token);
-        LogUtils.showLog(tbkt_token);
+        builder.addHeader("nis_token", nis_token);
+        LogUtils.showLog(nis_token);
         if (methodType == HttpMethodType.GET) {
             builder.get();
         } else if (methodType == HttpMethodType.POST) {

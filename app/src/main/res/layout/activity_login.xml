@@ -9,7 +9,7 @@
     tools:context=".activity.LoginActivity">
 
     <EditText
-        android:text="18311111111"
+        android:text="000775"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ed_username"

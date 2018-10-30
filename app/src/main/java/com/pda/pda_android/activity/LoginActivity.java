@@ -6,13 +6,18 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.base.utils.SpUtils;
+import com.pda.pda_android.bean.LoginBean;
+import com.pda.pda_android.bean.LoginBeanFail;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,6 +34,7 @@ public class LoginActivity extends BaseActivity {
     private String username;
     private String password;
     private OkHttpManager okHttpManager;
+    private Gson gson;
 
     @Override
     public int setLayoutId() {
@@ -54,9 +60,7 @@ public class LoginActivity extends BaseActivity {
             case R.id.loginButton:
                 username = ed_username.getText().toString();
                 password = ed_password.getText().toString();
-                String accountTxtBase64 = Base64.encodeToString(username.getBytes(), Base64.DEFAULT);
-                String passwTxtTxtBase64 = Base64.encodeToString(password.getBytes(), Base64.DEFAULT);
-                login(accountTxtBase64,passwTxtTxtBase64);
+                login(username,password);
                 break;
         }
     }
@@ -66,21 +70,27 @@ public class LoginActivity extends BaseActivity {
      */
     private void login(String username,String password) {
 
+        gson = new Gson();
         Map<String, String> params = new HashMap<>(); //提交数据包
-        params.put("phone", username); //将姓名参数添加到数据包
+        params.put("code", username); //将姓名参数添加到数据包
         params.put("password", password); //将密码参数添加到数据包
-        params.put("user_type", 1 + ""); //用户类型: 1-学生, 3-教师
-        OkHttpManager.getInstance().postRequest(LoginActivity.this, ContentUrl.testUrl + ContentUrl.stu_login, new LoadCallBack<String>(LoginActivity.this) {
+        OkHttpManager.getInstance().postRequest(LoginActivity.this, ContentUrl.TestUrl_local + ContentUrl.login, new LoadCallBack<String>(LoginActivity.this) {
             @Override
             protected void onFailure(Call call, IOException e) {
 
             }
-
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
-                LogUtils.showLog("信息信息信息信息",s);
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
+                if (s.contains("\"response\": \"ok\"")){
+                    LoginBean loginBean = gson.fromJson(s,LoginBean.class);
+                    SpUtils.save("nis_token",loginBean.getData().getNis_token());
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_LONG).show();
+                }else{
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    Toast.makeText(LoginActivity.this,loginBeanFail.getMessage(),Toast.LENGTH_LONG).show();
+                }
             }
         },params);
     }

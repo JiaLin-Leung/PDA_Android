@@ -13,6 +13,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.broadcastreceive.MyBroadcastReceiver;
 import com.pda.pda_android.fragment.HomeFragment;
 import com.pda.pda_android.fragment.MeFragment;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView() {
+        SpUtils.save("is_frist",1); //进入首页存储标记
         intentFilter = new IntentFilter(MainActivity.ACTION);   // 设置广播接收器的信息过滤器，
         myBroadcastReceiver = new MyBroadcastReceiver();
         registerReceiver(myBroadcastReceiver, intentFilter);

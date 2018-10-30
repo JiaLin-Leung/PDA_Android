@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import com.google.gson.Gson;
+import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.UserBean;
 import com.pda.pda_android.bean.UsersListBean;
@@ -57,7 +58,7 @@ public class UsersListService extends Service {
             public void run() {
                 while (pushthread) {
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(3000);  //正式使用3--5分钟，目前是3秒钟
                         getHttp();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -68,7 +69,7 @@ public class UsersListService extends Service {
     }
     //请求网络获取数据
     private void getHttp() {
-        String url = "http://192.168.7.100:8999/apps/patient/list";
+        String url = ContentUrl.TestUrl_local+ContentUrl.getUsersList;
         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e) {

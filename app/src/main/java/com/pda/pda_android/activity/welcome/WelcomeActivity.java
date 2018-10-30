@@ -47,7 +47,6 @@ public class WelcomeActivity extends BaseActivity {
                         finish();
                     }else{ //不是第一次进来的
                         LoginActivity.goLoginAcvtivity(WelcomeActivity.this);
-                        SpUtils.save("is_frist",1);
                         finish();
                     }
                 } catch (InterruptedException e) {
