@@ -70,6 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/time"
             android:layout_marginTop="8dp"
             android:textColor="@color/ziti_huise"
             android:textSize="12dp"
@@ -77,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/num"
             android:layout_marginTop="8dp"
             android:textColor="@color/ziti_huise"
             android:textSize="12dp"
@@ -85,6 +87,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
         <LinearLayout
+            android:id="@+id/shaixuan"
             android:layout_marginTop="8dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
@@ -108,4 +111,9 @@
             />
         </LinearLayout>
     </RelativeLayout>
+    <ListView
+        android:divider="@null"
+        android:id="@+id/ssxxinfoamtion_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

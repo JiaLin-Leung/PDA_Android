@@ -2,11 +2,19 @@ package com.pda.pda_android.activity.apps.detail;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.adapter.SsxxAdapter;
 import com.pda.pda_android.base.BaseActivity;
+import com.pda.pda_android.db.Entry.SsxxUserInfoBean;
 import com.pda.pda_android.db.Entry.UserBean;
+
+import java.util.LinkedList;
+import java.util.List;
+
 
 /**
  * 梁佳霖创建于：2018/10/30 15:28
@@ -19,6 +27,11 @@ public class SSXXInfomationActivity extends BaseActivity {
     private ImageView users_all;
     private ImageView user_name_down;
     private TextView user_info;
+    private TextView time;
+    private TextView num;
+    private LinearLayout shaixuan;
+    private ListView ssxxinfoamtion_listview;
+    private List<SsxxUserInfoBean> ssxxUserInfoBeanList;
 
     @Override
     public int setLayoutId() {
@@ -58,6 +71,16 @@ public class SSXXInfomationActivity extends BaseActivity {
         });
         user_info = findViewById(R.id.user_info);
         user_info.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
+        time = findViewById(R.id.time);
+        num = findViewById(R.id.num);
+        shaixuan = findViewById(R.id.shaixuan);
+        ssxxinfoamtion_listview = findViewById(R.id.ssxxinfoamtion_listview);
+        ssxxUserInfoBeanList = new LinkedList<>();
+        for (int a = 0;a<10;a++){
+            SsxxUserInfoBean ssxxUserInfoBean = new SsxxUserInfoBean(null,"切除包皮","陈奕迅","2018-5-4 14:14:44","黄家驹的手术信息");
+            ssxxUserInfoBeanList.add(ssxxUserInfoBean);
+        }
+        ssxxinfoamtion_listview.setAdapter(new SsxxAdapter(SSXXInfomationActivity.this,ssxxUserInfoBeanList));
     }
 
     @Override
