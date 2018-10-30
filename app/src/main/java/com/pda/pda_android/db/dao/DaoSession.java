@@ -8,7 +8,7 @@ import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
-import com.pda.pda_android.bean.UserBean;
+import com.pda.pda_android.db.Entry.UserBean;
 
 import com.pda.pda_android.db.dao.UserBeanDao;
 

@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.bean.UserBean;
+import com.pda.pda_android.db.Entry.UserBean;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,8 +2,6 @@ package com.pda.pda_android.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,10 +11,9 @@ import com.pda.pda_android.activity.apps.detail.SSXXInfomationActivity;
 import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.bean.UserBean;
+import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**

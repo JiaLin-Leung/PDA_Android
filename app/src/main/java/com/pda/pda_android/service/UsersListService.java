@@ -10,7 +10,7 @@ import android.os.IBinder;
 import com.google.gson.Gson;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.bean.UserBean;
+import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.bean.UsersListBean;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 import com.zhy.http.okhttp.OkHttpUtils;

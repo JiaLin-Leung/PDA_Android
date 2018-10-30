@@ -2,7 +2,7 @@ package com.pda.pda_android.db.dbutil;
 
 import android.content.Context;
 
-import com.pda.pda_android.bean.UserBean;
+import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.dao.UserBeanDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;

@@ -1,5 +1,7 @@
 package com.pda.pda_android.bean;
 
+import com.pda.pda_android.db.Entry.UserBean;
+
 import java.io.Serializable;
 import java.util.List;
 

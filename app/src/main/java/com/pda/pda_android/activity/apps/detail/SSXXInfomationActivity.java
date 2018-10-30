@@ -5,10 +5,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.base.BaseActivity;
-import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.bean.UserBean;
+import com.pda.pda_android.db.Entry.UserBean;
 
 /**
  * 梁佳霖创建于：2018/10/30 15:28
@@ -38,7 +36,19 @@ public class SSXXInfomationActivity extends BaseActivity {
             }
         });
         user_name_up = findViewById(R.id.user_name_up);
+        user_name_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         user_name_down = findViewById(R.id.user_name_down);
+        user_name_down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         users_all = findViewById(R.id.users_all);
         users_all.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,4 +1,4 @@
-package com.pda.pda_android.bean;
+package com.pda.pda_android.db.Entry;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
