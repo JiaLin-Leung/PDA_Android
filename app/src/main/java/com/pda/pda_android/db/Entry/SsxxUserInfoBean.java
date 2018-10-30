@@ -8,7 +8,7 @@ import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * 梁佳霖创建于：2018/10/30 18:44
- * 功能：
+ * 功能：手术信息二级页面
  */
 @Entity
 public class SsxxUserInfoBean implements Serializable {
