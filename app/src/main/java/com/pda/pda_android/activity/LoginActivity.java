@@ -82,6 +82,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 if (s.contains("\"response\": \"ok\"")){
+                    SpUtils.save("is_frist",1); //进入首页存储标记
                     LoginBean loginBean = gson.fromJson(s,LoginBean.class);
                     SpUtils.save("nis_token",loginBean.getData().getNis_token());
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);

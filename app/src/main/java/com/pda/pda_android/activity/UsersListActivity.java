@@ -2,16 +2,21 @@ package com.pda.pda_android.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.apps.detail.SSXXInfomationActivity;
 import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
+import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.UserBean;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -39,18 +44,19 @@ public class UsersListActivity extends BaseActivity {
 
     @Override
     public void initData() {
-//        UserDaoOpe.deleteAllData(UsersListActivity.this);
         user_list = UserDaoOpe.queryAll(UsersListActivity.this);
         adapter = new UserAdapter(UsersListActivity.this,user_list);
         users_listview.setAdapter(adapter);
         users_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                LogUtils.showLog("跳转标记",from);
                 if (from.equals("JCJY")){ //检查检验过来的
-
                 }else if(from.equals("SSXX")){//手术信息过来的
-
+                    UserBean userBean = user_list.get(i);
+                    Intent intent = new Intent(UsersListActivity.this,SSXXInfomationActivity.class);
+                    intent.putExtra("userBean",userBean);
+                    startActivity(intent);
                 }else if(from.equals("WJBQS")){//无菌包签收过来的
 
                 }else if(from.equals("YZYBHD")){//医嘱药包核对过来的
@@ -66,7 +72,7 @@ public class UsersListActivity extends BaseActivity {
      * @param from_activity 从哪里来的，用于后面用户列表跳转判断
      */
     public static void go_UsersListActivity(Context context,String from_activity){
-        from_activity = from;
+        from = from_activity;
         Intent intent = new Intent(context,UsersListActivity.class);
         context.startActivity(intent);
     }

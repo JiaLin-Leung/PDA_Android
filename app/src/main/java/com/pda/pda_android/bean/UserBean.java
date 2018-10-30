@@ -11,9 +11,10 @@ import org.greenrobot.greendao.annotation.Generated;
  * 功能：
  */
 @Entity
-public class UserBean {
+public class UserBean implements Serializable{
     @Id(autoincrement = true)
     private Long id;
+    static final long serialVersionUID = -15515456L;
     private String record_no;
     private String patient_no;
     private String patient_name;

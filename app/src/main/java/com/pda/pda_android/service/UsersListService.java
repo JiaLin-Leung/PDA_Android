@@ -58,8 +58,8 @@ public class UsersListService extends Service {
             public void run() {
                 while (pushthread) {
                     try {
-                        Thread.sleep(3000);  //正式使用3--5分钟，目前是3秒钟
                         getHttp();
+                        Thread.sleep(60000000);  //正式使用3--5分钟，目前是3秒钟
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -79,17 +79,18 @@ public class UsersListService extends Service {
             @Override
             public void onResponse(Call call, String s) {
                 UserDaoOpe.deleteAllData(context);
+                LogUtils.showLog("患者列表同步数据", s);
+                UserDaoOpe.deleteAllData(context);
                 Gson gson = new Gson();
-                UsersListBean usersListBeanList = gson.fromJson(s,UsersListBean.class);
+                UsersListBean usersListBeanList = gson.fromJson(s, UsersListBean.class);
                 List<UserBean> userBeans = usersListBeanList.getData();
                 int a = usersListBeanList.getData().size();
-                UserDaoOpe.insertData(context,userBeans);
+                UserDaoOpe.insertData(context, userBeans);
                 Long bbb = 123123L;
-                for (int i = 0;i < a;i++){
-                    userBeans.get(i).setId(bbb+i+100);
-                    UserDaoOpe.insertData(context,userBeans.get(i));
+                for (int i = 0; i < a; i++) {
+                    userBeans.get(i).setId(bbb + i + 100);
+                    UserDaoOpe.insertData(context, userBeans.get(i));
                 }
-
             }
         });
     }

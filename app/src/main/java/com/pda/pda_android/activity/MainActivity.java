@@ -44,7 +44,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView() {
-        SpUtils.save("is_frist",1); //进入首页存储标记
         intentFilter = new IntentFilter(MainActivity.ACTION);   // 设置广播接收器的信息过滤器，
         myBroadcastReceiver = new MyBroadcastReceiver();
         registerReceiver(myBroadcastReceiver, intentFilter);
@@ -66,7 +65,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
      * 打开APP就启动服务，开始从服务器请求数据
      */
     private void startService() {
-        RemindService.getConnet(this);
+//        RemindService.getConnet(this);
         UsersListService.getConnet(this);
     }
 
