@@ -2,8 +2,8 @@ package com.pda.pda_android.db.dbutil;
 
 import android.content.Context;
 
-import com.pda.pda_android.db.Entry.User_db;
-import com.pda.pda_android.db.dao.User_dbDao;
+import com.pda.pda_android.bean.UserBean;
+import com.pda.pda_android.db.dao.UserBeanDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -21,8 +21,8 @@ public class UserDaoOpe {
      * @param context
      * @param stu
      */
-    public static void insertData(Context context, User_db stu) {
-        DbManager.getDaoSession(context).getUser_dbDao().insert(stu);
+    public static void insertData(Context context, UserBean stu) {
+        DbManager.getDaoSession(context).getUserBeanDao().insert(stu);
     }
 
 
@@ -32,11 +32,11 @@ public class UserDaoOpe {
      * @param context
      * @param list
      */
-    public static void insertData(Context context, List<User_db> list) {
+    public static void insertData(Context context, List<UserBean> list) {
         if (null == list || list.size() <= 0) {
             return;
         }
-        DbManager.getDaoSession(context).getUser_dbDao().insertInTx(list);
+        DbManager.getDaoSession(context).getUserBeanDao().insertInTx(list);
     }
     /**
      * 添加数据至数据库，如果存在，将原来的数据覆盖
@@ -45,8 +45,8 @@ public class UserDaoOpe {
      * @param context
      * @param student
      */
-    public static void saveData(Context context, User_db student) {
-        DbManager.getDaoSession(context).getUser_dbDao().save(student);
+    public static void saveData(Context context, UserBean student) {
+        DbManager.getDaoSession(context).getUserBeanDao().save(student);
     }
     /**
      * 删除数据至数据库
@@ -54,8 +54,8 @@ public class UserDaoOpe {
      * @param context
      * @param student 删除具体内容
      */
-    public static void deleteData(Context context, User_db student) {
-        DbManager.getDaoSession(context).getUser_dbDao().delete(student);
+    public static void deleteData(Context context, UserBean student) {
+        DbManager.getDaoSession(context).getUserBeanDao().delete(student);
     }
     /**
      * 根据id删除数据至数据库
@@ -63,8 +63,8 @@ public class UserDaoOpe {
      * @param context
      * @param id      删除具体内容
      */
-    public static void deleteByKeyData(Context context, long id) {
-        DbManager.getDaoSession(context).getUser_dbDao().deleteByKey(id);
+    public static void deleteByKeyData(Context context, Long id) {
+        DbManager.getDaoSession(context).getUserBeanDao().deleteByKey(id);
     }
     /**
      * 删除全部数据
@@ -72,7 +72,7 @@ public class UserDaoOpe {
      * @param context
      */
     public static void deleteAllData(Context context) {
-        DbManager.getDaoSession(context).getUser_dbDao().deleteAll();
+        DbManager.getDaoSession(context).getUserBeanDao().deleteAll();
     }
     /**
      * 更新数据库
@@ -80,8 +80,8 @@ public class UserDaoOpe {
      * @param context
      * @param student
      */
-    public static void updateData(Context context, User_db student) {
-        DbManager.getDaoSession(context).getUser_dbDao().update(student);
+    public static void updateData(Context context, UserBean student) {
+        DbManager.getDaoSession(context).getUserBeanDao().update(student);
     }
     /**
      * 查询所有数据
@@ -89,8 +89,8 @@ public class UserDaoOpe {
      * @param context
      * @return
      */
-    public static List<User_db> queryAll(Context context) {
-        QueryBuilder<User_db> builder = DbManager.getDaoSession(context).getUser_dbDao().queryBuilder();
+    public static List<UserBean> queryAll(Context context) {
+        QueryBuilder<UserBean> builder = DbManager.getDaoSession(context).getUserBeanDao().queryBuilder();
 
         return builder.build().list();
     }
@@ -104,9 +104,9 @@ public class UserDaoOpe {
      * @param pageNum  每页显示多少个
      * @return
      */
-    public static List<User_db> queryPaging( int pageSize, int pageNum,Context context){
-        User_dbDao studentDao = DbManager.getDaoSession(context).getUser_dbDao();
-        List<User_db> listMsg = studentDao.queryBuilder()
+    public static List<UserBean> queryPaging( int pageSize, int pageNum,Context context){
+        UserBeanDao studentDao = DbManager.getDaoSession(context).getUserBeanDao();
+        List<UserBean> listMsg = studentDao.queryBuilder()
                 .offset(pageSize * pageNum).limit(pageNum).list();
         return listMsg;
     }

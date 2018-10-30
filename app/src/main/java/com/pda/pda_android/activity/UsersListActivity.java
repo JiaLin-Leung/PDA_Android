@@ -2,34 +2,27 @@ package com.pda.pda_android.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
-import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.db.Entry.User_db;
+import com.pda.pda_android.bean.UserBean;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 梁佳霖创建于：2018/10/29 11:52
  * 功能：用户列表
+ * 进度：目前可以读取数据库并且展示数据库数据
  */
 public class UsersListActivity extends BaseActivity {
 
     private ListView users_listview;
-    private List<User_db> user_list;
+    private List<UserBean> user_list;
     private static String from;
     private UserAdapter adapter;
 
@@ -40,17 +33,14 @@ public class UsersListActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        user_list = new ArrayList<>();
-        for (int a = 0;a <= 10; a++){
-            User_db u = new User_db(null,"陈奕迅","44","男","一级护理","12","888");
-            user_list.add(u);
-        }
-        UserDaoOpe.insertData(UsersListActivity.this,user_list);
-        List<User_db> aa = UserDaoOpe.queryAll(UsersListActivity.this);
-        for (int a = 0;a<aa.size();a++){
-            LogUtils.showLog("44444444",aa.get(a).toString());
-        }
         users_listview = findViewById(R.id.users_listview);
+
+    }
+
+    @Override
+    public void initData() {
+//        UserDaoOpe.deleteAllData(UsersListActivity.this);
+        user_list = UserDaoOpe.queryAll(UsersListActivity.this);
         adapter = new UserAdapter(UsersListActivity.this,user_list);
         users_listview.setAdapter(adapter);
         users_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -68,11 +58,6 @@ public class UsersListActivity extends BaseActivity {
                 }
             }
         });
-    }
-
-    @Override
-    public void initData() {
-
     }
 
     /**

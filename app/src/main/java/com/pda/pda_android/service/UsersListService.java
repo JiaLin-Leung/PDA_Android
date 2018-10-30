@@ -6,42 +6,36 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Base64;
 
-import com.pda.pda_android.activity.LoginActivity;
-import com.pda.pda_android.activity.MainActivity;
-import com.pda.pda_android.base.network.LoadCallBack;
-import com.pda.pda_android.base.network.OkHttpManager;
-import com.pda.pda_android.base.others.ContentUrl;
+import com.google.gson.Gson;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.UserBean;
+import com.pda.pda_android.bean.UsersListBean;
+import com.pda.pda_android.db.dbutil.UserDaoOpe;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import okhttp3.Call;
-import okhttp3.Response;
 
 /**
  * 梁佳霖创建于：2018/10/18 17:54
- * 功能：接收提醒的服务
+ * 功能：获取用户列表的服务
  */
-public class RemindService extends Service {
+public class UsersListService extends Service {
     private boolean pushthread = false;
-    public RemindService() {
-    }
+    private static Context context;
 
     @Override
     public IBinder onBind(Intent intent) {
-        LogUtils.showLog("RemindService", "onBind");
+        LogUtils.showLog("UsersListService", "onBind");
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtils.showLog("RemindService", "onStartCommand");
+        LogUtils.showLog("UsersListService", "onStartCommand");
         if (intent.getStringExtra("flags").equals("3")) {
             //判断当系统版本大于20，即超过Android5.0时，我们采用线程循环的方式请求。
             //当小于5.0时的系统则采用定时唤醒服务的方式执行循环
@@ -83,44 +77,34 @@ public class RemindService extends Service {
 
             @Override
             public void onResponse(Call call, String s) {
-                LogUtils.showLog("11111111",s);
+                UserDaoOpe.deleteAllData(context);
+                Gson gson = new Gson();
+                UsersListBean usersListBeanList = gson.fromJson(s,UsersListBean.class);
+                List<UserBean> userBeans = usersListBeanList.getData();
+                int a = usersListBeanList.getData().size();
+                UserDaoOpe.insertData(context,userBeans);
+                Long bbb = 123123L;
+                for (int i = 0;i < a;i++){
+                    userBeans.get(i).setId(bbb+i+100);
+                    UserDaoOpe.insertData(context,userBeans.get(i));
+                }
+
             }
         });
     }
-    //请求网络获取数据
-//    private void getHttp() {
-//        String accountTxtBase64 = Base64.encodeToString("15136170717".getBytes(), Base64.DEFAULT);
-//        String passwTxtTxtBase64 = Base64.encodeToString("111111".getBytes(), Base64.DEFAULT);
-//        Map<String, String> params = new HashMap<>(); //提交数据包
-//        params.put("phone",accountTxtBase64 ); //将姓名参数添加到数据包
-//        params.put("password", passwTxtTxtBase64); //将密码参数添加到数据包
-//        params.put("user_type", 1 + ""); //用户类型: 1-学生, 3-教师
-//        OkHttpManager.getInstance().postRequest(, ContentUrl.testUrl + ContentUrl.stu_login, new LoadCallBack<String>(LoginActivity.this) {
-//            @Override
-//            protected void onFailure(Call call, IOException e) {
-//
-//            }
-//
-//            @Override
-//            protected void onSuccess(Call call, Response response, String s) throws IOException {
-//                LogUtils.showLog("信息信息信息信息",s);
-//                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-//                startActivity(intent);
-//            }
-//        },params);
-//    }
 
     @Override
     public void onDestroy() {
         pushthread = false;
-        LogUtils.showLog("RemindService", "onDestroy");
+        LogUtils.showLog("UsersListService", "onDestroy");
         super.onDestroy();
     }
 
     //启动服务和定时器
     public static void getConnet(Context mContext) {
         try {
-            Intent intent = new Intent(mContext, RemindService.class);
+            context = mContext;
+            Intent intent = new Intent(mContext, UsersListService.class);
             intent.putExtra("flags", "3");
             int currentapiVersion = android.os.Build.VERSION.SDK_INT;
             if (currentapiVersion > 20) {
@@ -143,7 +127,7 @@ public class RemindService extends Service {
 
     //停止由AlarmManager启动的循环
     public static void stop(Context mContext) {
-        Intent intent = new Intent(mContext, RemindService.class);
+        Intent intent = new Intent(mContext, UsersListService.class);
         PendingIntent pIntent = PendingIntent.getService(mContext, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) mContext

@@ -18,6 +18,7 @@ import com.pda.pda_android.fragment.HomeFragment;
 import com.pda.pda_android.fragment.MeFragment;
 import com.pda.pda_android.fragment.UserFragment;
 import com.pda.pda_android.service.RemindService;
+import com.pda.pda_android.service.UsersListService;
 
 /**
  * 梁佳霖创建于：2018/10/10 17:48
@@ -45,7 +46,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         intentFilter = new IntentFilter(MainActivity.ACTION);   // 设置广播接收器的信息过滤器，
         myBroadcastReceiver = new MyBroadcastReceiver();
         registerReceiver(myBroadcastReceiver, intentFilter);
-        RemindService.getConnet(this);
+        startService();
         vibrator = (Vibrator)this.getSystemService(this.VIBRATOR_SERVICE);
         bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
         bottom_navigation_bar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
@@ -57,6 +58,14 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 .initialise();
         bottom_navigation_bar.setTabSelectedListener(this);
         setDefaultFragment();
+    }
+
+    /**
+     * 打开APP就启动服务，开始从服务器请求数据
+     */
+    private void startService() {
+        RemindService.getConnet(this);
+        UsersListService.getConnet(this);
     }
 
     @Override
@@ -124,9 +133,12 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     protected void onDestroy() {
         unregisterReceiver(myBroadcastReceiver); //页面生命结束之后注销广播
         RemindService.stop(this);
+        UsersListService.stop(this);
         //停止由服务启动的循环
         Intent intent = new Intent(this, RemindService.class);
+        Intent intent2 = new Intent(this, UsersListService.class);
         stopService(intent);
+        stopService(intent2);
         super.onDestroy();
     }
 

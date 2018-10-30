@@ -8,9 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.activity.UsersListActivity;
-import com.pda.pda_android.activity.apps.bean.User;
-import com.pda.pda_android.db.Entry.User_db;
+import com.pda.pda_android.bean.UserBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +20,11 @@ import java.util.List;
 public class UserAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    private ArrayList<User_db> user_list;
+    private ArrayList<UserBean> user_list;
 
-    public UserAdapter(Context context, List<User_db> user_list)
+    public UserAdapter(Context context, List<UserBean> user_list)
     {
-        this.user_list = (ArrayList<User_db>) user_list;
+        this.user_list = (ArrayList<UserBean>) user_list;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -66,11 +64,11 @@ public class UserAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.bad_num.setText(user_list.get(position).getBad_num());
-        holder.user_name.setText(user_list.get(position).getUser_name());
+        holder.bad_num.setText(user_list.get(position).getBed_no());
+        holder.user_name.setText(user_list.get(position).getPatient_name());
         holder.user_sex.setText(user_list.get(position).getSex());
         holder.user_age.setText(user_list.get(position).getAge());
-        holder.user_hulilevel.setText(user_list.get(position).getHuli_level());
+        holder.user_hulilevel.setText(user_list.get(position).getTend());
 
         return convertView;
     }

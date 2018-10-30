@@ -26,6 +26,11 @@ public abstract class BaseActivity extends Activity implements View.OnClickListe
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(setLayoutId());
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         initData();
     }
 
