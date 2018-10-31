@@ -1,23 +1,22 @@
 package com.pda.pda_android.base;
 
-import android.app.Activity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.activity.UsersListActivity;
-import com.pda.pda_android.base.utils.LogUtils;
+
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * 梁佳霖创建于：2018/10/8 13:48
  * 功能：Activity基类
  */
-public abstract class BaseActivity extends Activity implements View.OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

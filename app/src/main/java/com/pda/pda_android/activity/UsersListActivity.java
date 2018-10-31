@@ -7,14 +7,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.apps.JcjyListActivity;
 import com.pda.pda_android.activity.apps.detail.SsxxInfomationActivity;
 import com.pda.pda_android.activity.apps.detail.WjbqsInfomationActivity;
 import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.db.Entry.UserBean;
-import com.pda.pda_android.db.Entry.UserCheckBean;
-import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
 import java.util.List;
@@ -44,9 +43,9 @@ public class UsersListActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        List<UserCheckBean>list = UserCheckDaoOpe.queryAll(UsersListActivity.this);
-        LogUtils.showLog("3333333",list.toString());
+        from="JCJY";
         user_list = UserDaoOpe.queryAll(UsersListActivity.this);
+        LogUtils.showLog("跳转标记",user_list.toString());
         adapter = new UserAdapter(UsersListActivity.this,user_list);
         users_listview.setAdapter(adapter);
         users_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -54,6 +53,10 @@ public class UsersListActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 LogUtils.showLog("跳转标记",from);
                 if (from.equals("JCJY")){ //检查检验过来的
+                    UserBean userBean = user_list.get(i);
+                    Intent intent = new Intent(UsersListActivity.this,JcjyListActivity.class);
+                    intent.putExtra("userBean",userBean);
+                    startActivity(intent);
                 }else if(from.equals("SSXX")){//手术信息过来的
                     UserBean userBean = user_list.get(i);
                     Intent intent = new Intent(UsersListActivity.this,SsxxInfomationActivity.class);

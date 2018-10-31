@@ -35,14 +35,14 @@ dependencies {
     implementation project(path: ':lib')
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha3'
     implementation 'com.github.xxl6097:okhttputils:2.4.1'
-    implementation 'com.android.support:design:24.1.1'
+    implementation 'com.android.support:design:28.0.0'
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'org.greenrobot:greendao-generator:3.2.2'
 
 }
 greendao {
     //数据库的schema版本，也可以理解为数据库版本号
-    schemaVersion 1
+    schemaVersion 3
     //设置DaoMaster、DaoSession、Dao包名，也就是要放置这些类的包的全路径。
     daoPackage 'com.pda.pda_android.db.dao'
     //设置DaoMaster、DaoSession、Dao目录
