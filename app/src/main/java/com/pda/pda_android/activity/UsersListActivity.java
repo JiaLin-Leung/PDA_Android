@@ -7,7 +7,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.activity.apps.detail.SSXXInfomationActivity;
+import com.pda.pda_android.activity.apps.detail.SsxxInfomationActivity;
+import com.pda.pda_android.activity.apps.detail.WjbqsInfomationActivity;
 import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
@@ -51,11 +52,14 @@ public class UsersListActivity extends BaseActivity {
                 if (from.equals("JCJY")){ //检查检验过来的
                 }else if(from.equals("SSXX")){//手术信息过来的
                     UserBean userBean = user_list.get(i);
-                    Intent intent = new Intent(UsersListActivity.this,SSXXInfomationActivity.class);
+                    Intent intent = new Intent(UsersListActivity.this,SsxxInfomationActivity.class);
                     intent.putExtra("userBean",userBean);
                     startActivity(intent);
                 }else if(from.equals("WJBQS")){//无菌包签收过来的
-
+                    UserBean userBean = user_list.get(i);
+                    Intent intent = new Intent(UsersListActivity.this,WjbqsInfomationActivity.class);
+                    intent.putExtra("userBean",userBean);
+                    startActivity(intent);
                 }else if(from.equals("YZYBHD")){//医嘱药包核对过来的
 
                 }

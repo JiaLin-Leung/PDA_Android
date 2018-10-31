@@ -24,7 +24,7 @@ import java.util.List;
  * 梁佳霖创建于：2018/10/30 15:28
  * 功能：手术信息二级页面
  */
-public class SSXXInfomationActivity extends BaseActivity {
+public class SsxxInfomationActivity extends BaseActivity {
 
     private ImageView title_back;
     private ImageView user_name_up;
@@ -49,7 +49,7 @@ public class SSXXInfomationActivity extends BaseActivity {
         title_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SSXXInfomationActivity.this.finish();
+                SsxxInfomationActivity.this.finish();
             }
         });
         user_name_up = findViewById(R.id.user_name_up);
@@ -70,7 +70,7 @@ public class SSXXInfomationActivity extends BaseActivity {
         users_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SSXXInfomationActivity.this.finish();
+                SsxxInfomationActivity.this.finish();
             }
         });
         user_info = findViewById(R.id.user_info);
@@ -84,13 +84,13 @@ public class SSXXInfomationActivity extends BaseActivity {
             SsxxUserInfoBean ssxxUserInfoBean = new SsxxUserInfoBean(null,"切除包皮","陈奕迅","2018-5-4 14:14:44","黄家驹的手术信息");
             ssxxUserInfoBeanList.add(ssxxUserInfoBean);
         }
-        ssxxinfoamtion_listview.setAdapter(new SsxxAdapter(SSXXInfomationActivity.this,ssxxUserInfoBeanList));
+        ssxxinfoamtion_listview.setAdapter(new SsxxAdapter(SsxxInfomationActivity.this,ssxxUserInfoBeanList));
         ssxxinfoamtion_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 SsxxUserInfoBean ssxxUserInfoBean = ssxxUserInfoBeanList.get(i);
-                Intent intent = new Intent(SSXXInfomationActivity.this,SsxxInfomationDetailActivity.class);
+                Intent intent = new Intent(SsxxInfomationActivity.this,SsxxInfomationDetailActivity.class);
                 intent.putExtra("ssxxUserInfoBean",ssxxUserInfoBean);
                 startActivity(intent);
             }
