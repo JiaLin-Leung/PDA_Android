@@ -65,6 +65,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         setDefaultFragment();
     }
 
+
     /**
      * 打开APP就启动服务，开始从服务器请求数据
      */
