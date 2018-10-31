@@ -38,11 +38,12 @@ dependencies {
     implementation 'com.android.support:design:28.0.0'
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'org.greenrobot:greendao-generator:3.2.2'
-
+    implementation 'se.emilsjolander:stickylistheaders:2.7.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
 }
 greendao {
     //数据库的schema版本，也可以理解为数据库版本号
-    schemaVersion 3
+    schemaVersion 4
     //设置DaoMaster、DaoSession、Dao包名，也就是要放置这些类的包的全路径。
     daoPackage 'com.pda.pda_android.db.dao'
     //设置DaoMaster、DaoSession、Dao目录

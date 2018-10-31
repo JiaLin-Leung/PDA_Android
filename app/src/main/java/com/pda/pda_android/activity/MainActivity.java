@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private IntentFilter intentFilter;
     private static String ACTION = "com.scanner.broadcast";//PDA广播标记
     private long firstTime=0;
-//    private List<JcjyBean> jcjyBeans;
+
 
     @Override
     public int setLayoutId() {
@@ -52,30 +52,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView() {
-//
-//        jcjyBeans = new ArrayList<>();
-//        for (int i = 0;i < 5;i++){
-//            jcjyBeans.add(new JcjyBean(null,"2018-05-05","这是项目","这是设备",
-//                    "2018-05-05","2018-05-05","2018-05-05","这是详情"));
-//        }
-//        for (int j = 0;j < 5;j++){
-//            jcjyBeans.add(new JcjyBean(null,"2018-06-06","这是项目","这是设备",
-//                    "2018-06-05","2018-05-05","2018-05-05","这是详情"));
-//        }
-//        for (int k = 0;k < 5;k++){
-//            jcjyBeans.add(new JcjyBean(null,"2018-07-06","这是项目","这是设备",
-//                    "2018-06-05","2018-05-05","2018-05-05","这是详情"));
-//        }
-//        Long bbb = 123123L;
-//        for (int i = 0; i < jcjyBeans.size(); i++) {
-//            jcjyBeans.get(i).setId(bbb + i + 100);
-//            // TODO: 2018/10/31 数据库插入
-////            JcjyDaoOpe.insertData(MainActivity.this,jcjyBeans.get(i));
-//        }
 
-
-//        List<JcjyBean> aaa = JcjyDaoOpe.queryAll(MainActivity.this);
-//        LogUtils.showLog("5555555",aaa.toString());
         intentFilter = new IntentFilter(MainActivity.ACTION);   // 设置广播接收器的信息过滤器，
         myBroadcastReceiver = new MyBroadcastReceiver();
         registerReceiver(myBroadcastReceiver, intentFilter);
