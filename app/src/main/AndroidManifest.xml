@@ -36,6 +36,7 @@
         <activity android:name="com.pda.pda_android.activity.UsersListActivity"/>
         <activity android:name="com.pda.pda_android.activity.apps.detail.JcjyDetailActivity"/>
         <activity android:name="com.pda.pda_android.activity.apps.detail.SSXXInfomationActivity"/>
+        <activity android:name="com.pda.pda_android.activity.apps.detail.SsxxInfomationDetailActivity"/>
         <service
             android:name="com.pda.pda_android.service.RemindService"
             android:enabled="true"

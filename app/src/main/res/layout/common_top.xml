@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_top"
     android:layout_width="fill_parent"
-    android:layout_height="50dp"
-    android:background="#424242" >
+    android:layout_height="48dp"
+    android:background="@color/white" >
 
     <TextView
         android:id="@+id/tv_top_title"
@@ -16,9 +16,9 @@
         android:gravity="center"
         android:singleLine="true"
         android:ellipsize="end"
-        android:text=""
-        android:textColor="#ffffff"
-        android:textSize="20dp" />
+        android:text="哈哈"
+        android:textColor="@color/black"
+        android:textSize="18dp" />
 
     <LinearLayout
         android:id="@+id/ll_top_back"
@@ -32,9 +32,9 @@
 
         <ImageView
             android:id="@+id/iv_top_back"
-            android:layout_width="16dp"
-            android:layout_height="24dp"
-            android:background="@mipmap/top_back" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/title_back" />
     </LinearLayout>
 
     <LinearLayout

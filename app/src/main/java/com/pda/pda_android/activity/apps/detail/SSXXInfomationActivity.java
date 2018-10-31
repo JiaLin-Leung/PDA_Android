@@ -1,14 +1,18 @@
 package com.pda.pda_android.activity.apps.detail;
 
+import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.adapter.SsxxAdapter;
 import com.pda.pda_android.base.BaseActivity;
+import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.db.Entry.SsxxUserInfoBean;
 import com.pda.pda_android.db.Entry.UserBean;
 
@@ -81,6 +85,16 @@ public class SSXXInfomationActivity extends BaseActivity {
             ssxxUserInfoBeanList.add(ssxxUserInfoBean);
         }
         ssxxinfoamtion_listview.setAdapter(new SsxxAdapter(SSXXInfomationActivity.this,ssxxUserInfoBeanList));
+        ssxxinfoamtion_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                SsxxUserInfoBean ssxxUserInfoBean = ssxxUserInfoBeanList.get(i);
+                Intent intent = new Intent(SSXXInfomationActivity.this,SsxxInfomationDetailActivity.class);
+                intent.putExtra("ssxxUserInfoBean",ssxxUserInfoBean);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
