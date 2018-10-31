@@ -5,9 +5,13 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 
 import com.google.gson.Gson;
+import com.pda.pda_android.base.network.LoadCallBack;
+import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.db.Entry.UserBean;
@@ -16,9 +20,11 @@ import com.pda.pda_android.db.dbutil.UserDaoOpe;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import java.io.IOException;
 import java.util.List;
 
 import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * 梁佳霖创建于：2018/10/18 17:54
@@ -27,6 +33,7 @@ import okhttp3.Call;
 public class UsersListService extends Service {
     private boolean pushthread = false;
     private static Context context;
+
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -44,7 +51,7 @@ public class UsersListService extends Service {
             if (currentapiVersion > 20) {
                 getPushThread();
             } else {
-                getHttp();
+                handler.sendEmptyMessage(DOINTERNET);
             }
         }
         return super.onStartCommand(intent, flags, startId);
@@ -53,47 +60,88 @@ public class UsersListService extends Service {
     //循环请求的线程
     public void getPushThread() {
         pushthread = true;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (pushthread) {
-                    try {
-                        getHttp();
-                        Thread.sleep(60000000);  //正式使用3--5分钟，目前是3秒钟
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
+        handler.sendEmptyMessage(DOINTERNET);
     }
-    //请求网络获取数据
-    private void getHttp() {
-        String url = ContentUrl.TestUrl_local+ContentUrl.getUsersList;
-        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e) {
-                getHttp();
-            }
 
-            @Override
-            public void onResponse(Call call, String s) {
-                UserDaoOpe.deleteAllData(context);
-                LogUtils.showLog("患者列表同步数据", s);
-                UserDaoOpe.deleteAllData(context);
-                Gson gson = new Gson();
-                UsersListBean usersListBeanList = gson.fromJson(s, UsersListBean.class);
-                List<UserBean> userBeans = usersListBeanList.getData();
-                int a = usersListBeanList.getData().size();
-                UserDaoOpe.insertData(context, userBeans);
-                Long bbb = 123123L;
-                for (int i = 0; i < a; i++) {
-                    userBeans.get(i).setId(bbb + i + 100);
-                    UserDaoOpe.insertData(context, userBeans.get(i));
-                }
+    public static final int DOINTERNET = 1111; //发送网络请求
+    public static final int DOINTERNETAGEN = 2222; //发送网络请求
+
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case DOINTERNET:
+                    getHttp();
+                    handler.sendEmptyMessageDelayed(DOINTERNETAGEN,1000 * 60 * 3);
+                    break;
+                case DOINTERNETAGEN:
+                    getHttp();
+                    handler.sendEmptyMessageDelayed(DOINTERNET,1000 * 60 * 3);
+                    break;
             }
-        });
+            super.handleMessage(msg);
+        }
+    };
+
+        //请求网络获取数据
+    private void getHttp() {
+
+        OkHttpManager.getInstance().getRequest(context, ContentUrl.TestUrl_local + ContentUrl.getUsersList,
+                new LoadCallBack<String>(context,false) {
+                    @Override
+                    protected void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    protected void onSuccess(Call call, Response response, String s) throws IOException {
+                        UserDaoOpe.deleteAllData(context);
+                        LogUtils.showLog("患者列表同步数据", s);
+                        UserDaoOpe.deleteAllData(context);
+                        Gson gson = new Gson();
+                        UsersListBean usersListBeanList = gson.fromJson(s, UsersListBean.class);
+                        List<UserBean> userBeans = usersListBeanList.getData();
+                        int a = usersListBeanList.getData().size();
+                        UserDaoOpe.insertData(context, userBeans);
+                        Long bbb = 123123L;
+                        for (int i = 0; i < a; i++) {
+                            userBeans.get(i).setId(bbb + i + 100);
+                            UserDaoOpe.insertData(context, userBeans.get(i));
+                        }
+                    }
+
+                });
     }
+
+
+//    //请求网络获取数据
+//    private void getHttp() {
+//        String url = ContentUrl.TestUrl_local+ContentUrl.getUsersList;
+//        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e) {
+//                getHttp();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, String s) {
+//                UserDaoOpe.deleteAllData(context);
+//                LogUtils.showLog("患者列表同步数据", s);
+//                UserDaoOpe.deleteAllData(context);
+//                Gson gson = new Gson();
+//                UsersListBean usersListBeanList = gson.fromJson(s, UsersListBean.class);
+//                List<UserBean> userBeans = usersListBeanList.getData();
+//                int a = usersListBeanList.getData().size();
+//                UserDaoOpe.insertData(context, userBeans);
+//                Long bbb = 123123L;
+//                for (int i = 0; i < a; i++) {
+//                    userBeans.get(i).setId(bbb + i + 100);
+//                    UserDaoOpe.insertData(context, userBeans.get(i));
+//                }
+//            }
+//        });
+//    }
 
     @Override
     public void onDestroy() {
