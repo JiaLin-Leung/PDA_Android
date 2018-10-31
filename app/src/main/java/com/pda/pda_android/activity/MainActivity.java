@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView() {
-
+        JcjyDaoOpe.deleteAllData(MainActivity.this);
         jcjyBeans = new ArrayList<>();
         for (int i = 0;i < 5;i++){
             jcjyBeans.add(new JcjyBean(null,"2018-05-05","这是项目","这是设备",
