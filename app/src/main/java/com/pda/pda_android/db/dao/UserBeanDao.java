@@ -32,6 +32,13 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         public final static Property Sex = new Property(5, String.class, "sex", false, "SEX");
         public final static Property Tend = new Property(6, String.class, "tend", false, "TEND");
         public final static Property Age = new Property(7, String.class, "age", false, "AGE");
+        public final static Property Ward_code = new Property(8, String.class, "ward_code", false, "WARD_CODE");
+        public final static Property In_date = new Property(9, String.class, "in_date", false, "IN_DATE");
+        public final static Property Doctor = new Property(10, String.class, "doctor", false, "DOCTOR");
+        public final static Property Result = new Property(11, String.class, "result", false, "RESULT");
+        public final static Property Zrhs_code = new Property(12, String.class, "zrhs_code", false, "ZRHS_CODE");
+        public final static Property Hs_name = new Property(13, String.class, "hs_name", false, "HS_NAME");
+        public final static Property Ward_name = new Property(14, String.class, "ward_name", false, "WARD_NAME");
     }
 
 
@@ -54,7 +61,14 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
                 "\"BED_NO\" TEXT," + // 4: bed_no
                 "\"SEX\" TEXT," + // 5: sex
                 "\"TEND\" TEXT," + // 6: tend
-                "\"AGE\" TEXT);"); // 7: age
+                "\"AGE\" TEXT," + // 7: age
+                "\"WARD_CODE\" TEXT," + // 8: ward_code
+                "\"IN_DATE\" TEXT," + // 9: in_date
+                "\"DOCTOR\" TEXT," + // 10: doctor
+                "\"RESULT\" TEXT," + // 11: result
+                "\"ZRHS_CODE\" TEXT," + // 12: zrhs_code
+                "\"HS_NAME\" TEXT," + // 13: hs_name
+                "\"WARD_NAME\" TEXT);"); // 14: ward_name
     }
 
     /** Drops the underlying database table. */
@@ -106,6 +120,41 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         if (age != null) {
             stmt.bindString(8, age);
         }
+ 
+        String ward_code = entity.getWard_code();
+        if (ward_code != null) {
+            stmt.bindString(9, ward_code);
+        }
+ 
+        String in_date = entity.getIn_date();
+        if (in_date != null) {
+            stmt.bindString(10, in_date);
+        }
+ 
+        String doctor = entity.getDoctor();
+        if (doctor != null) {
+            stmt.bindString(11, doctor);
+        }
+ 
+        String result = entity.getResult();
+        if (result != null) {
+            stmt.bindString(12, result);
+        }
+ 
+        String zrhs_code = entity.getZrhs_code();
+        if (zrhs_code != null) {
+            stmt.bindString(13, zrhs_code);
+        }
+ 
+        String hs_name = entity.getHs_name();
+        if (hs_name != null) {
+            stmt.bindString(14, hs_name);
+        }
+ 
+        String ward_name = entity.getWard_name();
+        if (ward_name != null) {
+            stmt.bindString(15, ward_name);
+        }
     }
 
     @Override
@@ -151,6 +200,41 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         if (age != null) {
             stmt.bindString(8, age);
         }
+ 
+        String ward_code = entity.getWard_code();
+        if (ward_code != null) {
+            stmt.bindString(9, ward_code);
+        }
+ 
+        String in_date = entity.getIn_date();
+        if (in_date != null) {
+            stmt.bindString(10, in_date);
+        }
+ 
+        String doctor = entity.getDoctor();
+        if (doctor != null) {
+            stmt.bindString(11, doctor);
+        }
+ 
+        String result = entity.getResult();
+        if (result != null) {
+            stmt.bindString(12, result);
+        }
+ 
+        String zrhs_code = entity.getZrhs_code();
+        if (zrhs_code != null) {
+            stmt.bindString(13, zrhs_code);
+        }
+ 
+        String hs_name = entity.getHs_name();
+        if (hs_name != null) {
+            stmt.bindString(14, hs_name);
+        }
+ 
+        String ward_name = entity.getWard_name();
+        if (ward_name != null) {
+            stmt.bindString(15, ward_name);
+        }
     }
 
     @Override
@@ -168,7 +252,14 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
             cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // bed_no
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // sex
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // tend
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // age
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // age
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // ward_code
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // in_date
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // doctor
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // result
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // zrhs_code
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // hs_name
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // ward_name
         );
         return entity;
     }
@@ -183,6 +274,13 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         entity.setSex(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setTend(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setAge(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setWard_code(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setIn_date(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setDoctor(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setResult(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setZrhs_code(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setHs_name(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setWard_name(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     
     @Override

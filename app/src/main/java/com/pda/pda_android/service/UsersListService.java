@@ -91,23 +91,27 @@ public class UsersListService extends Service {
                 new LoadCallBack<String>(context,false) {
                     @Override
                     protected void onFailure(Call call, IOException e) {
-
+                        handler.removeMessages(DOINTERNET);
                     }
 
                     @Override
                     protected void onSuccess(Call call, Response response, String s) throws IOException {
-                        UserDaoOpe.deleteAllData(context);
-                        LogUtils.showLog("患者列表同步数据", s);
-                        UserDaoOpe.deleteAllData(context);
-                        Gson gson = new Gson();
-                        UsersListBean usersListBeanList = gson.fromJson(s, UsersListBean.class);
-                        List<UserBean> userBeans = usersListBeanList.getData();
-                        int a = usersListBeanList.getData().size();
-                        UserDaoOpe.insertData(context, userBeans);
-                        Long bbb = 123123L;
-                        for (int i = 0; i < a; i++) {
-                            userBeans.get(i).setId(bbb + i + 100);
-                            UserDaoOpe.insertData(context, userBeans.get(i));
+                        if (s.contains("\"response\": \"ok\"")) {
+                            UserDaoOpe.deleteAllData(context);
+                            LogUtils.showLog("患者列表同步数据", s);
+                            UserDaoOpe.deleteAllData(context);
+                            Gson gson = new Gson();
+                            UsersListBean usersListBeanList = gson.fromJson(s, UsersListBean.class);
+                            List<UserBean> userBeans = usersListBeanList.getData();
+                            int a = usersListBeanList.getData().size();
+                            UserDaoOpe.insertData(context, userBeans);
+                            Long bbb = 123123L;
+                            for (int i = 0; i < a; i++) {
+                                userBeans.get(i).setId(bbb + i + 100);
+                                UserDaoOpe.insertData(context, userBeans.get(i));
+                            }
+                        }else{
+                            handler.removeMessages(DOINTERNET);
                         }
                     }
 
