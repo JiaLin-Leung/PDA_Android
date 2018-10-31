@@ -13,19 +13,16 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.broadcastreceive.MyBroadcastReceiver;
-import com.pda.pda_android.db.Entry.JcjyBean;
-import com.pda.pda_android.db.Entry.UserBean;
-import com.pda.pda_android.db.dbutil.JcjyDaoOpe;
-import com.pda.pda_android.db.dbutil.UserDaoOpe;
+import com.pda.pda_android.db.Entry.UserCheckBean;
+import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 import com.pda.pda_android.fragment.HomeFragment;
 import com.pda.pda_android.fragment.MeFragment;
 import com.pda.pda_android.fragment.UserFragment;
 import com.pda.pda_android.service.RemindService;
+import com.pda.pda_android.service.UsersCheckListService;
 import com.pda.pda_android.service.UsersListService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,7 +40,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private IntentFilter intentFilter;
     private static String ACTION = "com.scanner.broadcast";//PDA广播标记
     private long firstTime=0;
-    private List<JcjyBean> jcjyBeans;
 
     @Override
     public int setLayoutId() {
@@ -52,29 +48,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView() {
-        JcjyDaoOpe.deleteAllData(MainActivity.this);
-        jcjyBeans = new ArrayList<>();
-        for (int i = 0;i < 5;i++){
-            jcjyBeans.add(new JcjyBean(null,"2018-05-05","这是项目","这是设备",
-                    "2018-05-05","2018-05-05","2018-05-05","这是详情"));
-        }
-        for (int j = 0;j < 5;j++){
-            jcjyBeans.add(new JcjyBean(null,"2018-06-06","这是项目","这是设备",
-                    "2018-06-05","2018-05-05","2018-05-05","这是详情"));
-        }
-        for (int k = 0;k < 5;k++){
-            jcjyBeans.add(new JcjyBean(null,"2018-07-06","这是项目","这是设备",
-                    "2018-06-05","2018-05-05","2018-05-05","这是详情"));
-        }
-        Long bbb = 123123L;
-        for (int i = 0; i < jcjyBeans.size(); i++) {
-            jcjyBeans.get(i).setId(bbb + i + 100);
-            JcjyDaoOpe.insertData(MainActivity.this,jcjyBeans.get(i));
-        }
-
-
-        List<JcjyBean> aaa = JcjyDaoOpe.queryAll(MainActivity.this);
-        LogUtils.showLog("5555555",aaa.toString());
         intentFilter = new IntentFilter(MainActivity.ACTION);   // 设置广播接收器的信息过滤器，
         myBroadcastReceiver = new MyBroadcastReceiver();
         registerReceiver(myBroadcastReceiver, intentFilter);
@@ -97,6 +70,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
      */
     private void startService() {
         UsersListService.getConnet(this);
+        UsersCheckListService.getConnet(this);
     }
 
     @Override

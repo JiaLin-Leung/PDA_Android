@@ -14,11 +14,12 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.db.Entry.UserBean;
+import com.pda.pda_android.bean.UsersCheckListBean;
 import com.pda.pda_android.bean.UsersListBean;
+import com.pda.pda_android.db.Entry.UserBean;
+import com.pda.pda_android.db.Entry.UserCheckBean;
+import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,20 +31,20 @@ import okhttp3.Response;
  * 梁佳霖创建于：2018/10/18 17:54
  * 功能：获取用户列表的服务
  */
-public class UsersListService extends Service {
+public class UsersCheckListService extends Service {
     private boolean pushthread = false;
     private static Context context;
 
 
     @Override
     public IBinder onBind(Intent intent) {
-        LogUtils.showLog("UsersListService", "onBind");
+        LogUtils.showLog("UsersCheckListService", "onBind");
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtils.showLog("UsersListService", "onStartCommand");
+        LogUtils.showLog("UsersCheckListService", "onStartCommand");
         if (intent.getStringExtra("flags").equals("3")) {
             //判断当系统版本大于20，即超过Android5.0时，我们采用线程循环的方式请求。
             //当小于5.0时的系统则采用定时唤醒服务的方式执行循环
@@ -87,7 +88,7 @@ public class UsersListService extends Service {
         //请求网络获取数据
     private void getHttp() {
 
-        OkHttpManager.getInstance().getRequest(context, ContentUrl.TestUrl_local + ContentUrl.getUsersList,
+        OkHttpManager.getInstance().getRequest(context, ContentUrl.TestUrl_local + ContentUrl.getUsersCheckList,
                 new LoadCallBack<String>(context,false) {
                     @Override
                     protected void onFailure(Call call, IOException e) {
@@ -97,13 +98,12 @@ public class UsersListService extends Service {
                     @Override
                     protected void onSuccess(Call call, Response response, String s) throws IOException {
                         if (s.contains("\"response\": \"ok\"")) {
-                            UserDaoOpe.deleteAllData(context);
-                            LogUtils.showLog("患者列表同步数据", s);
-                            UserDaoOpe.deleteAllData(context);
+                            LogUtils.showLog("患者检查列表同步数据", s);
+                            UserCheckDaoOpe.deleteAllData(context);
                             Gson gson = new Gson();
-                            UsersListBean usersListBeanList = gson.fromJson(s, UsersListBean.class);
-                            List<UserBean> userBeans = usersListBeanList.getData();
-                            UserDaoOpe.insertData(context, userBeans);
+                            UsersCheckListBean usersCheckListBean = gson.fromJson(s, UsersCheckListBean.class);
+                            List<UserCheckBean> userCheckBeans = usersCheckListBean.getData();
+                            UserCheckDaoOpe.insertData(context, userCheckBeans);
                         }else{
                             handler.removeMessages(DOINTERNET);
                         }
@@ -144,7 +144,7 @@ public class UsersListService extends Service {
     @Override
     public void onDestroy() {
         pushthread = false;
-        LogUtils.showLog("UsersListService", "onDestroy");
+        LogUtils.showLog("UsersCheckListService", "onDestroy");
         super.onDestroy();
     }
 
@@ -152,7 +152,7 @@ public class UsersListService extends Service {
     public static void getConnet(Context mContext) {
         try {
             context = mContext;
-            Intent intent = new Intent(mContext, UsersListService.class);
+            Intent intent = new Intent(mContext, UsersCheckListService.class);
             intent.putExtra("flags", "3");
             int currentapiVersion = android.os.Build.VERSION.SDK_INT;
             if (currentapiVersion > 20) {
@@ -175,7 +175,7 @@ public class UsersListService extends Service {
 
     //停止由AlarmManager启动的循环
     public static void stop(Context mContext) {
-        Intent intent = new Intent(mContext, UsersListService.class);
+        Intent intent = new Intent(mContext, UsersCheckListService.class);
         PendingIntent pIntent = PendingIntent.getService(mContext, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) mContext
