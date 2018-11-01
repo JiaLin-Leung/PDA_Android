@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
      * the content id should not be same with the parent content id
      */
     private void setDefaultFragment() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        androidx.fragment.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeFragment homeFragment = mHomeFragment.newInstance(getString(R.string.item_home));
         transaction.replace(R.id.sub_content, homeFragment).commit();
 

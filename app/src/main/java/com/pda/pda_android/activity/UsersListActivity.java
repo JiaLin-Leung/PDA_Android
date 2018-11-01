@@ -13,6 +13,7 @@ import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.activity.apps.detail.SsxxInfomationActivity;
 import com.pda.pda_android.activity.apps.detail.WjbqsInfomationActivity;
+import com.pda.pda_android.activity.apps.detail.YzybhdDetailActivity;
 import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
@@ -50,9 +51,7 @@ public class UsersListActivity extends BaseActivity {
 
     @Override
     public void initData() {
-//        from="JCJY";
-        List<CheckBean>list = CheckBeanOpe.queryAll(UsersListActivity.this);
-        LogUtils.showLog("3333333",list.toString());
+
         user_list = UserDaoOpe.queryAll(UsersListActivity.this);
         adapter = new UserAdapter(UsersListActivity.this,user_list);
         users_listview.setAdapter(adapter);
@@ -76,7 +75,10 @@ public class UsersListActivity extends BaseActivity {
                     intent.putExtra("userBean",userBean);
                     startActivity(intent);
                 }else if(from.equals("YZYBHD")){//医嘱药包核对过来的
-
+                    UserBean userBean = user_list.get(i);
+                    Intent intent = new Intent(UsersListActivity.this,YzybhdDetailActivity.class);
+                    intent.putExtra("userBean",userBean);
+                    startActivity(intent);
                 }
             }
         });

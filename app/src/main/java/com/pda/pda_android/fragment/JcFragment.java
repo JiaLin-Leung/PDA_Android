@@ -12,11 +12,14 @@ import android.widget.Toast;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.MainActivity;
+import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.adapter.JcDetailAdapter;
 import com.pda.pda_android.adapter.JyDetailAdapter;
 import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.Bodybean;
+import com.pda.pda_android.db.Entry.CheckBean;
+import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -49,6 +52,11 @@ public class JcFragment extends BaseFragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+
+
+//        List<CheckBean>list = CheckBeanOpe.queryAll(getActivity());
+//
+//        LogUtils.showLog("3333333",list.size()+"");
         //设置内容的数据
         bodyList = new ArrayList<>();
         List<Bodybean.Body> list;

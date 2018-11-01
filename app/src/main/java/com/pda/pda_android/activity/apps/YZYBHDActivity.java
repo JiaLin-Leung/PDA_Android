@@ -2,9 +2,12 @@ package com.pda.pda_android.activity.apps;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.base.BaseActivity;
 
 
@@ -16,7 +19,7 @@ public class YZYBHDActivity extends BaseActivity {
 
     private TextView tv_top_title;
     private String title;   //顶部title
-
+    private ImageView users_all;
     @Override
     public int setLayoutId() {
         return R.layout.activity_yzybhd;
@@ -26,10 +29,16 @@ public class YZYBHDActivity extends BaseActivity {
     public void initView() {
         title = getIntent().getStringExtra("title");
         setTitle(title);
+        users_all = findViewById(R.id.users_all);
     }
 
     @Override
     public void initData() {
-
+        users_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UsersListActivity.go_UsersListActivity(YZYBHDActivity.this,"YZYBHD");
+            }
+        });
     }
 }
