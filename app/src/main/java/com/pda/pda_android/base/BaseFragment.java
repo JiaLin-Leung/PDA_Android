@@ -18,7 +18,7 @@ import com.pda.pda_android.R;
  * 梁佳霖创建于：2018/10/15 15:54
  * 功能：
  */
-public abstract class BaseFragment extends Fragment implements View.OnClickListener {
+public abstract class BaseFragment extends androidx.fragment.app.Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

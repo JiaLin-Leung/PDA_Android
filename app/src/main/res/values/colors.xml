@@ -26,6 +26,7 @@
 
     <!--通知未读的颜色 -->
     <color name="notice_noread">#fff9e6</color>
+    <color name="lanse">#2e8aff</color>
 
     <!--通知已读的颜色 -->
     <color name="notice_read">#99CCFF</color>

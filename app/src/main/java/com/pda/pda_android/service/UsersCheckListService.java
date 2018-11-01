@@ -106,7 +106,6 @@ public class UsersCheckListService extends Service {
                             handler.removeMessages(DOINTERNET);
                         }
                     }
-
                 });
     }
 

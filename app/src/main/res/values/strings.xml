@@ -6,4 +6,7 @@
     <string name="user_main_string">患者</string>
     <string name="talk_main_string">沟通</string>
     <string name="me_main_string">我的</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

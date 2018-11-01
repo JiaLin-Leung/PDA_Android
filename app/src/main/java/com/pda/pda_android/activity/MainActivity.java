@@ -13,6 +13,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.broadcastreceive.MyBroadcastReceiver;
 import com.pda.pda_android.db.Entry.UserCheckBean;
 import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
@@ -24,6 +25,7 @@ import com.pda.pda_android.service.UsersCheckListService;
 import com.pda.pda_android.service.UsersListService;
 import com.pda.pda_android.service.UsersSsxxListService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,7 +89,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
      * the content id should not be same with the parent content id
      */
     private void setDefaultFragment() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        androidx.fragment.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         HomeFragment homeFragment = mHomeFragment.newInstance(getString(R.string.item_home));
         transaction.replace(R.id.sub_content, homeFragment).commit();
 
@@ -95,7 +97,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     @Override
     public void onTabSelected(int position) {
         LogUtils.showLog("点击的条目",position+"");
-        FragmentTransaction beginTransaction = getFragmentManager().beginTransaction();
+        androidx.fragment.app.FragmentTransaction beginTransaction = getSupportFragmentManager().beginTransaction();
 
         switch (position) {
             case 0:
