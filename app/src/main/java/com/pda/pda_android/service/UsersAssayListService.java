@@ -27,22 +27,22 @@ import okhttp3.Response;
 
 /**
  * 梁佳霖创建于：2018/10/18 17:54
- * 功能：获取用户检查的服务
+ * 功能：获取用户检验的服务
  */
-public class UsersCheckListService extends Service {
+public class UsersAssayListService extends Service {
     private boolean pushthread = false;
     private static Context context;
 
 
     @Override
     public IBinder onBind(Intent intent) {
-        LogUtils.showLog("UsersCheckListService", "onBind");
+        LogUtils.showLog("UsersAssayListService", "onBind");
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtils.showLog("UsersCheckListService", "onStartCommand");
+        LogUtils.showLog("UsersAssayListService", "onStartCommand");
         if (intent.getStringExtra("flags").equals("3")) {
             //判断当系统版本大于20，即超过Android5.0时，我们采用线程循环的方式请求。
             //当小于5.0时的系统则采用定时唤醒服务的方式执行循环
@@ -86,7 +86,7 @@ public class UsersCheckListService extends Service {
         //请求网络获取数据
     private void getHttp() {
 
-        OkHttpManager.getInstance().getRequest(context, ContentUrl.TestUrl_local + ContentUrl.getUsersCheckList,
+        OkHttpManager.getInstance().getRequest(context, ContentUrl.TestUrl_local + ContentUrl.getUsersAssayList,
                 new LoadCallBack<String>(context,false) {
                     @Override
                     protected void onFailure(Call call, IOException e) {
@@ -96,7 +96,7 @@ public class UsersCheckListService extends Service {
                     @Override
                     protected void onSuccess(Call call, Response response, String s) throws IOException {
                         if (s.contains("\"response\": \"ok\"")) {
-                            LogUtils.showLog("患者检查列表同步数据", s);
+                            LogUtils.showLog("患者检验列表同步数据", s);
                             UserCheckDaoOpe.deleteAllData(context);
                             Gson gson = new Gson();
                             CheckListBean usersCheckListBean = gson.fromJson(s, CheckListBean.class);
@@ -114,7 +114,7 @@ public class UsersCheckListService extends Service {
     @Override
     public void onDestroy() {
         pushthread = false;
-        LogUtils.showLog("UsersCheckListService", "onDestroy");
+        LogUtils.showLog("UsersAssayListService", "onDestroy");
         super.onDestroy();
     }
 
@@ -122,7 +122,7 @@ public class UsersCheckListService extends Service {
     public static void getConnet(Context mContext) {
         try {
             context = mContext;
-            Intent intent = new Intent(mContext, UsersCheckListService.class);
+            Intent intent = new Intent(mContext, UsersAssayListService.class);
             intent.putExtra("flags", "3");
             int currentapiVersion = android.os.Build.VERSION.SDK_INT;
             if (currentapiVersion > 20) {
@@ -145,7 +145,7 @@ public class UsersCheckListService extends Service {
 
     //停止由AlarmManager启动的循环
     public static void stop(Context mContext) {
-        Intent intent = new Intent(mContext, UsersCheckListService.class);
+        Intent intent = new Intent(mContext, UsersAssayListService.class);
         PendingIntent pIntent = PendingIntent.getService(mContext, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) mContext
