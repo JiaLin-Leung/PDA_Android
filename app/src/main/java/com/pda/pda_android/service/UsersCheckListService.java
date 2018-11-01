@@ -16,8 +16,11 @@ import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.UsersCheckListBean;
 import com.pda.pda_android.bean.UsersListBean;
+import com.pda.pda_android.db.Entry.CheckBean;
+import com.pda.pda_android.db.Entry.CheckListBean;
 import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.Entry.UserCheckBean;
+import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
@@ -101,9 +104,9 @@ public class UsersCheckListService extends Service {
                             LogUtils.showLog("患者检查列表同步数据", s);
                             UserCheckDaoOpe.deleteAllData(context);
                             Gson gson = new Gson();
-                            UsersCheckListBean usersCheckListBean = gson.fromJson(s, UsersCheckListBean.class);
-                            List<UserCheckBean> userCheckBeans = usersCheckListBean.getData();
-                            UserCheckDaoOpe.insertData(context, userCheckBeans);
+                            CheckListBean usersCheckListBean = gson.fromJson(s, CheckListBean.class);
+                            List<CheckBean> userCheckBeans = usersCheckListBean.getData();
+                            CheckBeanOpe.insertData(context, userCheckBeans);
                         }else{
                             handler.removeMessages(DOINTERNET);
                         }
