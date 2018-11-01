@@ -16,7 +16,12 @@ import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.CheckListBean;
+import com.pda.pda_android.db.Entry.SsxxBean;
+import com.pda.pda_android.db.Entry.SsxxBeanListBean;
+import com.pda.pda_android.db.Entry.SsxxListBean;
+import com.pda.pda_android.db.dao.SsxxBeanDao;
 import com.pda.pda_android.db.dbutil.CheckBeanOpe;
+import com.pda.pda_android.db.dbutil.SsxxBeanOpe;
 import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 
 import java.io.IOException;
@@ -27,22 +32,22 @@ import okhttp3.Response;
 
 /**
  * 梁佳霖创建于：2018/10/18 17:54
- * 功能：获取用户检查的服务
+ * 功能：获取用户手术信息的服务
  */
-public class UsersCheckListService extends Service {
+public class UsersSsxxListService extends Service {
     private boolean pushthread = false;
     private static Context context;
 
 
     @Override
     public IBinder onBind(Intent intent) {
-        LogUtils.showLog("UsersCheckListService", "onBind");
+        LogUtils.showLog("UsersSsxxListService", "onBind");
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtils.showLog("UsersCheckListService", "onStartCommand");
+        LogUtils.showLog("UsersSsxxListService", "onStartCommand");
         if (intent.getStringExtra("flags").equals("3")) {
             //判断当系统版本大于20，即超过Android5.0时，我们采用线程循环的方式请求。
             //当小于5.0时的系统则采用定时唤醒服务的方式执行循环
@@ -86,7 +91,7 @@ public class UsersCheckListService extends Service {
         //请求网络获取数据
     private void getHttp() {
 
-        OkHttpManager.getInstance().getRequest(context, ContentUrl.TestUrl_local + ContentUrl.getUsersCheckList,
+        OkHttpManager.getInstance().getRequest(context, ContentUrl.TestUrl_local + ContentUrl.getUsersSsxx,
                 new LoadCallBack<String>(context,false) {
                     @Override
                     protected void onFailure(Call call, IOException e) {
@@ -96,24 +101,53 @@ public class UsersCheckListService extends Service {
                     @Override
                     protected void onSuccess(Call call, Response response, String s) throws IOException {
                         if (s.contains("\"response\": \"ok\"")) {
-                            LogUtils.showLog("患者检查列表同步数据", s);
+                            LogUtils.showLog("患者手术列表同步数据", s);
                             UserCheckDaoOpe.deleteAllData(context);
                             Gson gson = new Gson();
-                            CheckListBean usersCheckListBean = gson.fromJson(s, CheckListBean.class);
-                            List<CheckBean> userCheckBeans = usersCheckListBean.getData();
-                            CheckBeanOpe.insertData(context, userCheckBeans);
+                            SsxxListBean ssxxListBean = gson.fromJson(s, SsxxListBean.class);
+                            List<SsxxBean> userSsxxBeans = ssxxListBean.getData();
+                            SsxxBeanOpe.insertData(context, userSsxxBeans);
                         }else{
                             handler.removeMessages(DOINTERNET);
                         }
                     }
+
                 });
     }
 
 
+//    //请求网络获取数据
+//    private void getHttp() {
+//        String url = ContentUrl.TestUrl_local+ContentUrl.getUsersList;
+//        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e) {
+//                getHttp();
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, String s) {
+//                UserDaoOpe.deleteAllData(context);
+//                LogUtils.showLog("患者列表同步数据", s);
+//                UserDaoOpe.deleteAllData(context);
+//                Gson gson = new Gson();
+//                UsersListBean usersListBeanList = gson.fromJson(s, UsersListBean.class);
+//                List<UserBean> userBeans = usersListBeanList.getData();
+//                int a = usersListBeanList.getData().size();
+//                UserDaoOpe.insertData(context, userBeans);
+//                Long bbb = 123123L;
+//                for (int i = 0; i < a; i++) {
+//                    userBeans.get(i).setId(bbb + i + 100);
+//                    UserDaoOpe.insertData(context, userBeans.get(i));
+//                }
+//            }
+//        });
+//    }
+
     @Override
     public void onDestroy() {
         pushthread = false;
-        LogUtils.showLog("UsersCheckListService", "onDestroy");
+        LogUtils.showLog("UsersSsxxListService", "onDestroy");
         super.onDestroy();
     }
 
@@ -121,7 +155,7 @@ public class UsersCheckListService extends Service {
     public static void getConnet(Context mContext) {
         try {
             context = mContext;
-            Intent intent = new Intent(mContext, UsersCheckListService.class);
+            Intent intent = new Intent(mContext, UsersSsxxListService.class);
             intent.putExtra("flags", "3");
             int currentapiVersion = android.os.Build.VERSION.SDK_INT;
             if (currentapiVersion > 20) {
@@ -144,7 +178,7 @@ public class UsersCheckListService extends Service {
 
     //停止由AlarmManager启动的循环
     public static void stop(Context mContext) {
-        Intent intent = new Intent(mContext, UsersCheckListService.class);
+        Intent intent = new Intent(mContext, UsersSsxxListService.class);
         PendingIntent pIntent = PendingIntent.getService(mContext, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) mContext

@@ -15,15 +15,15 @@ import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.broadcastreceive.MyBroadcastReceiver;
-//import com.pda.pda_android.db.Entry.JcjyBean;
-//import com.pda.pda_android.db.Entry.UserBean;
-//import com.pda.pda_android.db.dbutil.JcjyDaoOpe
-import com.pda.pda_android.db.dbutil.UserDaoOpe;
+import com.pda.pda_android.db.Entry.UserCheckBean;
+import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 import com.pda.pda_android.fragment.HomeFragment;
 import com.pda.pda_android.fragment.MeFragment;
 import com.pda.pda_android.fragment.UserFragment;
 import com.pda.pda_android.service.RemindService;
+import com.pda.pda_android.service.UsersCheckListService;
 import com.pda.pda_android.service.UsersListService;
+import com.pda.pda_android.service.UsersSsxxListService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
     private static String ACTION = "com.scanner.broadcast";//PDA广播标记
     private long firstTime=0;
 
-
     @Override
     public int setLayoutId() {
         return R.layout.activity_main;
@@ -52,7 +51,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
 
     @Override
     public void initView() {
-
         intentFilter = new IntentFilter(MainActivity.ACTION);   // 设置广播接收器的信息过滤器，
         myBroadcastReceiver = new MyBroadcastReceiver();
         registerReceiver(myBroadcastReceiver, intentFilter);
@@ -76,6 +74,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
      */
     private void startService() {
         UsersListService.getConnet(this);
+        UsersCheckListService.getConnet(this);
+        UsersSsxxListService.getConnet(this);
     }
 
     @Override
@@ -89,7 +89,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
      * the content id should not be same with the parent content id
      */
     private void setDefaultFragment() {
-        androidx.fragment.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
         HomeFragment homeFragment = mHomeFragment.newInstance(getString(R.string.item_home));
         transaction.replace(R.id.sub_content, homeFragment).commit();
 
