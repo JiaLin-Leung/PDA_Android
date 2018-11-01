@@ -3,6 +3,7 @@ package com.pda.pda_android.fragment;
 import androidx.fragment.app.Fragment;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.MainActivity;
 import com.pda.pda_android.activity.UsersListActivity;
+import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.adapter.JcDetailAdapter;
 import com.pda.pda_android.adapter.JyDetailAdapter;
 import com.pda.pda_android.base.BaseFragment;
@@ -35,6 +37,7 @@ public class JcFragment extends BaseFragment {
     private List<Bodybean> bodyList;
     //下拉控件
     private RefreshLayout refreshLayout;
+    private  List<CheckBean> checkBeanList;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,60 +56,75 @@ public class JcFragment extends BaseFragment {
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
 
-
-//        List<CheckBean>list = CheckBeanOpe.queryAll(getActivity());
-//
-//        LogUtils.showLog("3333333",list.size()+"");
         //设置内容的数据
         bodyList = new ArrayList<>();
-        List<Bodybean.Body> list;
-        for (int i = 0; i < 3; i++) {
+        LogUtils.showLog("3333333",checkBeanList.size()+"");
+        int size=checkBeanList.size();
+        List<Bodybean.Body> list = null;
+        for (int i=0;i<size;i++){
             Bodybean bodybean=new Bodybean();
-            bodybean.setTitle("题目"+i);
+            bodybean.setTitle(checkBeanList.get(i).getDate());
             list=new ArrayList<>();
-            if (i==1){
-                for (int j=0;j<5;j++){
-                    Bodybean.Body body= new Bodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6-" + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
-            }else if (i==2){
-                for (int j=0;j<8;j++){
-                    Bodybean.Body body=  new Bodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6- " + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
-            }else if (i==3){
-                for (int j=0;j<2;j++){
-                    Bodybean.Body body=  new Bodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6- " + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
-            }else {
-                for (int j=0;j<5;j++){
-                    Bodybean.Body body=  new Bodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6- " + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
+            for (int j=0;j<checkBeanList.get(i).getList().size();j++){
+                Bodybean.Body body= new Bodybean.Body();
+                body.setProject(checkBeanList.get(i).getList().get(j).getItem_name());
+                body.setData(checkBeanList.get(i).getList().get(j).getBgdate());
+                body.setName("找小虎"+j);
+                body.setShebei(checkBeanList.get(i).getList().get(j).getDevicetype());
+                list.add(body);
             }
+            bodybean.setBodyList(list);
             bodyList.add(bodybean);
         }
+
+//        for (int i = 0; i < 3; i++) {
+//            Bodybean bodybean=new Bodybean();
+//            bodybean.setTitle("题目"+i);
+//            list=new ArrayList<>();
+//            if (i==1){
+//                for (int j=0;j<5;j++){
+//                    Bodybean.Body body= new Bodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6-" + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }else if (i==2){
+//                for (int j=0;j<8;j++){
+//                    Bodybean.Body body=  new Bodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6- " + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }else if (i==3){
+//                for (int j=0;j<2;j++){
+//                    Bodybean.Body body=  new Bodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6- " + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }else {
+//                for (int j=0;j<5;j++){
+//                    Bodybean.Body body=  new Bodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6- " + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }
+//            bodyList.add(bodybean);
+//        }
+        LogUtils.showLog("dbj",bodyList.toString());
         mainAdapter = new JcDetailAdapter(getActivity(),bodyList);
 //        stickyListHeadersListView.setHasFixedSize(true);
 
@@ -143,9 +161,13 @@ public class JcFragment extends BaseFragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        checkBeanList = ((JcjyListActivity) context).getcheckBean();
+    }
+
+    @Override
     public void initData() {
-
-
     }
 
     @Override

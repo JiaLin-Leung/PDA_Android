@@ -13,6 +13,9 @@ import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.fragment.JcFragment;
 import com.pda.pda_android.fragment.JyFragment;
+import com.pda.pda_android.fragment.YzybhdendFragment;
+import com.pda.pda_android.fragment.YzybhdsdFragment;
+import com.pda.pda_android.fragment.YzybhdsmFragment;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -93,7 +96,7 @@ public class YzybhdDetailActivity extends BaseActivity {
             @Override
             public void run() {
                 //设置tablayout下标线
-                setIndicatorWidth(tablayout,100);
+                setIndicatorWidth(tablayout,50);
             }
         });
         //getChildFragmentManager() 防止内层Fragment数据丢失
@@ -127,15 +130,16 @@ public class YzybhdDetailActivity extends BaseActivity {
     }
     List<Fragment> fragmentList = new ArrayList<>();
 
-    String[] titles = {"检查", "检验"};
+    String[] titles = {"扫码核对", "手动核对","已核对"};
 
     private class TabAdapter extends FragmentPagerAdapter {
 
 
         public TabAdapter(FragmentManager fm) {
             super(fm);
-//            fragmentList.add(new JcFragment());
-//            fragmentList.add(new JyFragment());
+            fragmentList.add(new YzybhdsmFragment());
+            fragmentList.add(new YzybhdsdFragment());
+            fragmentList.add(new YzybhdendFragment());
         }
 
         @Override
