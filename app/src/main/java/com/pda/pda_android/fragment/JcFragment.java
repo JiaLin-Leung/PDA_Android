@@ -17,8 +17,6 @@ import com.pda.pda_android.adapter.JyDetailAdapter;
 import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.Bodybean;
-//import com.pda.pda_android.db.Entry.JcjyBean;
-//import com.pda.pda_android.db.dbutil.JcjyDaoOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -39,8 +37,6 @@ public class JcFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_jc, container, false);
-//        List<JcjyBean> aaa = JcjyDaoOpe.queryAll(getActivity());
-//        LogUtils.showLog(aaa.toString());
         //初始化
         stickyListHeadersListView =  view.findViewById(R.id.jc_list);
         refreshLayout = view.findViewById(R.id.refreshLayout1);
@@ -56,7 +52,7 @@ public class JcFragment extends BaseFragment {
         //设置内容的数据
         bodyList = new ArrayList<>();
         List<Bodybean.Body> list;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             Bodybean bodybean=new Bodybean();
             bodybean.setTitle("题目"+i);
             list=new ArrayList<>();
@@ -71,7 +67,7 @@ public class JcFragment extends BaseFragment {
                 }
                 bodybean.setBodyList(list);
             }else if (i==2){
-                for (int j=0;j<3;j++){
+                for (int j=0;j<8;j++){
                     Bodybean.Body body=  new Bodybean.Body();
                     body.setName("找小虎"+i);
                     body.setData("2018-6- " + j);
@@ -104,6 +100,8 @@ public class JcFragment extends BaseFragment {
             bodyList.add(bodybean);
         }
         mainAdapter = new JcDetailAdapter(getActivity(),bodyList);
+//        stickyListHeadersListView.setHasFixedSize(true);
+
 //        mainAdapter.setBodyList(bodyList);
 
         //设置头部的点击事件
@@ -121,12 +119,14 @@ public class JcFragment extends BaseFragment {
                 Toast.makeText(getActivity(), "i:" + i, Toast.LENGTH_SHORT).show();
             }
         });
-
+        //默认滑动一段距离   适配筛选图标显示隐藏
+        stickyListHeadersListView.setStickyHeaderTopOffset(1);
         //设置头部改变的监听
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-                Toast.makeText(getActivity(), "itemPosition:" + itemPosition, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "itemPosition:" + itemPosition, Toast.LENGTH_SHORT).show();
+                header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
             }
         });
 

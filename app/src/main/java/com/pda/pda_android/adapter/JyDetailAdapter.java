@@ -83,7 +83,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         bodyHolder.bodyrv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         bodyHolder.bodyrv.setItemAnimator(new DefaultItemAnimator());
         bodyHolder.bodyrv.setHasFixedSize(true);
-        bodyHolder.bodyrv.setFocusable(false);
+        bodyHolder.bodyrv.setNestedScrollingEnabled(false);
         //设置数据
         bodyHolder.bodyrv.setAdapter(new JyBodyAdapter(context,bodyList.get(i).getBodyList()));
 

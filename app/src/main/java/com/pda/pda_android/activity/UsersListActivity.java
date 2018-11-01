@@ -2,11 +2,15 @@ package com.pda.pda_android.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.activity.apps.detail.SsxxInfomationActivity;
 import com.pda.pda_android.activity.apps.detail.WjbqsInfomationActivity;
 import com.pda.pda_android.adapter.UserAdapter;
@@ -32,7 +36,7 @@ public class UsersListActivity extends BaseActivity {
     private List<UserBean> user_list;
     private static String from;
     private UserAdapter adapter;
-
+    private EditText et_search;
     @Override
     public int setLayoutId() {
         return R.layout.activity_users_list;
@@ -41,11 +45,12 @@ public class UsersListActivity extends BaseActivity {
     @Override
     public void initView() {
         users_listview = findViewById(R.id.users_listview);
-
+        et_search=findViewById(R.id.et_search);
     }
 
     @Override
     public void initData() {
+//        from="JCJY";
         List<CheckBean>list = CheckBeanOpe.queryAll(UsersListActivity.this);
         LogUtils.showLog("3333333",list.toString());
         user_list = UserDaoOpe.queryAll(UsersListActivity.this);
@@ -56,6 +61,10 @@ public class UsersListActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 LogUtils.showLog("跳转标记",from);
                 if (from.equals("JCJY")){ //检查检验过来的
+                    UserBean userBean = user_list.get(i);
+                    Intent intent = new Intent(UsersListActivity.this,JcjyListActivity.class);
+                    intent.putExtra("userBean",userBean);
+                    startActivity(intent);
                 }else if(from.equals("SSXX")){//手术信息过来的
                     UserBean userBean = user_list.get(i);
                     Intent intent = new Intent(UsersListActivity.this,SsxxInfomationActivity.class);
@@ -69,6 +78,18 @@ public class UsersListActivity extends BaseActivity {
                 }else if(from.equals("YZYBHD")){//医嘱药包核对过来的
 
                 }
+            }
+        });
+        et_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                adapter.getFilter().filter(s.toString());
             }
         });
     }

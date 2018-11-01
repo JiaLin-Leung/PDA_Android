@@ -1,4 +1,4 @@
-package com.pda.pda_android.activity.apps;
+package com.pda.pda_android.activity.apps.detail;
 
 
 
@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,9 +30,10 @@ import androidx.viewpager.widget.ViewPager;
 
 
 public class JcjyListActivity extends BaseActivity {
-    TabLayout tablayout;
-    ViewPager viewpager;
-    TextView teacher_details_users;
+    private TabLayout tablayout;
+    private ViewPager viewpager;
+    private TextView user_info;
+    private ImageView users_all,user_name_up,user_name_down,title_back;
     @Override
     public int setLayoutId() {
         return R.layout.activity_jcjy_list;
@@ -43,50 +45,54 @@ public class JcjyListActivity extends BaseActivity {
      * @param margin
      */
     public void setIndicatorWidth(@NonNull final TabLayout tabLayout, final int margin) {
-    tabLayout.post(new Runnable() {
-        @Override
-        public void run() {
-            try {
-                // 拿到tabLayout的slidingTabIndicator属性
-                Field slidingTabIndicatorField = tabLayout.getClass().getDeclaredField("slidingTabIndicator");
-                slidingTabIndicatorField.setAccessible(true);
-                LinearLayout mTabStrip = (LinearLayout) slidingTabIndicatorField.get(tabLayout);
-                for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-                    View tabView = mTabStrip.getChildAt(i);
-                    //拿到tabView的mTextView属性
-                    Field textViewField = tabView.getClass().getDeclaredField("textView");
-                    textViewField.setAccessible(true);
-                    TextView mTextView = (TextView) textViewField.get(tabView);
-                    tabView.setPadding(0, 0, 0, 0);
-                    // 因为想要的效果是字多宽线就多宽，所以测量mTextView的宽度
-                    int width = mTextView.getWidth();
-                    if (width == 0) {
-                        mTextView.measure(0, 0);
-                        width = mTextView.getMeasuredWidth();
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // 拿到tabLayout的slidingTabIndicator属性
+                    Field slidingTabIndicatorField = tabLayout.getClass().getDeclaredField("slidingTabIndicator");
+                    slidingTabIndicatorField.setAccessible(true);
+                    LinearLayout mTabStrip = (LinearLayout) slidingTabIndicatorField.get(tabLayout);
+                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                        View tabView = mTabStrip.getChildAt(i);
+                        //拿到tabView的mTextView属性
+                        Field textViewField = tabView.getClass().getDeclaredField("textView");
+                        textViewField.setAccessible(true);
+                        TextView mTextView = (TextView) textViewField.get(tabView);
+                        tabView.setPadding(0, 0, 0, 0);
+                        // 因为想要的效果是字多宽线就多宽，所以测量mTextView的宽度
+                        int width = mTextView.getWidth();
+                        if (width == 0) {
+                            mTextView.measure(0, 0);
+                            width = mTextView.getMeasuredWidth();
+                        }
+                        // 设置tab左右间距,注意这里不能使用Padding,因为源码中线的宽度是根据tabView的宽度来设置的
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+                        params.width = width;
+                        params.leftMargin = margin;
+                        params.rightMargin = margin;
+                        tabView.setLayoutParams(params);
+                        tabView.invalidate();
                     }
-                    // 设置tab左右间距,注意这里不能使用Padding,因为源码中线的宽度是根据tabView的宽度来设置的
-                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-                    params.width = width;
-                    params.leftMargin = margin;
-                    params.rightMargin = margin;
-                    tabView.setLayoutParams(params);
-                    tabView.invalidate();
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
                 }
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
             }
-        }
-    });
-}
+        });
+    }
 
     @Override
     public void initView() {
         tablayout = findViewById(R.id.tablayout);
         viewpager = findViewById(R.id.viewpager);
+        users_all=findViewById(R.id.users_all);
+        user_name_down=findViewById(R.id.user_name_down);
+        user_name_up=findViewById(R.id.user_name_up);
+        title_back = findViewById(R.id.title_back);
         FragmentManager fragmentManager=getSupportFragmentManager();
-        teacher_details_users=findViewById(R.id.teacher_details_users);
+        user_info=findViewById(R.id.user_info);
         tablayout.post(new Runnable() {
             @Override
             public void run() {
@@ -100,22 +106,28 @@ public class JcjyListActivity extends BaseActivity {
         tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
         UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
-        teacher_details_users.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
-
+        user_info.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
+        users_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        title_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
     List<Fragment> fragmentList = new ArrayList<>();
 

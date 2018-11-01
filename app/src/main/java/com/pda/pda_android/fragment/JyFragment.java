@@ -112,12 +112,14 @@ public class JyFragment extends Fragment {
                 Toast.makeText(getActivity(), "i:" + i, Toast.LENGTH_SHORT).show();
             }
         });
-
+        //默认滑动一段距离   适配筛选图标显示隐藏
+        stickyListHeadersListView.setStickyHeaderTopOffset(1);
         //设置头部改变的监听
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-                Toast.makeText(getActivity(), "itemPosition:" + itemPosition, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "itemPosition:" + itemPosition, Toast.LENGTH_SHORT).show();
+                header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
             }
         });
 

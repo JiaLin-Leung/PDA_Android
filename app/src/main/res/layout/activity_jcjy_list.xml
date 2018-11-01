@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.apps.JcjyListActivity"
+    tools:context=".activity.apps.detail.JcjyListActivity"
     android:orientation="vertical">
     <include
         android:id="@+id/common"
-        layout="@layout/layout_title_users" />
+        layout="@layout/detail_titles" />
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
