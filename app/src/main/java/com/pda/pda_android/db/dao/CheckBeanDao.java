@@ -29,7 +29,8 @@ public class CheckBeanDao extends AbstractDao<CheckBean, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Date = new Property(1, String.class, "date", false, "DATE");
-        public final static Property List = new Property(2, String.class, "list", false, "LIST");
+        public final static Property Record_no = new Property(2, String.class, "record_no", false, "RECORD_NO");
+        public final static Property List = new Property(3, String.class, "list", false, "LIST");
     }
 
     private final CheckBeanListBean_Converter listConverter = new CheckBeanListBean_Converter();
@@ -48,7 +49,8 @@ public class CheckBeanDao extends AbstractDao<CheckBean, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"CHECK_BEAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"DATE\" TEXT," + // 1: date
-                "\"LIST\" TEXT);"); // 2: list
+                "\"RECORD_NO\" TEXT," + // 2: record_no
+                "\"LIST\" TEXT);"); // 3: list
     }
 
     /** Drops the underlying database table. */
@@ -71,9 +73,14 @@ public class CheckBeanDao extends AbstractDao<CheckBean, Long> {
             stmt.bindString(2, date);
         }
  
+        String record_no = entity.getRecord_no();
+        if (record_no != null) {
+            stmt.bindString(3, record_no);
+        }
+ 
         List list = entity.getList();
         if (list != null) {
-            stmt.bindString(3, listConverter.convertToDatabaseValue(list));
+            stmt.bindString(4, listConverter.convertToDatabaseValue(list));
         }
     }
 
@@ -91,9 +98,14 @@ public class CheckBeanDao extends AbstractDao<CheckBean, Long> {
             stmt.bindString(2, date);
         }
  
+        String record_no = entity.getRecord_no();
+        if (record_no != null) {
+            stmt.bindString(3, record_no);
+        }
+ 
         List list = entity.getList();
         if (list != null) {
-            stmt.bindString(3, listConverter.convertToDatabaseValue(list));
+            stmt.bindString(4, listConverter.convertToDatabaseValue(list));
         }
     }
 
@@ -107,7 +119,8 @@ public class CheckBeanDao extends AbstractDao<CheckBean, Long> {
         CheckBean entity = new CheckBean( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // date
-            cursor.isNull(offset + 2) ? null : listConverter.convertToEntityProperty(cursor.getString(offset + 2)) // list
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // record_no
+            cursor.isNull(offset + 3) ? null : listConverter.convertToEntityProperty(cursor.getString(offset + 3)) // list
         );
         return entity;
     }
@@ -116,7 +129,8 @@ public class CheckBeanDao extends AbstractDao<CheckBean, Long> {
     public void readEntity(Cursor cursor, CheckBean entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setDate(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setList(cursor.isNull(offset + 2) ? null : listConverter.convertToEntityProperty(cursor.getString(offset + 2)));
+        entity.setRecord_no(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setList(cursor.isNull(offset + 3) ? null : listConverter.convertToEntityProperty(cursor.getString(offset + 3)));
      }
     
     @Override

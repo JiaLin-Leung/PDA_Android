@@ -20,12 +20,14 @@ public class CheckBean implements Serializable {
     private Long id;
     static final long serialVersionUID = -15515456L;
     private String date;
+    private String record_no;
     @Convert(columnType = String.class, converter = CheckBeanListBean_Converter.class)
     private List<CheckBeanListBean> list;
-    @Generated(hash = 1507022409)
-    public CheckBean(Long id, String date, List<CheckBeanListBean> list) {
+    @Generated(hash = 1346756376)
+    public CheckBean(Long id, String date, String record_no, List<CheckBeanListBean> list) {
         this.id = id;
         this.date = date;
+        this.record_no = record_no;
         this.list = list;
     }
     @Generated(hash = 1325780914)
@@ -43,6 +45,12 @@ public class CheckBean implements Serializable {
     public void setDate(String date) {
         this.date = date;
     }
+    public String getRecord_no() {
+        return this.record_no;
+    }
+    public void setRecord_no(String record_no) {
+        this.record_no = record_no;
+    }
     public List<CheckBeanListBean> getList() {
         return this.list;
     }
@@ -55,6 +63,7 @@ public class CheckBean implements Serializable {
         return "CheckBean{" +
                 "id=" + id +
                 ", date='" + date + '\'' +
+                ", record_no='" + record_no + '\'' +
                 ", list=" + list +
                 '}';
     }

@@ -95,6 +95,18 @@ public class CheckBeanOpe {
         return builder.build().list();
     }
 
+    /**
+     * 按照唯一标志查找
+     *
+     * @param context
+     * @return
+     */
+    public static List<CheckBean>  queryRecord_no(Context context,String Record_no) {
+        List<CheckBean> checkBean= DbManager.getDaoSession(context).getCheckBeanDao().queryBuilder().
+                where(CheckBeanDao.Properties.Record_no.eq(Record_no)).list();
+        return checkBean;
+    }
+
 
 
     /**
