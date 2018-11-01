@@ -12,8 +12,10 @@ import com.pda.pda_android.activity.apps.detail.WjbqsInfomationActivity;
 import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.Entry.UserCheckBean;
+import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
@@ -44,7 +46,7 @@ public class UsersListActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        List<UserCheckBean>list = UserCheckDaoOpe.queryAll(UsersListActivity.this);
+        List<CheckBean>list = CheckBeanOpe.queryAll(UsersListActivity.this);
         LogUtils.showLog("3333333",list.toString());
         user_list = UserDaoOpe.queryAll(UsersListActivity.this);
         adapter = new UserAdapter(UsersListActivity.this,user_list);
