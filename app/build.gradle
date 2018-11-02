@@ -41,6 +41,7 @@ dependencies {
     implementation 'org.greenrobot:greendao-generator:3.2.2'
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    implementation 'com.alibaba:fastjson:1.2.51'
 }
 greendao {
     //数据库的schema版本，也可以理解为数据库版本号
