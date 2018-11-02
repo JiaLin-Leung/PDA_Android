@@ -41,8 +41,6 @@ public class WjbqsInfomationActivity extends BaseActivity {
     private TabLayout tablayout;
     private ViewPager viewpager;
 
-
-
     /**
      * 设置下划线宽度
      * @param tabLayout
@@ -95,8 +93,8 @@ public class WjbqsInfomationActivity extends BaseActivity {
     public void initView() {
         UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
         title_back = findViewById(R.id.title_back);
-        tablayout = findViewById(R.id.tablayout_yzybhd);
-        viewpager = findViewById(R.id.viewpager_yzybhd);
+        tablayout = findViewById(R.id.tablayout_wjbqs);
+        viewpager = findViewById(R.id.viewpager_wjbqs);
         title_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

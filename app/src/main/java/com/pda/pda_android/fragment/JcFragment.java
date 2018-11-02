@@ -69,8 +69,14 @@ public class JcFragment extends BaseFragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        getHttp();
-
+        List<CheckBean> listBeans = CheckBeanOpe.queryRecord_no(getActivity(),cw);
+        LogUtils.showLog("7676",listBeans.toString());
+        for (int i=0;i<listBeans.size();i++){
+            if (cw.equals(listBeans.get(i).getRecord_no())){
+                checkBeanList.add(listBeans.get(i));
+            }
+        }
+        initData();
         return  view;
     }
 
@@ -78,8 +84,6 @@ public class JcFragment extends BaseFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         cw = ((JcjyListActivity) context).getcw();
-        List<CheckBean> listBeans = CheckBeanOpe.queryRecord_no(getActivity(),cw);
-        LogUtils.showLog("7676",listBeans.toString());
     }
 
     @Override
@@ -106,53 +110,6 @@ public class JcFragment extends BaseFragment {
             bodyList.add(bodybean);
         }
 
-//        for (int i = 0; i < 3; i++) {
-//            Bodybean bodybean=new Bodybean();
-//            bodybean.setTitle("题目"+i);
-//            list=new ArrayList<>();
-//            if (i==1){
-//                for (int j=0;j<5;j++){
-//                    Bodybean.Body body= new Bodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6-" + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }else if (i==2){
-//                for (int j=0;j<8;j++){
-//                    Bodybean.Body body=  new Bodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6- " + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }else if (i==3){
-//                for (int j=0;j<2;j++){
-//                    Bodybean.Body body=  new Bodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6- " + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }else {
-//                for (int j=0;j<5;j++){
-//                    Bodybean.Body body=  new Bodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6- " + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }
-//            bodyList.add(bodybean);
-//        }
         LogUtils.showLog("dbj",bodyList.toString());
         mainAdapter = new JcDetailAdapter(getActivity(),bodyList);
 
@@ -178,7 +135,6 @@ public class JcFragment extends BaseFragment {
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-//                Toast.makeText(getActivity(), "itemPosition:" + itemPosition, Toast.LENGTH_SHORT).show();
                 header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
             }
         });
@@ -188,38 +144,9 @@ public class JcFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-
     }
-
     @Override
     public int getlayout() {
         return R.layout.fragment_jc;
-    }
-    //请求网络获取数据
-    private void getHttp() {
-
-        OkHttpManager.getInstance().getRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getUsersCheckList,
-                new LoadCallBack<String>(getActivity(),false) {
-                    @Override
-                    protected void onFailure(Call call, IOException e) {
-                        LogUtils.showLog("患者检查列表同步数据失败");
-                    }
-
-                    @Override
-                    protected void onSuccess(Call call, Response response, String s) throws IOException {
-                        if (s.contains("\"response\": \"ok\"")) {
-                            LogUtils.showLog("患者检查列表同步数据", s);
-                            Gson gson = new Gson();
-                            CheckListBean usersCheckListBean = gson.fromJson(s, CheckListBean.class);
-                            List<CheckBean> list = usersCheckListBean.getData();
-                          for (int i=0;i<list.size();i++){
-                              if (cw.equals(list.get(i).getRecord_no())){
-                                  checkBeanList.add(list.get(i));
-                              }
-                          }
-                            initData();
-                        }
-                    }
-                });
     }
 }
