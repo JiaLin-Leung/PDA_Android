@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -21,9 +20,7 @@ import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.UserBean;
-import com.pda.pda_android.db.Entry.UserCheckBean;
 import com.pda.pda_android.db.dbutil.CheckBeanOpe;
-import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
 import java.util.List;

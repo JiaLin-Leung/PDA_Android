@@ -27,6 +27,7 @@ import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.Bodybean;
 import com.pda.pda_android.db.Entry.CheckBean;
+import com.pda.pda_android.db.Entry.CheckBeanListBean;
 import com.pda.pda_android.db.Entry.CheckListBean;
 import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -77,6 +78,8 @@ public class JcFragment extends BaseFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         cw = ((JcjyListActivity) context).getcw();
+        List<CheckBean> listBeans = CheckBeanOpe.queryRecord_no(getActivity(),cw);
+        LogUtils.showLog("7676",listBeans.toString());
     }
 
     @Override

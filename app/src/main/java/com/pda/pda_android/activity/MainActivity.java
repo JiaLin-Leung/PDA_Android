@@ -1,6 +1,5 @@
 package com.pda.pda_android.activity;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -13,10 +12,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.broadcastreceive.MyBroadcastReceiver;
-import com.pda.pda_android.db.Entry.UserCheckBean;
-import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 import com.pda.pda_android.fragment.HomeFragment;
 import com.pda.pda_android.fragment.MeFragment;
 import com.pda.pda_android.fragment.UserFragment;
@@ -24,9 +20,6 @@ import com.pda.pda_android.service.RemindService;
 import com.pda.pda_android.service.UsersCheckListService;
 import com.pda.pda_android.service.UsersListService;
 import com.pda.pda_android.service.UsersSsxxListService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 梁佳霖创建于：2018/10/10 17:48

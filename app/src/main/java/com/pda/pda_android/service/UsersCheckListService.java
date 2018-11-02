@@ -17,7 +17,6 @@ import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.CheckListBean;
 import com.pda.pda_android.db.dbutil.CheckBeanOpe;
-import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 
 import java.io.IOException;
 import java.util.List;

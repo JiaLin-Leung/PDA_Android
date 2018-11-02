@@ -14,15 +14,9 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.db.Entry.CheckBean;
-import com.pda.pda_android.db.Entry.CheckListBean;
 import com.pda.pda_android.db.Entry.SsxxBean;
-import com.pda.pda_android.db.Entry.SsxxBeanListBean;
 import com.pda.pda_android.db.Entry.SsxxListBean;
-import com.pda.pda_android.db.dao.SsxxBeanDao;
-import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.pda.pda_android.db.dbutil.SsxxBeanOpe;
-import com.pda.pda_android.db.dbutil.UserCheckDaoOpe;
 
 import java.io.IOException;
 import java.util.List;
@@ -100,16 +94,6 @@ public class UsersSsxxListService extends Service {
 
                     @Override
                     protected void onSuccess(Call call, Response response, String s) throws IOException {
-                        if (s.contains("\"response\": \"ok\"")) {
-                            LogUtils.showLog("患者手术列表同步数据", s);
-                            UserCheckDaoOpe.deleteAllData(context);
-                            Gson gson = new Gson();
-                            SsxxListBean ssxxListBean = gson.fromJson(s, SsxxListBean.class);
-                            List<SsxxBean> userSsxxBeans = ssxxListBean.getData();
-                            SsxxBeanOpe.insertData(context, userSsxxBeans);
-                        }else{
-                            handler.removeMessages(DOINTERNET);
-                        }
                     }
 
                 });
