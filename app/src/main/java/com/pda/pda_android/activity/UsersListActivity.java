@@ -52,8 +52,6 @@ public class UsersListActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        List<CheckBean> list = CheckBeanOpe.queryAll(UsersListActivity.this);
-        LogUtils.showLog("343434343",list.toString());
         user_list = UserDaoOpe.queryAll(UsersListActivity.this);
         adapter = new UserAdapter(UsersListActivity.this,user_list);
         users_listview.setAdapter(adapter);

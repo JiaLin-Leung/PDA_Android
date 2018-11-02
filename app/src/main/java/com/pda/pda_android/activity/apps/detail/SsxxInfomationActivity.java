@@ -1,20 +1,26 @@
 package com.pda.pda_android.activity.apps.detail;
 
-import android.content.Intent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.pda.pda_android.R;
-//import com.pda.pda_android.adapter.SsxxAdapter;
+import com.pda.pda_android.adapter.JcDetailAdapter;
+import com.pda.pda_android.adapter.SsxxAdapter;
 import com.pda.pda_android.base.BaseActivity;
+import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.Bodybean;
+import com.pda.pda_android.db.Entry.CheckBean;
+import com.pda.pda_android.db.Entry.SsxxBean;
 import com.pda.pda_android.db.Entry.UserBean;
+import com.pda.pda_android.db.dbutil.CheckBeanOpe;
+import com.pda.pda_android.db.dbutil.SsxxBeanOpe;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 
 /**
@@ -23,16 +29,14 @@ import java.util.List;
  */
 public class SsxxInfomationActivity extends BaseActivity {
 
-    private ImageView title_back;
-    private ImageView user_name_up;
-    private ImageView users_all;
-    private ImageView user_name_down;
-    private TextView user_info;
-    private TextView time;
-    private TextView num;
-    private LinearLayout shaixuan;
-    private ListView ssxxinfoamtion_listview;
-//    private List<SsxxUserInfoBean> ssxxUserInfoBeanList;
+    private StickyListHeadersListView stickyListHeadersListView;
+    private RefreshLayout refreshLayout;
+    private  List<CheckBean> checkBeanList=new ArrayList<>();
+    private  String cw;
+    private SsxxAdapter adapter;
+    private UserBean userBean;
+    private String record_no;
+    private List<SsxxBean> list;
 
     @Override
     public int setLayoutId() {
@@ -41,61 +45,32 @@ public class SsxxInfomationActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
-        title_back = findViewById(R.id.title_back);
-        title_back.setOnClickListener(new View.OnClickListener() {
+        stickyListHeadersListView =  findViewById(R.id.jc_list_ssxx);
+        refreshLayout = findViewById(R.id.refreshLayout1_ssxx);
+        refreshLayout.setEnableRefresh(false);
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
-            public void onClick(View view) {
-                SsxxInfomationActivity.this.finish();
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadmore(1500,true);
             }
         });
-        user_name_up = findViewById(R.id.user_name_up);
-        user_name_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        user_name_down = findViewById(R.id.user_name_down);
-        user_name_down.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        users_all = findViewById(R.id.users_all);
-        users_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SsxxInfomationActivity.this.finish();
-            }
-        });
-        user_info = findViewById(R.id.user_info);
-        user_info.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
-        time = findViewById(R.id.time);
-        num = findViewById(R.id.num);
-        shaixuan = findViewById(R.id.shaixuan);
-        ssxxinfoamtion_listview = findViewById(R.id.ssxxinfoamtion_listview);
-//        ssxxUserInfoBeanList = new LinkedList<>();
-//        for (int a = 0;a<10;a++){
-//            SsxxUserInfoBean ssxxUserInfoBean = new SsxxUserInfoBean(null,"切除包皮","陈奕迅","2018-5-4 14:14:44","黄家驹的手术信息");
-//            ssxxUserInfoBeanList.add(ssxxUserInfoBean);
-//        }
-//        ssxxinfoamtion_listview.setAdapter(new SsxxAdapter(SsxxInfomationActivity.this,ssxxUserInfoBeanList));
-//        ssxxinfoamtion_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                SsxxUserInfoBean ssxxUserInfoBean = ssxxUserInfoBeanList.get(i);
-//                Intent intent = new Intent(SsxxInfomationActivity.this,SsxxInfomationDetailActivity.class);
-//                intent.putExtra("ssxxUserInfoBean",ssxxUserInfoBean);
-//                startActivity(intent);
+        //设置 Header 为 ClassicsHeader
+        refreshLayout.setRefreshHeader(new ClassicsHeader(SsxxInfomationActivity.this));
+//        List<CheckBean> listBeans = CheckBeanOpe.queryRecord_no(SsxxInfomationActivity.this,cw);
+//        LogUtils.showLog("7676",listBeans.toString());
+//        for (int i=0;i<listBeans.size();i++){
+//            if (cw.equals(listBeans.get(i).getRecord_no())){
+//                checkBeanList.add(listBeans.get(i));
 //            }
-//        });
+//        }
     }
 
     @Override
     public void initData() {
-
+        userBean = (UserBean) getIntent().getSerializableExtra("userBean");
+        record_no = userBean.getRecord_no();
+        list = SsxxBeanOpe.queryRecord_no(SsxxInfomationActivity.this,record_no);
+//        adapter = new SsxxAdapter();
+//        stickyListHeadersListView.setAdapter(adapter);
     }
 }
