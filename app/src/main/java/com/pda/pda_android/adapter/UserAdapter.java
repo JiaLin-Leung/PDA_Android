@@ -130,8 +130,7 @@ public class UserAdapter extends BaseAdapter implements Filterable {
 
                 for (int i = 0; i < count; i++) {
                     final UserBean value = values.get(i);
-//                    final String valueText = value.toString().toLowerCase();
-                    final String valueText = value.getBed_no().toString().toLowerCase();//DataBean对象的name属性作为过滤的参数
+                    final String valueText = value.getBed_no().toString().toLowerCase()+ value.getPatient_name().toString().toLowerCase();//DataBean对象的name属性作为过滤的参数
                     // First match against the whole, non-splitted value
                     if (valueText.startsWith(prefixString) || valueText.indexOf(prefixString.toString()) != -1) {//第一个字符是否匹配
                         newValues.add(value);//将这个item加入到数组对象中

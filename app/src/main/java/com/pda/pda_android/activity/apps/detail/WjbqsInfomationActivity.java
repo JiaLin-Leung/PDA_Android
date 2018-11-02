@@ -135,9 +135,7 @@ public class WjbqsInfomationActivity extends BaseActivity {
         //getChildFragmentManager() 防止内层Fragment数据丢失
         viewpager.setAdapter(new TabAdapter(fragmentManager));
         tablayout.setupWithViewPager(viewpager);
-
     }
-
     List<Fragment> fragmentList = new ArrayList<>();
     String[] titles = {"扫码签收", "手动签收","已签收"};
     private class TabAdapter extends FragmentPagerAdapter {
