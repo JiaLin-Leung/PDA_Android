@@ -1,4 +1,4 @@
-package com.pda.pda_android.fragment;
+package com.pda.pda_android.fragment.yzybhd;
 
 
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.adapter.YzybhdAdapter;
+import com.pda.pda_android.adapter.yzybhd.YzybhdAdapter;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.Bodybean;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;

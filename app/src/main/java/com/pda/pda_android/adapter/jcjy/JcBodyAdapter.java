@@ -1,6 +1,7 @@
-package com.pda.pda_android.adapter;
+package com.pda.pda_android.adapter.jcjy;
 
 import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class YzybhdSdAdapter extends RecyclerView.Adapter<YzybhdSdAdapter.ViewHolder>{
+public class JcBodyAdapter extends RecyclerView.Adapter<JcBodyAdapter.ViewHolder>{
     private Context context;
     private LayoutInflater mLayoutInflater;
     private List<Bodybean.Body> list;
 
-    public YzybhdSdAdapter(Context context, List<Bodybean.Body> list) {
+    public JcBodyAdapter(Context context, List<Bodybean.Body> list) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
@@ -28,7 +29,7 @@ public class YzybhdSdAdapter extends RecyclerView.Adapter<YzybhdSdAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=mLayoutInflater.inflate(R.layout.yzybhd_sd_body,null);
+        View view=mLayoutInflater.inflate(R.layout.jc_body,null);
         return new ViewHolder(view);
     }
 

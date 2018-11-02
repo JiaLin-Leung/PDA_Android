@@ -1,4 +1,4 @@
-package com.pda.pda_android.adapter;
+package com.pda.pda_android.adapter.jcjy;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +22,13 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 /**
  * Created by mac on 16-8-16.
  */
-public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+public class JcDetailAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
     private Context context;
     private List<String> headList;
     private List<Bodybean> bodyList;
 
-    public JyDetailAdapter(Context context, List<Bodybean> bodyList) {
+    public JcDetailAdapter(Context context, List<Bodybean> bodyList) {
         this.context = context;
         this.bodyList=bodyList;
     }
@@ -74,7 +73,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
 
         BodyHolder bodyHolder = null;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.jy_list_body, viewGroup, false);
+            view = LayoutInflater.from(context).inflate(R.layout.jc_list_body, viewGroup, false);
             bodyHolder = new BodyHolder(view);
             view.setTag(bodyHolder);
         } else {
@@ -85,7 +84,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         bodyHolder.bodyrv.setHasFixedSize(true);
         bodyHolder.bodyrv.setNestedScrollingEnabled(false);
         //设置数据
-        bodyHolder.bodyrv.setAdapter(new JyBodyAdapter(context,bodyList.get(i).getBodyList()));
+        bodyHolder.bodyrv.setAdapter(new JcBodyAdapter(context,bodyList.get(i).getBodyList()));
 
         return view;
     }
@@ -96,7 +95,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
 
         HeadHolder headHolder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.jy_head, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.jc_head, parent, false);
             headHolder = new HeadHolder(convertView);
             convertView.setTag(headHolder);
         } else {

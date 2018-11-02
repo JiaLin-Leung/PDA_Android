@@ -11,11 +11,9 @@ import com.google.android.material.tabs.TabLayout;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.db.Entry.UserBean;
-import com.pda.pda_android.fragment.JcFragment;
-import com.pda.pda_android.fragment.JyFragment;
-import com.pda.pda_android.fragment.YzybhdendFragment;
-import com.pda.pda_android.fragment.YzybhdsdFragment;
-import com.pda.pda_android.fragment.YzybhdsmFragment;
+import com.pda.pda_android.fragment.yzybhd.YzybhdendFragment;
+import com.pda.pda_android.fragment.yzybhd.YzybhdsdFragment;
+import com.pda.pda_android.fragment.yzybhd.YzybhdsmFragment;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
