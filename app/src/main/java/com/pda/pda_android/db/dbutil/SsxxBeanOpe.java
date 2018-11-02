@@ -95,6 +95,18 @@ public class SsxxBeanOpe {
         return builder.build().list();
     }
 
+    /**
+     * 按照唯一标志查找
+     *
+     * @param context
+     * @return
+     */
+    public static List<SsxxBean>  queryRecord_no(Context context,String Record_no) {
+        List<SsxxBean> checkBean= DbManager.getDaoSession(context).getSsxxBeanDao().queryBuilder().
+                where(SsxxBeanDao.Properties.Record_no.eq(Record_no)).list();
+        return checkBean;
+    }
+
 
 
     /**

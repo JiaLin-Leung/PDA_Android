@@ -9,11 +9,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.activity.UsersListActivity;
-import com.pda.pda_android.adapter.SsxxAdapter;
+//import com.pda.pda_android.adapter.SsxxAdapter;
 import com.pda.pda_android.base.BaseActivity;
-import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.db.Entry.SsxxUserInfoBean;
 import com.pda.pda_android.db.Entry.UserBean;
 
 import java.util.LinkedList;
@@ -35,7 +32,7 @@ public class SsxxInfomationActivity extends BaseActivity {
     private TextView num;
     private LinearLayout shaixuan;
     private ListView ssxxinfoamtion_listview;
-    private List<SsxxUserInfoBean> ssxxUserInfoBeanList;
+//    private List<SsxxUserInfoBean> ssxxUserInfoBeanList;
 
     @Override
     public int setLayoutId() {
@@ -79,22 +76,22 @@ public class SsxxInfomationActivity extends BaseActivity {
         num = findViewById(R.id.num);
         shaixuan = findViewById(R.id.shaixuan);
         ssxxinfoamtion_listview = findViewById(R.id.ssxxinfoamtion_listview);
-        ssxxUserInfoBeanList = new LinkedList<>();
-        for (int a = 0;a<10;a++){
-            SsxxUserInfoBean ssxxUserInfoBean = new SsxxUserInfoBean(null,"切除包皮","陈奕迅","2018-5-4 14:14:44","黄家驹的手术信息");
-            ssxxUserInfoBeanList.add(ssxxUserInfoBean);
-        }
-        ssxxinfoamtion_listview.setAdapter(new SsxxAdapter(SsxxInfomationActivity.this,ssxxUserInfoBeanList));
-        ssxxinfoamtion_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                SsxxUserInfoBean ssxxUserInfoBean = ssxxUserInfoBeanList.get(i);
-                Intent intent = new Intent(SsxxInfomationActivity.this,SsxxInfomationDetailActivity.class);
-                intent.putExtra("ssxxUserInfoBean",ssxxUserInfoBean);
-                startActivity(intent);
-            }
-        });
+//        ssxxUserInfoBeanList = new LinkedList<>();
+//        for (int a = 0;a<10;a++){
+//            SsxxUserInfoBean ssxxUserInfoBean = new SsxxUserInfoBean(null,"切除包皮","陈奕迅","2018-5-4 14:14:44","黄家驹的手术信息");
+//            ssxxUserInfoBeanList.add(ssxxUserInfoBean);
+//        }
+//        ssxxinfoamtion_listview.setAdapter(new SsxxAdapter(SsxxInfomationActivity.this,ssxxUserInfoBeanList));
+//        ssxxinfoamtion_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                SsxxUserInfoBean ssxxUserInfoBean = ssxxUserInfoBeanList.get(i);
+//                Intent intent = new Intent(SsxxInfomationActivity.this,SsxxInfomationDetailActivity.class);
+//                intent.putExtra("ssxxUserInfoBean",ssxxUserInfoBean);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     @Override
