@@ -1,4 +1,4 @@
-package com.pda.pda_android.adapter;
+package com.pda.pda_android.adapter.yzybhd;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,12 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder>{
+public class YzybhdSdAdapter extends RecyclerView.Adapter<YzybhdSdAdapter.ViewHolder>{
     private Context context;
     private LayoutInflater mLayoutInflater;
     private List<Bodybean.Body> list;
 
-    public JyBodyAdapter(Context context, List<Bodybean.Body> list) {
+    public YzybhdSdAdapter(Context context, List<Bodybean.Body> list) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
@@ -28,7 +28,7 @@ public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=mLayoutInflater.inflate(R.layout.jy_body,null);
+        View view=mLayoutInflater.inflate(R.layout.yzybhd_sd_body,null);
         return new ViewHolder(view);
     }
 
@@ -36,6 +36,7 @@ public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.name.setText(list.get(position).getName());
         holder.data.setText(list.get(position).getData());
+        holder.shebei.setText(list.get(position).getShebei());
         holder.project.setText(list.get(position).getProject());
     }
 
@@ -45,13 +46,14 @@ public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name,project,data;
+        TextView name,project,shebei,data;
 
 
         ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.user_name);
             project=itemView.findViewById(R.id.project);
+            shebei=itemView.findViewById(R.id.shebei);
             data=itemView.findViewById(R.id.data);
         }
     }

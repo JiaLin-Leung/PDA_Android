@@ -1,4 +1,4 @@
-package com.pda.pda_android.adapter;
+package com.pda.pda_android.adapter.yzybhd;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -22,13 +22,13 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 /**
  * Created by mac on 16-8-16.
  */
-public class JcDetailAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+public class YzybhdAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
     private Context context;
     private List<String> headList;
     private List<Bodybean> bodyList;
 
-    public JcDetailAdapter(Context context, List<Bodybean> bodyList) {
+    public YzybhdAdapter(Context context, List<Bodybean> bodyList) {
         this.context = context;
         this.bodyList=bodyList;
     }
@@ -73,7 +73,7 @@ public class JcDetailAdapter extends BaseAdapter implements StickyListHeadersAda
 
         BodyHolder bodyHolder = null;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.jc_list_body, viewGroup, false);
+            view = LayoutInflater.from(context).inflate(R.layout.yzybhd_sd_list_body, viewGroup, false);
             bodyHolder = new BodyHolder(view);
             view.setTag(bodyHolder);
         } else {
@@ -84,7 +84,7 @@ public class JcDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         bodyHolder.bodyrv.setHasFixedSize(true);
         bodyHolder.bodyrv.setNestedScrollingEnabled(false);
         //设置数据
-        bodyHolder.bodyrv.setAdapter(new JcBodyAdapter(context,bodyList.get(i).getBodyList()));
+        bodyHolder.bodyrv.setAdapter(new YzybhdSdAdapter(context,bodyList.get(i).getBodyList()));
 
         return view;
     }
@@ -95,7 +95,7 @@ public class JcDetailAdapter extends BaseAdapter implements StickyListHeadersAda
 
         HeadHolder headHolder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.jc_head, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.yzybhd_sd_head, parent, false);
             headHolder = new HeadHolder(convertView);
             convertView.setTag(headHolder);
         } else {
@@ -119,9 +119,9 @@ public class JcDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         private TextView headTv,item_num_tv;
         private LinearLayout item_shaixuan;
         public HeadHolder(View itemHeadView) {
-            item_num_tv=  itemHeadView.findViewById(R.id.item_num_tv);
-            headTv =  itemHeadView.findViewById(R.id.item_head_tv);
-            item_shaixuan=itemHeadView.findViewById(R.id.item_shaixuan);
+            item_num_tv=  itemHeadView.findViewById(R.id.ydybhd_sd_num);
+            headTv =  itemHeadView.findViewById(R.id.ydybhd_sd_head);
+            item_shaixuan=itemHeadView.findViewById(R.id.ydybhd_sd_shaixuan);
         }
     }
 
@@ -129,7 +129,7 @@ public class JcDetailAdapter extends BaseAdapter implements StickyListHeadersAda
     class BodyHolder {
         private RecyclerView bodyrv;
         public BodyHolder(View itemBodyView) {
-            bodyrv = (RecyclerView) itemBodyView.findViewById(R.id.rv);
+            bodyrv = (RecyclerView) itemBodyView.findViewById(R.id.yzybhd_sd_rv);
         }
     }
 

@@ -3,19 +3,15 @@ package com.pda.pda_android.activity.apps.detail;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.db.Entry.UserBean;
-import com.pda.pda_android.fragment.WjbqsendFragment;
-import com.pda.pda_android.fragment.WjbqssdFragment;
-import com.pda.pda_android.fragment.WjbqssmFragment;
-import com.pda.pda_android.fragment.YzybhdendFragment;
-import com.pda.pda_android.fragment.YzybhdsdFragment;
-import com.pda.pda_android.fragment.YzybhdsmFragment;
+import com.pda.pda_android.fragment.wjbqs.WjbqsendFragment;
+import com.pda.pda_android.fragment.wjbqs.WjbqssdFragment;
+import com.pda.pda_android.fragment.wjbqs.WjbqssmFragment;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
