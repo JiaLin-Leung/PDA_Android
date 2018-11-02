@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.YzybhdsdFragment">
+    tools:context=".fragment.WjbqssdFragment">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:id="@+id/refreshLayout1">
 
         <se.emilsjolander.stickylistheaders.StickyListHeadersListView
-            android:id="@+id/yzybhd_sd_list"
+            android:id="@+id/wsjqs_sd_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.YzybhdsmFragment">
+    tools:context=".fragment.YzybhdsmFragment"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
-    <!-- TODO: Update blank fragment layout -->
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:orientation="vertical"
+      android:gravity="center_horizontal">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="扫码" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="@color/text_color"
+        android:text="第一步：扫描瓶贴二维码" />
+    
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/yzpt_code"
+        android:layout_marginTop="20dp"
+        android:id="@+id/yzpt_code"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="75dp"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="@color/text_color"
+        android:text="第二步：扫描患者药框二维码或选择选择患者" />
 
-</FrameLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/yzhz_code"
+        android:layout_marginTop="20dp"
+        android:id="@+id/yzhz_code"/>
+  </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#d1d1d1"></View>
+<LinearLayout
+    android:id="@+id/select_hz"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/users"
+        android:layout_marginRight="8dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="47.5dp"
+        android:text="选择患者"
+        android:gravity="center"
+        android:textColor="@color/lanse"/>
+
+</LinearLayout>
+</LinearLayout>

@@ -32,13 +32,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-
+/**
+ * 检查检验
+ */
 public class JcjyListActivity extends BaseActivity {
     private TabLayout tablayout;
     private ViewPager viewpager;
     private TextView user_info;
     private ImageView users_all,user_name_up,user_name_down,title_back;
-    private List<CheckBean>  checkBean;
+    private String cw;
     @Override
     public int setLayoutId() {
         return R.layout.activity_jcjy_list;
@@ -120,9 +122,10 @@ public class JcjyListActivity extends BaseActivity {
             }
         });
         UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
-        checkBean = CheckBeanOpe.queryRecord_no(JcjyListActivity.this,userBean.getRecord_no());
+//        checkBean = CheckBeanOpe.queryRecord_no(JcjyListActivity.this,userBean.getRecord_no());
 //        checkBean = CheckBeanOpe.queryRecord_no(JcjyListActivity.this,"");
-        LogUtils.showLog("22223333",checkBean.toString());
+//        LogUtils.showLog("22223333",checkBean.toString());
+        cw=userBean.getRecord_no();
         user_info.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
         users_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +171,7 @@ public class JcjyListActivity extends BaseActivity {
     public void initData() {
 
     }
-    public List<CheckBean>  getcheckBean(){
-        return  checkBean;
+    public String  getcw(){
+        return  cw;
     }
 }

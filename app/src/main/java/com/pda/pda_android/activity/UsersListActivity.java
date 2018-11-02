@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.pda.pda_android.R;
@@ -39,6 +40,7 @@ public class UsersListActivity extends BaseActivity {
     private static String from;
     private UserAdapter adapter;
     private EditText et_search;
+    private ImageView iv_clear;
     @Override
     public int setLayoutId() {
         return R.layout.activity_users_list;
@@ -48,6 +50,7 @@ public class UsersListActivity extends BaseActivity {
     public void initView() {
         users_listview = findViewById(R.id.users_listview);
         et_search=findViewById(R.id.et_search);
+        iv_clear=findViewById(R.id.iv_clear);
     }
 
     @Override
@@ -60,22 +63,22 @@ public class UsersListActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 LogUtils.showLog("跳转标记",from);
                 if (from.equals("JCJY")){ //检查检验过来的
-                    UserBean userBean = user_list.get(i);
+                    UserBean userBean = adapter.user_list.get(i);
                     Intent intent = new Intent(UsersListActivity.this,JcjyListActivity.class);
                     intent.putExtra("userBean",userBean);
                     startActivity(intent);
                 }else if(from.equals("SSXX")){//手术信息过来的
-                    UserBean userBean = user_list.get(i);
+                    UserBean userBean = adapter.user_list.get(i);
                     Intent intent = new Intent(UsersListActivity.this,SsxxInfomationActivity.class);
                     intent.putExtra("userBean",userBean);
                     startActivity(intent);
                 }else if(from.equals("WJBQS")){//无菌包签收过来的
-                    UserBean userBean = user_list.get(i);
+                    UserBean userBean = adapter.user_list.get(i);
                     Intent intent = new Intent(UsersListActivity.this,WjbqsInfomationActivity.class);
                     intent.putExtra("userBean",userBean);
                     startActivity(intent);
                 }else if(from.equals("YZYBHD")){//医嘱药包核对过来的
-                    UserBean userBean = user_list.get(i);
+                    UserBean userBean = adapter.user_list.get(i);
                     Intent intent = new Intent(UsersListActivity.this,YzybhdDetailActivity.class);
                     intent.putExtra("userBean",userBean);
                     startActivity(intent);
@@ -92,6 +95,12 @@ public class UsersListActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 adapter.getFilter().filter(s.toString());
+            }
+        });
+        iv_clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_search.setText("");
             }
         });
     }
