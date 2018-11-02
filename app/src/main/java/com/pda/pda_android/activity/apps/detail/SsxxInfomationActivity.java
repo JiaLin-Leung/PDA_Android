@@ -1,17 +1,10 @@
 package com.pda.pda_android.activity.apps.detail;
 
-import android.view.View;
-
 import com.pda.pda_android.R;
-import com.pda.pda_android.adapter.JcDetailAdapter;
-import com.pda.pda_android.adapter.SsxxAdapter;
 import com.pda.pda_android.base.BaseActivity;
-import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.bean.Bodybean;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.SsxxBean;
 import com.pda.pda_android.db.Entry.UserBean;
-import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.pda.pda_android.db.dbutil.SsxxBeanOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -33,7 +26,7 @@ public class SsxxInfomationActivity extends BaseActivity {
     private RefreshLayout refreshLayout;
     private  List<CheckBean> checkBeanList=new ArrayList<>();
     private  String cw;
-    private SsxxAdapter adapter;
+//    private SsxxAdapter adapter;
     private UserBean userBean;
     private String record_no;
     private List<SsxxBean> list;
@@ -56,13 +49,6 @@ public class SsxxInfomationActivity extends BaseActivity {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(SsxxInfomationActivity.this));
-//        List<CheckBean> listBeans = CheckBeanOpe.queryRecord_no(SsxxInfomationActivity.this,cw);
-//        LogUtils.showLog("7676",listBeans.toString());
-//        for (int i=0;i<listBeans.size();i++){
-//            if (cw.equals(listBeans.get(i).getRecord_no())){
-//                checkBeanList.add(listBeans.get(i));
-//            }
-//        }
     }
 
     @Override
@@ -70,7 +56,7 @@ public class SsxxInfomationActivity extends BaseActivity {
         userBean = (UserBean) getIntent().getSerializableExtra("userBean");
         record_no = userBean.getRecord_no();
         list = SsxxBeanOpe.queryRecord_no(SsxxInfomationActivity.this,record_no);
-//        adapter = new SsxxAdapter();
+//        adapter = new SsxxAdapter(SsxxInfomationActivity.this,list);
 //        stickyListHeadersListView.setAdapter(adapter);
     }
 }
