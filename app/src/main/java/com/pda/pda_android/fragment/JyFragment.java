@@ -20,7 +20,9 @@ import java.util.List;
 import androidx.fragment.app.Fragment;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
-
+/**
+ * 检验
+ */
 public class JyFragment extends Fragment {
     private StickyListHeadersListView stickyListHeadersListView;
     private JyDetailAdapter mainAdapter;

@@ -27,6 +27,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+/**
+ * 医嘱药包核对
+ */
 
 public class YzybhdDetailActivity extends BaseActivity {
     private TabLayout tablayout;
@@ -102,17 +105,6 @@ public class YzybhdDetailActivity extends BaseActivity {
         //getChildFragmentManager() 防止内层Fragment数据丢失
         viewpager.setAdapter(new TabAdapter(fragmentManager));
         tablayout.setupWithViewPager(viewpager);
-        tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
         UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
         user_info.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
         users_all.setOnClickListener(new View.OnClickListener() {
@@ -133,15 +125,12 @@ public class YzybhdDetailActivity extends BaseActivity {
     String[] titles = {"扫码核对", "手动核对","已核对"};
 
     private class TabAdapter extends FragmentPagerAdapter {
-
-
         public TabAdapter(FragmentManager fm) {
             super(fm);
             fragmentList.add(new YzybhdsmFragment());
             fragmentList.add(new YzybhdsdFragment());
             fragmentList.add(new YzybhdendFragment());
         }
-
         @Override
         public Fragment getItem(int position) {
             return fragmentList.get(position);

@@ -1,6 +1,8 @@
 package com.pda.pda_android.fragment;
 
 import androidx.fragment.app.Fragment;
+import okhttp3.Call;
+import okhttp3.Response;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 import android.content.Context;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.MainActivity;
 import com.pda.pda_android.activity.UsersListActivity;
@@ -18,17 +21,25 @@ import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.adapter.JcDetailAdapter;
 import com.pda.pda_android.adapter.JyDetailAdapter;
 import com.pda.pda_android.base.BaseFragment;
+import com.pda.pda_android.base.network.LoadCallBack;
+import com.pda.pda_android.base.network.OkHttpManager;
+import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.Bodybean;
 import com.pda.pda_android.db.Entry.CheckBean;
+import com.pda.pda_android.db.Entry.CheckListBean;
 import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 检查
+ */
 
 public class JcFragment extends BaseFragment {
 
@@ -37,7 +48,9 @@ public class JcFragment extends BaseFragment {
     private List<Bodybean> bodyList;
     //下拉控件
     private RefreshLayout refreshLayout;
-    private  List<CheckBean> checkBeanList;
+    private  List<CheckBean> checkBeanList=new ArrayList<>();
+    //床位
+    private  String cw;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,12 +68,25 @@ public class JcFragment extends BaseFragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        getHttp();
 
+        return  view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        cw = ((JcjyListActivity) context).getcw();
+    }
+
+    @Override
+    public void initData() {
         //设置内容的数据
         bodyList = new ArrayList<>();
         LogUtils.showLog("3333333",checkBeanList.size()+"");
         int size=checkBeanList.size();
         List<Bodybean.Body> list = null;
+
         for (int i=0;i<size;i++){
             Bodybean bodybean=new Bodybean();
             bodybean.setTitle(checkBeanList.get(i).getDate());
@@ -126,9 +152,7 @@ public class JcFragment extends BaseFragment {
 //        }
         LogUtils.showLog("dbj",bodyList.toString());
         mainAdapter = new JcDetailAdapter(getActivity(),bodyList);
-//        stickyListHeadersListView.setHasFixedSize(true);
 
-//        mainAdapter.setBodyList(bodyList);
 
         //设置头部的点击事件
         stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
@@ -157,17 +181,6 @@ public class JcFragment extends BaseFragment {
         });
 
         stickyListHeadersListView.setAdapter(mainAdapter);
-        return  view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        checkBeanList = ((JcjyListActivity) context).getcheckBean();
-    }
-
-    @Override
-    public void initData() {
     }
 
     @Override
@@ -179,5 +192,31 @@ public class JcFragment extends BaseFragment {
     public int getlayout() {
         return R.layout.fragment_jc;
     }
+    //请求网络获取数据
+    private void getHttp() {
 
+        OkHttpManager.getInstance().getRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getUsersCheckList,
+                new LoadCallBack<String>(getActivity(),false) {
+                    @Override
+                    protected void onFailure(Call call, IOException e) {
+                        LogUtils.showLog("患者检查列表同步数据失败");
+                    }
+
+                    @Override
+                    protected void onSuccess(Call call, Response response, String s) throws IOException {
+                        if (s.contains("\"response\": \"ok\"")) {
+                            LogUtils.showLog("患者检查列表同步数据", s);
+                            Gson gson = new Gson();
+                            CheckListBean usersCheckListBean = gson.fromJson(s, CheckListBean.class);
+                            List<CheckBean> list = usersCheckListBean.getData();
+                          for (int i=0;i<list.size();i++){
+                              if (cw.equals(list.get(i).getRecord_no())){
+                                  checkBeanList.add(list.get(i));
+                              }
+                          }
+                            initData();
+                        }
+                    }
+                });
+    }
 }
