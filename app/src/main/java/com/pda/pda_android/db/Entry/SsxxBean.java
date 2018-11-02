@@ -57,4 +57,14 @@ public class SsxxBean implements Serializable {
     public void setList(List<SsxxBeanListBean> list) {
         this.list = list;
     }
+
+    @Override
+    public String toString() {
+        return "SsxxBean{" +
+                "id=" + id +
+                ", date='" + date + '\'' +
+                ", record_no='" + record_no + '\'' +
+                ", list=" + list +
+                '}';
+    }
 }

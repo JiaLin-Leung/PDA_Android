@@ -1,75 +1,136 @@
-//package com.pda.pda_android.adapter;
-//
-//import android.content.Context;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//import android.widget.BaseAdapter;
-//import android.widget.TextView;
-//
-//import com.pda.pda_android.R;
-//
-//import java.util.List;
-//
-///**
-// * 梁佳霖创建于：2018/10/30 18:42
-// * 功能：手术信息适配器
-// */
-//public class SsxxAdapter  extends BaseAdapter {
-//
-//    private LayoutInflater mInflater;
-//    private List<SsxxUserInfoBean> user_list;
-//
-//    public SsxxAdapter(Context context, List<SsxxUserInfoBean> user_list)
-//    {
-//        this.user_list = user_list;
-//        mInflater = LayoutInflater.from(context);
-//    }
-//    @Override
-//    public int getCount() {
-//        return user_list.size();
-//    }
-//
-//    @Override
-//    public Object getItem(int i) {
-//        return user_list.get(i);
-//    }
-//
-//    @Override
-//    public long getItemId(int i) {
-//        return i;
-//    }
-//
-//    @Override
-//    public View getView(int position, View convertView, ViewGroup viewGroup) {
-//        SsxxAdapter.ViewHolder holder = null;
-//        // 判断是否缓存
-//        if (convertView == null)
-//        {
-//            holder = new SsxxAdapter.ViewHolder();
-//            convertView = mInflater.inflate(R.layout.item_sxxinfamation, null);
-//            holder.shoushu_user = (TextView) convertView.findViewById(R.id.shoushu_user);
-//            holder.shoushu_name = (TextView) convertView.findViewById(R.id.shoushu_name);
-//            holder.shoushu_docter = (TextView) convertView.findViewById(R.id.shoushu_docter);
-//            holder.shoushu_time = (TextView) convertView.findViewById(R.id.shoushu_time);
-//            convertView.setTag(holder);
-//        }
-//        else
-//        {
-//            holder = (SsxxAdapter.ViewHolder) convertView.getTag();
-//        }
-//
-//        holder.shoushu_user.setText(user_list.get(position).getShoushu_user());
-//        holder.shoushu_name.setText(user_list.get(position).getShoushu_name());
-//        holder.shoushu_docter.setText(user_list.get(position).getShoushu_docter());
-//        holder.shoushu_time.setText(user_list.get(position).getShoushu_time());
-//
-//        return convertView;
-//    }
-//    public final class ViewHolder{
-//        public TextView shoushu_user;
-//        public TextView shoushu_name;
-//        public TextView shoushu_docter;
-//        public TextView shoushu_time;
-//    }
-//}
+package com.pda.pda_android.adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.pda.pda_android.R;
+import com.pda.pda_android.bean.Bodybean;
+
+import java.util.List;
+
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
+
+/**
+ * Created by mac on 16-8-16.
+ */
+public class SsxxAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+
+    private Context context;
+    private List<String> headList;
+    private List<Bodybean> bodyList;
+
+    public SsxxAdapter(Context context, List<Bodybean> bodyList) {
+        this.context = context;
+        this.bodyList=bodyList;
+    }
+
+    public void setHeadList(List<String> headList) {
+        this.headList = headList;
+        notifyDataSetChanged();
+    }
+
+    public void setBodyList(List<Bodybean> bodyList) {
+        this.bodyList = bodyList;
+        notifyDataSetChanged();
+    }
+
+    //设置数据的个数
+    @Override
+    public int getCount() {
+        return bodyList.size();
+    }
+
+    //设置item的条数
+    @Override
+    public Object getItem(int i) {
+        return bodyList.get(i).getBodyList().size();
+    }
+
+    //获得相应数据集合中特定位置的数据项
+    @Override
+    public long getItemId(int i) {
+        return i;
+    }
+
+    //获得头部相应数据集合中特定位置的数据项
+    @Override
+    public long getHeaderId(int position) {
+        return position;
+    }
+
+    //绑定内容的数据
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+
+        BodyHolder bodyHolder = null;
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.jc_list_body, viewGroup, false);
+            bodyHolder = new BodyHolder(view);
+            view.setTag(bodyHolder);
+        } else {
+            bodyHolder = (BodyHolder) view.getTag();
+        }
+        bodyHolder.bodyrv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+        bodyHolder.bodyrv.setItemAnimator(new DefaultItemAnimator());
+        bodyHolder.bodyrv.setHasFixedSize(true);
+        bodyHolder.bodyrv.setNestedScrollingEnabled(false);
+        //设置数据
+        bodyHolder.bodyrv.setAdapter(new JcBodyAdapter(context,bodyList.get(i).getBodyList()));
+
+        return view;
+    }
+
+    //绑定头部的数据
+    @Override
+    public View getHeaderView(final int position, View convertView, ViewGroup parent) {
+
+        HeadHolder headHolder = null;
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.jc_head, parent, false);
+            headHolder = new HeadHolder(convertView);
+            convertView.setTag(headHolder);
+        } else {
+            headHolder = (HeadHolder) convertView.getTag();
+        }
+        //设置数据
+        headHolder.headTv.setText(bodyList.get(position).getTitle());
+        headHolder.item_num_tv.setText("总共"+bodyList.get(position).getBodyList().size()+"条");
+        headHolder.item_shaixuan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,bodyList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+            }
+        });
+        return convertView;
+    }
+
+
+    //头部的内部类
+    class HeadHolder {
+        private TextView headTv,item_num_tv;
+        private LinearLayout item_shaixuan;
+        public HeadHolder(View itemHeadView) {
+            item_num_tv=  itemHeadView.findViewById(R.id.item_num_tv);
+            headTv =  itemHeadView.findViewById(R.id.item_head_tv);
+            item_shaixuan=itemHeadView.findViewById(R.id.item_shaixuan);
+        }
+    }
+
+    //内容的内部类
+    class BodyHolder {
+        private RecyclerView bodyrv;
+        public BodyHolder(View itemBodyView) {
+            bodyrv = (RecyclerView) itemBodyView.findViewById(R.id.rv);
+        }
+    }
+
+}
