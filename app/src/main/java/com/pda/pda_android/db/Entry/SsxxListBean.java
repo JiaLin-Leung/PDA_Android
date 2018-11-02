@@ -4,10 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 梁佳霖创建于：2018/11/1 11:11
+ * 梁佳霖创建于：2018/11/2 16:40
  * 功能：
  */
 public class SsxxListBean implements Serializable {
+
     private String error;
     private String message;
     private String next;

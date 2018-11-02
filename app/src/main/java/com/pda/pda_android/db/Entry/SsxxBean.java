@@ -4,15 +4,15 @@ import com.pda.pda_android.db.converter.SsxxBeanListBean_Converter;
 
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 
 import java.io.Serializable;
 import java.util.List;
-import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * 梁佳霖创建于：2018/11/1 11:12
- * 功能：手术信息数据库
+ * 功能：
  */
 @Entity
 public class SsxxBean implements Serializable {
@@ -20,12 +20,14 @@ public class SsxxBean implements Serializable {
     private Long id;
     static final long serialVersionUID = -15515456L;
     private String date;
+    private String record_no;
     @Convert(columnType = String.class, converter = SsxxBeanListBean_Converter.class)
     private List<SsxxBeanListBean> list;
-    @Generated(hash = 1175333220)
-    public SsxxBean(Long id, String date, List<SsxxBeanListBean> list) {
+    @Generated(hash = 1337485018)
+    public SsxxBean(Long id, String date, String record_no, List<SsxxBeanListBean> list) {
         this.id = id;
         this.date = date;
+        this.record_no = record_no;
         this.list = list;
     }
     @Generated(hash = 312124334)
@@ -42,6 +44,12 @@ public class SsxxBean implements Serializable {
     }
     public void setDate(String date) {
         this.date = date;
+    }
+    public String getRecord_no() {
+        return this.record_no;
+    }
+    public void setRecord_no(String record_no) {
+        this.record_no = record_no;
     }
     public List<SsxxBeanListBean> getList() {
         return this.list;

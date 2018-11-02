@@ -4,43 +4,10 @@ import java.io.Serializable;
 
 /**
  * 梁佳霖创建于：2018/11/1 11:15
- * 功能：手术信息
+ * 功能：
  */
 public class SsxxBeanListBean implements Serializable {
 
-    /**
-     * 			"xhhs_code": null,
-     * 			"xhhs_name": null,
-     * 			"operdiag": "食管下段癌",
-     * 			"operdiag_after": "食管下段癌",
-     * 			"hisappform": null,
-     * 			"mzfs": "局麻",
-     * 			"mzys_code": null,
-     * 			"mzys_name": null,
-     * 			"operscale": null,
-     * 			"operstate": "术后",
-     * 			"djtime": "2018-05-17 15:08:00",
-     * 			"operxh": null,
-     * 			"record_no": "0000485289",
-     * 			"patient_no": "ZY010000485289",
-     * 			"ward_code": "2063",
-     * 			"ward_name": null,
-     * 			"operid": "1",
-     * 			"oper_name": "经腔插管消化道造影+经鼻腔食管瘘胃空肠营养管置入术",
-     * 			"oper_code": null,
-     * 			"yytime": "2018-05-17 15:10:00",
-     * 			"inoper_time": "2018-05-17 15:10:00",
-     * 			"endoper_time": "2018-05-17 15:55:00",
-     * 			"outoper_time": "2018-05-17 16:00:00",
-     * 			"inpacu_time": null,
-     * 			"outpacu_time": null,
-     * 			"oper_roomno": "DSA2",
-     * 			"sequence_no": "6",
-     * 			"surgeon_name": "陈呈世",
-     * 			"surgeon_code"
-     */
-
-    private String xhhs_code;
     private String xhhs_name;
     private String operdiag;
     private String operdiag_after;
@@ -73,8 +40,7 @@ public class SsxxBeanListBean implements Serializable {
     @Override
     public String toString() {
         return "SsxxBeanListBean{" +
-                "xhhs_code='" + xhhs_code + '\'' +
-                ", xhhs_name='" + xhhs_name + '\'' +
+                "xhhs_name='" + xhhs_name + '\'' +
                 ", operdiag='" + operdiag + '\'' +
                 ", operdiag_after='" + operdiag_after + '\'' +
                 ", hisappform='" + hisappform + '\'' +
@@ -103,14 +69,6 @@ public class SsxxBeanListBean implements Serializable {
                 ", surgeon_name='" + surgeon_name + '\'' +
                 ", surgeon_code='" + surgeon_code + '\'' +
                 '}';
-    }
-
-    public String getXhhs_code() {
-        return xhhs_code;
-    }
-
-    public void setXhhs_code(String xhhs_code) {
-        this.xhhs_code = xhhs_code;
     }
 
     public String getXhhs_name() {

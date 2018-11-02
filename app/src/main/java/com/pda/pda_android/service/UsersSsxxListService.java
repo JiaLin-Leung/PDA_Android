@@ -14,8 +14,11 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.db.Entry.CheckBean;
+import com.pda.pda_android.db.Entry.CheckListBean;
 import com.pda.pda_android.db.Entry.SsxxBean;
 import com.pda.pda_android.db.Entry.SsxxListBean;
+import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.pda.pda_android.db.dbutil.SsxxBeanOpe;
 
 import java.io.IOException;
@@ -94,39 +97,21 @@ public class UsersSsxxListService extends Service {
 
                     @Override
                     protected void onSuccess(Call call, Response response, String s) throws IOException {
+                        if (s.contains("\"response\": \"ok\"")) {
+                            LogUtils.showLog("患者手术信息列表同步数据", s);
+                            SsxxBeanOpe.deleteAllData(context);
+                            Gson gson = new Gson();
+                            SsxxListBean ssxxListBean = gson.fromJson(s, SsxxListBean.class);
+                            List<SsxxBean> listBeanData = ssxxListBean.getData();
+                            SsxxBeanOpe.insertData(context, listBeanData);
+                        }else{
+                            handler.removeMessages(DOINTERNET);
+                        }
                     }
 
                 });
     }
 
-
-//    //请求网络获取数据
-//    private void getHttp() {
-//        String url = ContentUrl.TestUrl_local+ContentUrl.getUsersList;
-//        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
-//            @Override
-//            public void onError(Call call, Exception e) {
-//                getHttp();
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, String s) {
-//                UserDaoOpe.deleteAllData(context);
-//                LogUtils.showLog("患者列表同步数据", s);
-//                UserDaoOpe.deleteAllData(context);
-//                Gson gson = new Gson();
-//                UsersListBean usersListBeanList = gson.fromJson(s, UsersListBean.class);
-//                List<UserBean> userBeans = usersListBeanList.getData();
-//                int a = usersListBeanList.getData().size();
-//                UserDaoOpe.insertData(context, userBeans);
-//                Long bbb = 123123L;
-//                for (int i = 0; i < a; i++) {
-//                    userBeans.get(i).setId(bbb + i + 100);
-//                    UserDaoOpe.insertData(context, userBeans.get(i));
-//                }
-//            }
-//        });
-//    }
 
     @Override
     public void onDestroy() {
