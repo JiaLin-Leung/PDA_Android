@@ -8,8 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.bean.JcBodybean;
-import com.pda.pda_android.bean.JyBodybean;
+import com.pda.pda_android.db.Entry.AssayBeanListBean;
 
 import java.util.List;
 
@@ -20,12 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder>{
     private Context context;
     private LayoutInflater mLayoutInflater;
-    private List<JyBodybean.Body> list;
-
-    public JyBodyAdapter(Context context, List<JyBodybean.Body> list) {
+    private List<AssayBeanListBean> list;
+    private String name;
+    public JyBodyAdapter(Context context, List<AssayBeanListBean> list,String name) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
+        this.name=name;
     }
     @NonNull
     @Override
@@ -36,9 +36,9 @@ public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.name.setText(list.get(position).getName());
-        holder.data.setText(list.get(position).getData());
-        holder.project.setText(list.get(position).getProject());
+        holder.name.setText(name);
+        holder.data.setText(list.get(position).getJydate());
+        holder.project.setText(list.get(position).getXmmc());
         holder.jy_rootview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -10,8 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.bean.JcBodybean;
-import com.pda.pda_android.bean.JyBodybean;
+import com.pda.pda_android.db.Entry.AssayBean;
 
 import java.util.List;
 
@@ -27,11 +26,12 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
 
     private Context context;
     private List<String> headList;
-    private List<JyBodybean> bodyList;
-
-    public JyDetailAdapter(Context context, List<JyBodybean> bodyList) {
+    private List<AssayBean> bodyList;
+    private String name;
+    public JyDetailAdapter(Context context, List<AssayBean> bodyList,String name) {
         this.context = context;
         this.bodyList=bodyList;
+        this.name=name;
     }
 
     public void setHeadList(List<String> headList) {
@@ -39,7 +39,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         notifyDataSetChanged();
     }
 
-    public void setBodyList(List<JyBodybean> bodyList) {
+    public void setBodyList(List<AssayBean> bodyList) {
         this.bodyList = bodyList;
         notifyDataSetChanged();
     }
@@ -53,7 +53,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
     //设置item的条数
     @Override
     public Object getItem(int i) {
-        return bodyList.get(i).getBodyList().size();
+        return bodyList.get(i).getList().size();
     }
 
     //获得相应数据集合中特定位置的数据项
@@ -85,7 +85,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         bodyHolder.bodyrv.setHasFixedSize(true);
         bodyHolder.bodyrv.setNestedScrollingEnabled(false);
         //设置数据
-        bodyHolder.bodyrv.setAdapter(new JyBodyAdapter(context,bodyList.get(i).getBodyList()));
+        bodyHolder.bodyrv.setAdapter(new JyBodyAdapter(context,bodyList.get(i).getList(),name));
 
         return view;
     }
@@ -103,12 +103,12 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
             headHolder = (HeadHolder) convertView.getTag();
         }
         //设置数据
-        headHolder.headTv.setText(bodyList.get(position).getTitle());
-        headHolder.item_num_tv.setText("共"+bodyList.get(position).getBodyList().size()+"条");
+        headHolder.headTv.setText(bodyList.get(position).getDate());
+        headHolder.item_num_tv.setText("共"+bodyList.get(position).getList().size()+"条");
         headHolder.item_shaixuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,bodyList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,bodyList.get(position).getDate(),Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;

@@ -9,16 +9,12 @@ import android.view.ViewGroup;
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.adapter.jcjy.JyDetailAdapter;
-import com.pda.pda_android.bean.JcBodybean;
-import com.pda.pda_android.bean.JyBodybean;
+import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.db.Entry.AssayBean;
-import com.pda.pda_android.db.Entry.AssayDetailBean;
 import com.pda.pda_android.db.dbutil.AssayBeanOpe;
-import com.pda.pda_android.db.dbutil.AssayDetailDaoOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +27,10 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class JyFragment extends Fragment {
     private StickyListHeadersListView stickyListHeadersListView;
     private JyDetailAdapter mainAdapter;
-    private List<JyBodybean> bodyList;
     //下拉控件
     private RefreshLayout refreshLayout;
     //住院号  名字
-    private  String cw,name;
+    private  String Patient_no,name;
     private List<AssayBean> assayBeans;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,74 +49,9 @@ public class JyFragment extends Fragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        assayBeans=  AssayBeanOpe.queryRecord_no(getActivity(),cw);
-        int size=assayBeans.size();
-        //设置内容的数据
-        bodyList = new ArrayList<>();
-        List<JyBodybean.Body> list;
-        for (int i=0;i<size;i++){
-            JyBodybean bodybean=new JyBodybean();
-            bodybean.setTitle(assayBeans.get(i).getDate());
-            list=new ArrayList<>();
-            for (int j=0;j<assayBeans.get(i).getList().size();j++){
-                JyBodybean.Body body= new JyBodybean.Body();
-                body.setProject(assayBeans.get(i).getList().get(j).getXmmc());
-                body.setData(assayBeans.get(i).getList().get(j).getJydate());
-                body.setName(name+" 的检查结果");
-                list.add(body);
-            }
-            bodybean.setBodyList(list);
-            bodyList.add(bodybean);
-        }
-
-//        for (int i = 0; i < 10; i++) {
-//            JcBodybean bodybean=new JcBodybean();
-//            bodybean.setTitle("2018-6-"+i);
-//            list=new ArrayList<>();
-//            if (i==1){
-//                for (int j=0;j<5;j++){
-//                    JcBodybean.Body body= new JcBodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6-" + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }else if (i==2){
-//                for (int j=0;j<3;j++){
-//                    JcBodybean.Body body=  new JcBodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6- " + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }else if (i==3){
-//                for (int j=0;j<2;j++){
-//                    JcBodybean.Body body=  new JcBodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6- " + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }else {
-//                for (int j=0;j<5;j++){
-//                    JcBodybean.Body body=  new JcBodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6- " + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }
-//            bodyList.add(bodybean);
-//        }
-        mainAdapter = new JyDetailAdapter(getActivity(),bodyList);
+        assayBeans=  AssayBeanOpe.queryPATIENT_NO(getActivity(),Patient_no);
+        LogUtils.showLog("jy_shuju",assayBeans.toString());
+        mainAdapter = new JyDetailAdapter(getActivity(),assayBeans,name+" 的检查结果");
 
 //        //设置头部的点击事件
 //        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
@@ -154,7 +84,7 @@ public class JyFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        cw = ((JcjyListActivity) context).getcw();
+        Patient_no = ((JcjyListActivity) context).getPatient_no();
         name = ((JcjyListActivity) context).getname();
     }
 }

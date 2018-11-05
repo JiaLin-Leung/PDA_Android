@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.bean.JcBodybean;
+import com.pda.pda_android.db.Entry.CheckBeanListBean;
 
 import java.util.List;
 
@@ -21,12 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class JcBodyAdapter extends RecyclerView.Adapter<JcBodyAdapter.ViewHolder>{
     private Context context;
     private LayoutInflater mLayoutInflater;
-    private List<JcBodybean.Body> list;
-
-    public JcBodyAdapter(Context context, List<JcBodybean.Body> list) {
+    private List<CheckBeanListBean> list;
+    private String name;
+    public JcBodyAdapter(Context context, List<CheckBeanListBean> list,String name) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
+        this.name=name;
     }
     @NonNull
     @Override
@@ -37,14 +38,14 @@ public class JcBodyAdapter extends RecyclerView.Adapter<JcBodyAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.name.setText(list.get(position).getName());
-        holder.data.setText(list.get(position).getData());
-        holder.shebei.setText(list.get(position).getShebei());
-        holder.project.setText(list.get(position).getProject());
+        holder.name.setText(name);
+        holder.data.setText(list.get(position).getJcdate());
+        holder.shebei.setText(list.get(position).getDevicetype());
+        holder.project.setText(list.get(position).getItem_name());
         holder.jc_rootview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,list.get(position).getName(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,name,Toast.LENGTH_SHORT).show();
             }
         });
     }

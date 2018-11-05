@@ -12,8 +12,6 @@ import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.adapter.jcjy.JcDetailAdapter;
 import com.pda.pda_android.base.BaseFragment;
-import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.bean.JcBodybean;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -31,7 +29,6 @@ public class JcFragment extends BaseFragment {
 
     private StickyListHeadersListView stickyListHeadersListView;
     private JcDetailAdapter mainAdapter;
-    private List<JcBodybean> bodyList;
     //下拉控件
     private RefreshLayout refreshLayout;
     private  List<CheckBean> checkBeanList=new ArrayList<>();
@@ -54,13 +51,8 @@ public class JcFragment extends BaseFragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-//        List<CheckBean> listBeans = CheckBeanOpe.queryRecord_no(getActivity(),cw);
         checkBeanList = CheckBeanOpe.queryRecord_no(getActivity(),cw);
-//        for (int i=0;i<listBeans.size();i++){
-//            if (cw.equals(listBeans.get(i).getRecord_no())){
-//                checkBeanList.add(listBeans.get(i));
-//            }
-//        }
+
         initData();
         return  view;
     }
@@ -74,28 +66,7 @@ public class JcFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        //设置内容的数据
-        bodyList = new ArrayList<>();
-        int size=checkBeanList.size();
-        List<JcBodybean.Body> list = null;
-
-        for (int i=0;i<size;i++){
-            JcBodybean bodybean=new JcBodybean();
-            bodybean.setTitle(checkBeanList.get(i).getDate());
-            list=new ArrayList<>();
-            for (int j=0;j<checkBeanList.get(i).getList().size();j++){
-                JcBodybean.Body body= new JcBodybean.Body();
-                body.setProject(checkBeanList.get(i).getList().get(j).getItem_name());
-                body.setData(checkBeanList.get(i).getList().get(j).getJcdate());
-                body.setName(name+" 的检查结果");
-                body.setShebei(checkBeanList.get(i).getList().get(j).getDevicetype());
-                list.add(body);
-            }
-            bodybean.setBodyList(list);
-            bodyList.add(bodybean);
-        }
-        LogUtils.showLog("dbj",bodyList.toString());
-        mainAdapter = new JcDetailAdapter(getActivity(),bodyList);
+        mainAdapter = new JcDetailAdapter(getActivity(),checkBeanList,name+" 的检查结果");
         //设置头部的点击事件
 //        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
 //            @Override

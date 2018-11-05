@@ -9,9 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.adapter.yzybhd.YzybhdAdapter;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.bean.JcBodybean;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -29,8 +27,8 @@ public class YzybhdsdFragment extends Fragment {
     //下拉控件
     private RefreshLayout refreshLayout;
     private StickyListHeadersListView stickyListHeadersListView;
-    private List<JcBodybean> bodyList;
-    private YzybhdAdapter yzybhdAdapter;
+//    private List<JcBodybean> bodyList;
+//    private YzybhdAdapter yzybhdAdapter;
     public YzybhdsdFragment() {
         // Required empty public constructor
     }
@@ -62,57 +60,57 @@ public class YzybhdsdFragment extends Fragment {
 
     private void initdata() {
         //设置内容的数据
-        bodyList = new ArrayList<>();
-        List<JcBodybean.Body> list = null;
-        for (int i = 0; i < 3; i++) {
-            JcBodybean bodybean=new JcBodybean();
-            bodybean.setTitle("题目"+i);
-            list=new ArrayList<>();
-            if (i==1){
-                for (int j=0;j<5;j++){
-                    JcBodybean.Body body= new JcBodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6-" + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
-            }else if (i==2){
-                for (int j=0;j<8;j++){
-                    JcBodybean.Body body=  new JcBodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6- " + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
-            }else if (i==3){
-                for (int j=0;j<2;j++){
-                    JcBodybean.Body body=  new JcBodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6- " + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
-            }else {
-                for (int j=0;j<5;j++){
-                    JcBodybean.Body body=  new JcBodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6- " + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
-            }
-            bodyList.add(bodybean);
-        }
-        LogUtils.showLog("dbj",bodyList.toString());
-        yzybhdAdapter = new YzybhdAdapter(getActivity(),bodyList);
+//        bodyList = new ArrayList<>();
+//        List<JcBodybean.Body> list = null;
+//        for (int i = 0; i < 3; i++) {
+//            JcBodybean bodybean=new JcBodybean();
+//            bodybean.setTitle("题目"+i);
+//            list=new ArrayList<>();
+//            if (i==1){
+//                for (int j=0;j<5;j++){
+//                    JcBodybean.Body body= new JcBodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6-" + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }else if (i==2){
+//                for (int j=0;j<8;j++){
+//                    JcBodybean.Body body=  new JcBodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6- " + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }else if (i==3){
+//                for (int j=0;j<2;j++){
+//                    JcBodybean.Body body=  new JcBodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6- " + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }else {
+//                for (int j=0;j<5;j++){
+//                    JcBodybean.Body body=  new JcBodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6- " + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }
+//            bodyList.add(bodybean);
+//        }
+//        LogUtils.showLog("dbj",bodyList.toString());
+//        yzybhdAdapter = new YzybhdAdapter(getActivity(),bodyList);
         //设置头部的点击事件
         stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
             @Override
@@ -139,7 +137,7 @@ public class YzybhdsdFragment extends Fragment {
             }
         });
 
-        stickyListHeadersListView.setAdapter(yzybhdAdapter);
+//        stickyListHeadersListView.setAdapter(yzybhdAdapter);
     }
 
 }
