@@ -98,7 +98,7 @@ public class UsersListService extends Service {
                     protected void onSuccess(Call call, Response response, String s) throws IOException {
                         if (s.contains("\"response\": \"ok\"")) {
                             UserDaoOpe.deleteAllData(context);
-                            LogUtils.showLog("患者列表同步数据", s);
+                            LogUtils.showLog(ContentUrl.getUsersList+"----患者列表同步数据", s);
                             UserDaoOpe.deleteAllData(context);
                             Gson gson = new Gson();
                             UsersListBean usersListBeanList = gson.fromJson(s, UsersListBean.class);
