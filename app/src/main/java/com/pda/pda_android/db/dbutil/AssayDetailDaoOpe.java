@@ -3,7 +3,9 @@ package com.pda.pda_android.db.dbutil;
 import android.content.Context;
 
 import com.pda.pda_android.db.Entry.AssayDetailBeanBean;
+import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.dao.AssayDetailBeanBeanDao;
+import com.pda.pda_android.db.dao.CheckBeanDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
@@ -95,8 +97,17 @@ public class AssayDetailDaoOpe {
         return builder.build().list();
     }
 
-
-
+    /**
+     * 根据patient_no查询某一条信息的详情
+     *
+     * @param context
+     * @return
+     */
+    public static List<AssayDetailBeanBean> queryAllByPatient_no(Context context,String patient_no) {
+        List<AssayDetailBeanBean> checkBean= DbManager.getDaoSession(context).getAssayDetailBeanBeanDao().queryBuilder().
+                where(AssayDetailBeanBeanDao.Properties.Patient_no.eq(patient_no)).list();
+        return checkBean;
+    }
     /**
      *  分页加载
      * @param context

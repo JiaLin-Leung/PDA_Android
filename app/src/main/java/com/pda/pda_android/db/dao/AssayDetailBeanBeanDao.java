@@ -77,6 +77,9 @@ public class AssayDetailBeanBeanDao extends AbstractDao<AssayDetailBeanBean, Lon
                 "\"BGYS_CODE\" TEXT," + // 16: bgys_code
                 "\"BGYS_NAME\" TEXT," + // 17: bgys_name
                 "\"SQXH\" TEXT);"); // 18: sqxh
+        // Add Indexes
+        db.execSQL("CREATE INDEX " + constraint + "IDX_ASSAY_DETAIL_BEAN_BEAN_PATIENT_NO ON ASSAY_DETAIL_BEAN_BEAN" +
+                " (\"PATIENT_NO\" ASC);");
     }
 
     /** Drops the underlying database table. */

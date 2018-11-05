@@ -3,12 +3,13 @@ package com.pda.pda_android.db.Entry;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
 
 import java.io.Serializable;
 
 /**
  * 梁佳霖创建于：2018/10/30 11:32
- * 功能：用户bean（数据表字段对应）
+ * 功能：患者检验详情字段（数据表字段对应）
  * */
 @Entity
 public class AssayDetailBeanBean implements Serializable{
@@ -36,6 +37,7 @@ public class AssayDetailBeanBean implements Serializable{
     @Id(autoincrement = true)
     private Long id;
     static final long serialVersionUID = -15515456L;
+    @Index(name = "patient_no") //添加索引，别名 patient_no
     private String patient_no;
     private String xmmc;
     private String itemno;
