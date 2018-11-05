@@ -7,7 +7,7 @@ package com.pda.pda_android.base.others;
 public class ContentUrl {
 
     public static final String ARGS = "args";
-    public static final String TestUrl_local = "http://192.168.7.100:8999";//本地接口地址
+    public static final String TestUrl_local = "http://192.168.7.136:8999";//本地接口地址
     public static final String login = "/apps/login";//登录接口地址
     public static final String getUsersList = "/sync/patient/list"; //获取患者列表
     public static final String getUsersCheckList = "/sync/patient/checking/list"; //获取患者检查列表
