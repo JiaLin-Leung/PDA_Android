@@ -17,6 +17,7 @@ import com.pda.pda_android.fragment.HomeFragment;
 import com.pda.pda_android.fragment.MeFragment;
 import com.pda.pda_android.fragment.UserFragment;
 import com.pda.pda_android.service.RemindService;
+import com.pda.pda_android.service.UsersAssayDetailListService;
 import com.pda.pda_android.service.UsersAssayListService;
 import com.pda.pda_android.service.UsersCheckListService;
 import com.pda.pda_android.service.UsersListService;
@@ -71,6 +72,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         UsersCheckListService.getConnet(this);
         UsersSsxxListService.getConnet(this);
         UsersAssayListService.getConnet(this);
+        UsersAssayDetailListService.getConnet(this);
     }
 
     @Override

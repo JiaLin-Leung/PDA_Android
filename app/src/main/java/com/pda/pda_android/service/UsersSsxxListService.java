@@ -98,7 +98,7 @@ public class UsersSsxxListService extends Service {
                     @Override
                     protected void onSuccess(Call call, Response response, String s) throws IOException {
                         if (s.contains("\"response\": \"ok\"")) {
-                            LogUtils.showLog("患者手术信息列表同步数据", s);
+                            LogUtils.showLog(ContentUrl.getUsersSsxx+"----患者手术信息列表同步数据", s);
                             SsxxBeanOpe.deleteAllData(context);
                             Gson gson = new Gson();
                             SsxxListBean ssxxListBean = gson.fromJson(s, SsxxListBean.class);

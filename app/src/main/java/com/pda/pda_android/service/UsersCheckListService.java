@@ -95,7 +95,7 @@ public class UsersCheckListService extends Service {
                     @Override
                     protected void onSuccess(Call call, Response response, String s) throws IOException {
                         if (s.contains("\"response\": \"ok\"")) {
-                            LogUtils.showLog("患者检查列表同步数据", s);
+                            LogUtils.showLog(ContentUrl.getUsersCheckList+"----患者检查列表同步数据", s);
                             CheckBeanOpe.deleteAllData(context);
                             Gson gson = new Gson();
                             CheckListBean usersCheckListBean = gson.fromJson(s, CheckListBean.class);
