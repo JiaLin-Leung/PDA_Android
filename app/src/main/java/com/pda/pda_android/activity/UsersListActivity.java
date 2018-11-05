@@ -18,13 +18,7 @@ import com.pda.pda_android.activity.apps.detail.YzybhdDetailActivity;
 import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.db.Entry.AssayBean;
-import com.pda.pda_android.db.Entry.AssayDetailBeanBean;
-import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.UserBean;
-import com.pda.pda_android.db.dbutil.AssayBeanOpe;
-import com.pda.pda_android.db.dbutil.AssayDetailDaoOpe;
-import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
 import java.util.List;

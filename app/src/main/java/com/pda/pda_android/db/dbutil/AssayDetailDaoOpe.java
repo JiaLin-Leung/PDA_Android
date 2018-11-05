@@ -2,14 +2,13 @@ package com.pda.pda_android.db.dbutil;
 
 import android.content.Context;
 
-import com.pda.pda_android.db.Entry.AssayDetailBeanBean;
-import com.pda.pda_android.db.Entry.CheckBean;
-import com.pda.pda_android.db.dao.AssayDetailBeanBeanDao;
-import com.pda.pda_android.db.dao.CheckBeanDao;
+import com.pda.pda_android.db.Entry.AssayDetailBean;
+import com.pda.pda_android.db.dao.AssayDetailBeanDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
+
 
 /**
  * 梁佳霖创建于：2018/10/30 10:20
@@ -23,8 +22,8 @@ public class AssayDetailDaoOpe {
      * @param context
      * @param stu
      */
-    public static void insertData(Context context, AssayDetailBeanBean stu) {
-        DbManager.getDaoSession(context).getAssayDetailBeanBeanDao().insert(stu);
+    public static void insertData(Context context, AssayDetailBean stu) {
+        DbManager.getDaoSession(context).getAssayDetailBeanDao().insert(stu);
     }
 
 
@@ -34,11 +33,11 @@ public class AssayDetailDaoOpe {
      * @param context
      * @param list
      */
-    public static void insertData(Context context, List<AssayDetailBeanBean> list) {
+    public static void insertData(Context context, List<AssayDetailBean> list) {
         if (null == list || list.size() <= 0) {
             return;
         }
-        DbManager.getDaoSession(context).getAssayDetailBeanBeanDao().insertInTx(list);
+        DbManager.getDaoSession(context).getAssayDetailBeanDao().insertInTx(list);
     }
     /**
      * 添加数据至数据库，如果存在，将原来的数据覆盖
@@ -47,8 +46,8 @@ public class AssayDetailDaoOpe {
      * @param context
      * @param student
      */
-    public static void saveData(Context context, AssayDetailBeanBean student) {
-        DbManager.getDaoSession(context).getAssayDetailBeanBeanDao().save(student);
+    public static void saveData(Context context, AssayDetailBean student) {
+        DbManager.getDaoSession(context).getAssayDetailBeanDao().save(student);
     }
     /**
      * 删除数据至数据库
@@ -56,8 +55,8 @@ public class AssayDetailDaoOpe {
      * @param context
      * @param student 删除具体内容
      */
-    public static void deleteData(Context context, AssayDetailBeanBean student) {
-        DbManager.getDaoSession(context).getAssayDetailBeanBeanDao().delete(student);
+    public static void deleteData(Context context, AssayDetailBean student) {
+        DbManager.getDaoSession(context).getAssayDetailBeanDao().delete(student);
     }
     /**
      * 根据id删除数据至数据库
@@ -66,7 +65,7 @@ public class AssayDetailDaoOpe {
      * @param id      删除具体内容
      */
     public static void deleteByKeyData(Context context, Long id) {
-        DbManager.getDaoSession(context).getAssayDetailBeanBeanDao().deleteByKey(id);
+        DbManager.getDaoSession(context).getAssayDetailBeanDao().deleteByKey(id);
     }
     /**
      * 删除全部数据
@@ -74,7 +73,7 @@ public class AssayDetailDaoOpe {
      * @param context
      */
     public static void deleteAllData(Context context) {
-        DbManager.getDaoSession(context).getAssayDetailBeanBeanDao().deleteAll();
+        DbManager.getDaoSession(context).getAssayDetailBeanDao().deleteAll();
     }
     /**
      * 更新数据库
@@ -82,8 +81,8 @@ public class AssayDetailDaoOpe {
      * @param context
      * @param student
      */
-    public static void updateData(Context context, AssayDetailBeanBean student) {
-        DbManager.getDaoSession(context).getAssayDetailBeanBeanDao().update(student);
+    public static void updateData(Context context, AssayDetailBean student) {
+        DbManager.getDaoSession(context).getAssayDetailBeanDao().update(student);
     }
     /**
      * 查询所有数据
@@ -91,8 +90,8 @@ public class AssayDetailDaoOpe {
      * @param context
      * @return
      */
-    public static List<AssayDetailBeanBean> queryAll(Context context) {
-        QueryBuilder<AssayDetailBeanBean> builder = DbManager.getDaoSession(context).getAssayDetailBeanBeanDao().queryBuilder();
+    public static List<AssayDetailBean> queryAll(Context context) {
+        QueryBuilder<AssayDetailBean> builder = DbManager.getDaoSession(context).getAssayDetailBeanDao().queryBuilder();
 
         return builder.build().list();
     }
@@ -103,9 +102,9 @@ public class AssayDetailDaoOpe {
      * @param context
      * @return
      */
-    public static List<AssayDetailBeanBean> queryAllByPatient_no(Context context,String patient_no) {
-        List<AssayDetailBeanBean> checkBean= DbManager.getDaoSession(context).getAssayDetailBeanBeanDao().queryBuilder().
-                where(AssayDetailBeanBeanDao.Properties.Patient_no.eq(patient_no)).list();
+    public static List<AssayDetailBean> queryAllByPatient_no(Context context,String patient_no) {
+        List<AssayDetailBean> checkBean= DbManager.getDaoSession(context).getAssayDetailBeanDao().queryBuilder().
+                where(AssayDetailBeanDao.Properties.Patient_no.eq(patient_no)).list();
         return checkBean;
     }
     /**
@@ -115,9 +114,9 @@ public class AssayDetailDaoOpe {
      * @param pageNum  每页显示多少个
      * @return
      */
-    public static List<AssayDetailBeanBean> queryPaging( int pageSize, int pageNum,Context context){
-        AssayDetailBeanBeanDao studentDao = DbManager.getDaoSession(context).getAssayDetailBeanBeanDao();
-        List<AssayDetailBeanBean> listMsg = studentDao.queryBuilder()
+    public static List<AssayDetailBean> queryPaging( int pageSize, int pageNum,Context context){
+        AssayDetailBeanDao studentDao = DbManager.getDaoSession(context).getAssayDetailBeanDao();
+        List<AssayDetailBean> listMsg = studentDao.queryBuilder()
                 .offset(pageSize * pageNum).limit(pageNum).list();
         return listMsg;
     }

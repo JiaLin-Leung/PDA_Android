@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 功能：患者检验详情字段（数据表字段对应）
  * */
 @Entity
-public class AssayDetailBeanBean implements Serializable{
+public class AssayDetailBean implements Serializable{
 
     /**
      * "patient_no": "ZY170000416155",
@@ -56,13 +56,12 @@ public class AssayDetailBeanBean implements Serializable{
     private String bgys_code;
     private String bgys_name;
     private String sqxh;
-
-    @Generated(hash = 865618654)
-    public AssayDetailBeanBean(Long id, String patient_no, String xmmc,
-            String itemno, String itemname, String jg, String jg1, String jg2,
-            String jgflag, String unit, String ranges, String sqdate, String jydate,
-            String bgdate, String jcys_name, String jcys_code, String bgys_code,
-            String bgys_name, String sqxh) {
+    @Generated(hash = 678850095)
+    public AssayDetailBean(Long id, String patient_no, String xmmc, String itemno,
+            String itemname, String jg, String jg1, String jg2, String jgflag,
+            String unit, String ranges, String sqdate, String jydate, String bgdate,
+            String jcys_name, String jcys_code, String bgys_code, String bgys_name,
+            String sqxh) {
         this.id = id;
         this.patient_no = patient_no;
         this.xmmc = xmmc;
@@ -83,189 +82,122 @@ public class AssayDetailBeanBean implements Serializable{
         this.bgys_name = bgys_name;
         this.sqxh = sqxh;
     }
-
-    @Generated(hash = 1863295040)
-    public AssayDetailBeanBean() {
+    @Generated(hash = 318602787)
+    public AssayDetailBean() {
     }
-
-    @Override
-    public String toString() {
-        return "AssayDetailBeanBean{" +
-                "id=" + id +
-                ", patient_no='" + patient_no + '\'' +
-                ", xmmc='" + xmmc + '\'' +
-                ", itemno='" + itemno + '\'' +
-                ", itemname='" + itemname + '\'' +
-                ", jg='" + jg + '\'' +
-                ", jg1='" + jg1 + '\'' +
-                ", jg2='" + jg2 + '\'' +
-                ", jgflag='" + jgflag + '\'' +
-                ", unit='" + unit + '\'' +
-                ", ranges='" + ranges + '\'' +
-                ", sqdate='" + sqdate + '\'' +
-                ", jydate='" + jydate + '\'' +
-                ", bgdate='" + bgdate + '\'' +
-                ", jcys_name='" + jcys_name + '\'' +
-                ", jcys_code='" + jcys_code + '\'' +
-                ", bgys_code='" + bgys_code + '\'' +
-                ", bgys_name='" + bgys_name + '\'' +
-                ", sqxh='" + sqxh + '\'' +
-                '}';
-    }
-
     public Long getId() {
-        return id;
+        return this.id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
     public String getPatient_no() {
-        return patient_no;
+        return this.patient_no;
     }
-
     public void setPatient_no(String patient_no) {
         this.patient_no = patient_no;
     }
-
     public String getXmmc() {
-        return xmmc;
+        return this.xmmc;
     }
-
     public void setXmmc(String xmmc) {
         this.xmmc = xmmc;
     }
-
     public String getItemno() {
-        return itemno;
+        return this.itemno;
     }
-
     public void setItemno(String itemno) {
         this.itemno = itemno;
     }
-
     public String getItemname() {
-        return itemname;
+        return this.itemname;
     }
-
     public void setItemname(String itemname) {
         this.itemname = itemname;
     }
-
     public String getJg() {
-        return jg;
+        return this.jg;
     }
-
     public void setJg(String jg) {
         this.jg = jg;
     }
-
     public String getJg1() {
-        return jg1;
+        return this.jg1;
     }
-
     public void setJg1(String jg1) {
         this.jg1 = jg1;
     }
-
     public String getJg2() {
-        return jg2;
+        return this.jg2;
     }
-
     public void setJg2(String jg2) {
         this.jg2 = jg2;
     }
-
     public String getJgflag() {
-        return jgflag;
+        return this.jgflag;
     }
-
     public void setJgflag(String jgflag) {
         this.jgflag = jgflag;
     }
-
     public String getUnit() {
-        return unit;
+        return this.unit;
     }
-
     public void setUnit(String unit) {
         this.unit = unit;
     }
-
     public String getRanges() {
-        return ranges;
+        return this.ranges;
     }
-
     public void setRanges(String ranges) {
         this.ranges = ranges;
     }
-
     public String getSqdate() {
-        return sqdate;
+        return this.sqdate;
     }
-
     public void setSqdate(String sqdate) {
         this.sqdate = sqdate;
     }
-
     public String getJydate() {
-        return jydate;
+        return this.jydate;
     }
-
     public void setJydate(String jydate) {
         this.jydate = jydate;
     }
-
     public String getBgdate() {
-        return bgdate;
+        return this.bgdate;
     }
-
     public void setBgdate(String bgdate) {
         this.bgdate = bgdate;
     }
-
     public String getJcys_name() {
-        return jcys_name;
+        return this.jcys_name;
     }
-
     public void setJcys_name(String jcys_name) {
         this.jcys_name = jcys_name;
     }
-
     public String getJcys_code() {
-        return jcys_code;
+        return this.jcys_code;
     }
-
     public void setJcys_code(String jcys_code) {
         this.jcys_code = jcys_code;
     }
-
     public String getBgys_code() {
-        return bgys_code;
+        return this.bgys_code;
     }
-
     public void setBgys_code(String bgys_code) {
         this.bgys_code = bgys_code;
     }
-
     public String getBgys_name() {
-        return bgys_name;
+        return this.bgys_name;
     }
-
     public void setBgys_name(String bgys_name) {
         this.bgys_name = bgys_name;
     }
-
     public String getSqxh() {
-        return sqxh;
+        return this.sqxh;
     }
-
     public void setSqxh(String sqxh) {
         this.sqxh = sqxh;
     }
+
 }

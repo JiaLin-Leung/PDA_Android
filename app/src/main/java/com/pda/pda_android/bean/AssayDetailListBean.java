@@ -1,7 +1,7 @@
 package com.pda.pda_android.bean;
 
-import com.pda.pda_android.db.Entry.AssayDetailBeanBean;
-import com.pda.pda_android.db.Entry.UserBean;
+
+import com.pda.pda_android.db.Entry.AssayDetailBean;
 
 import java.io.Serializable;
 import java.util.List;
@@ -16,7 +16,7 @@ public class AssayDetailListBean implements Serializable {
     private String error;
     private String message;
     private String next;
-    private List<AssayDetailBeanBean> data;
+    private List<AssayDetailBean> data;
 
     @Override
     public String toString() {
@@ -61,11 +61,11 @@ public class AssayDetailListBean implements Serializable {
         this.next = next;
     }
 
-    public List<AssayDetailBeanBean> getData() {
+    public List<AssayDetailBean> getData() {
         return data;
     }
 
-    public void setData(List<AssayDetailBeanBean> data) {
+    public void setData(List<AssayDetailBean> data) {
         this.data = data;
     }
 }

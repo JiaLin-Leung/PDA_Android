@@ -15,10 +15,7 @@ import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.AssayDetailListBean;
-import com.pda.pda_android.db.Entry.AssayBean;
-import com.pda.pda_android.db.Entry.AssayDetailBeanBean;
-import com.pda.pda_android.db.Entry.AssayListBean;
-import com.pda.pda_android.db.dbutil.AssayBeanOpe;
+import com.pda.pda_android.db.Entry.AssayDetailBean;
 import com.pda.pda_android.db.dbutil.AssayDetailDaoOpe;
 
 import java.io.IOException;
@@ -102,7 +99,7 @@ public class UsersAssayDetailListService extends Service {
                             AssayDetailDaoOpe.deleteAllData(context);
                             Gson gson = new Gson();
                             AssayDetailListBean usersCheckListBean = gson.fromJson(s, AssayDetailListBean.class);
-                            List<AssayDetailBeanBean> userCheckBeans = usersCheckListBean.getData();
+                            List<AssayDetailBean> userCheckBeans = usersCheckListBean.getData();
                             AssayDetailDaoOpe.insertData(context, userCheckBeans);
                         }else{
                             handler.removeMessages(DOINTERNET);
