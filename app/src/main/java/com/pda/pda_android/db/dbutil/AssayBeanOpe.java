@@ -101,9 +101,9 @@ public class AssayBeanOpe {
      * @param context
      * @return
      */
-    public static List<AssayBean>  queryRecord_no(Context context,String Record_no) {
+    public static List<AssayBean>  queryRecord_no(Context context,String Patient_no) {
         List<AssayBean> checkBean= DbManager.getDaoSession(context).getAssayBeanDao().queryBuilder().
-                where(AssayBeanDao.Properties.Record_no.eq(Record_no)).list();
+                where(AssayBeanDao.Properties.Patient_no.eq(Patient_no)).list();
         return checkBean;
     }
 

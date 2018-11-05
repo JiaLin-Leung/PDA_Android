@@ -20,14 +20,14 @@ public class AssayBean implements Serializable {
     private Long id;
     static final long serialVersionUID = -15515456L;
     private String date;
-    private String record_no;
+    private String patient_no;
     @Convert(columnType = String.class, converter = AssayBeanListBean_Converter.class)
     private List<AssayBeanListBean> list;
-    @Generated(hash = 966163948)
-    public AssayBean(Long id, String date, String record_no, List<AssayBeanListBean> list) {
+    @Generated(hash = 1589304488)
+    public AssayBean(Long id, String date, String patient_no, List<AssayBeanListBean> list) {
         this.id = id;
         this.date = date;
-        this.record_no = record_no;
+        this.patient_no = patient_no;
         this.list = list;
     }
     @Generated(hash = 2485670)
@@ -45,26 +45,16 @@ public class AssayBean implements Serializable {
     public void setDate(String date) {
         this.date = date;
     }
-    public String getRecord_no() {
-        return this.record_no;
+    public String getPatient_no() {
+        return this.patient_no;
     }
-    public void setRecord_no(String record_no) {
-        this.record_no = record_no;
+    public void setPatient_no(String patient_no) {
+        this.patient_no = patient_no;
     }
     public List<AssayBeanListBean> getList() {
         return this.list;
     }
     public void setList(List<AssayBeanListBean> list) {
         this.list = list;
-    }
-
-    @Override
-    public String toString() {
-        return "AssayBean{" +
-                "id=" + id +
-                ", date='" + date + '\'' +
-                ", record_no='" + record_no + '\'' +
-                ", list=" + list +
-                '}';
     }
 }
