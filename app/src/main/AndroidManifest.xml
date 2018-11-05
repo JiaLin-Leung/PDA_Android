@@ -54,6 +54,10 @@
             android:name="com.pda.pda_android.service.UsersSsxxListService"
             android:enabled="true"
             android:exported="true"></service>
+        <service
+            android:name="com.pda.pda_android.service.UsersAssayListService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
