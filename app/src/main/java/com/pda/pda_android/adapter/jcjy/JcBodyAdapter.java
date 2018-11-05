@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.bean.Bodybean;
+import com.pda.pda_android.bean.JcBodybean;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class JcBodyAdapter extends RecyclerView.Adapter<JcBodyAdapter.ViewHolder>{
     private Context context;
     private LayoutInflater mLayoutInflater;
-    private List<Bodybean.Body> list;
+    private List<JcBodybean.Body> list;
 
-    public JcBodyAdapter(Context context, List<Bodybean.Body> list) {
+    public JcBodyAdapter(Context context, List<JcBodybean.Body> list) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);

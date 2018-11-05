@@ -4,7 +4,7 @@ package com.pda.pda_android.bean;
 
 import java.util.List;
 
-public class Bodybean {
+public class JyBodybean {
 
     private String title;
     private List<Body> bodyList;
@@ -25,11 +25,8 @@ public class Bodybean {
         this.bodyList = bodyList;
     }
 
-
-
     public static class Body{
         private String name;
-        private String shebei;
         private String data;
         private String project;
 
@@ -41,13 +38,6 @@ public class Bodybean {
             this.name = name;
         }
 
-        public String getShebei() {
-            return shebei;
-        }
-
-        public void setShebei(String shebei) {
-            this.shebei = shebei;
-        }
 
         public String getData() {
             return data;

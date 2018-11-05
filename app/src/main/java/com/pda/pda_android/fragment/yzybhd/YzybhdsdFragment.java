@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.pda.pda_android.R;
 import com.pda.pda_android.adapter.yzybhd.YzybhdAdapter;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.bean.Bodybean;
+import com.pda.pda_android.bean.JcBodybean;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -29,7 +29,7 @@ public class YzybhdsdFragment extends Fragment {
     //下拉控件
     private RefreshLayout refreshLayout;
     private StickyListHeadersListView stickyListHeadersListView;
-    private List<Bodybean> bodyList;
+    private List<JcBodybean> bodyList;
     private YzybhdAdapter yzybhdAdapter;
     public YzybhdsdFragment() {
         // Required empty public constructor
@@ -63,14 +63,14 @@ public class YzybhdsdFragment extends Fragment {
     private void initdata() {
         //设置内容的数据
         bodyList = new ArrayList<>();
-        List<Bodybean.Body> list = null;
+        List<JcBodybean.Body> list = null;
         for (int i = 0; i < 3; i++) {
-            Bodybean bodybean=new Bodybean();
+            JcBodybean bodybean=new JcBodybean();
             bodybean.setTitle("题目"+i);
             list=new ArrayList<>();
             if (i==1){
                 for (int j=0;j<5;j++){
-                    Bodybean.Body body= new Bodybean.Body();
+                    JcBodybean.Body body= new JcBodybean.Body();
                     body.setName("找小虎"+i);
                     body.setData("2018-6-" + j);
                     body.setProject("项目"+j);
@@ -80,7 +80,7 @@ public class YzybhdsdFragment extends Fragment {
                 bodybean.setBodyList(list);
             }else if (i==2){
                 for (int j=0;j<8;j++){
-                    Bodybean.Body body=  new Bodybean.Body();
+                    JcBodybean.Body body=  new JcBodybean.Body();
                     body.setName("找小虎"+i);
                     body.setData("2018-6- " + j);
                     body.setProject("项目"+j);
@@ -90,7 +90,7 @@ public class YzybhdsdFragment extends Fragment {
                 bodybean.setBodyList(list);
             }else if (i==3){
                 for (int j=0;j<2;j++){
-                    Bodybean.Body body=  new Bodybean.Body();
+                    JcBodybean.Body body=  new JcBodybean.Body();
                     body.setName("找小虎"+i);
                     body.setData("2018-6- " + j);
                     body.setProject("项目"+j);
@@ -100,7 +100,7 @@ public class YzybhdsdFragment extends Fragment {
                 bodybean.setBodyList(list);
             }else {
                 for (int j=0;j<5;j++){
-                    Bodybean.Body body=  new Bodybean.Body();
+                    JcBodybean.Body body=  new JcBodybean.Body();
                     body.setName("找小虎"+i);
                     body.setData("2018-6- " + j);
                     body.setProject("项目"+j);

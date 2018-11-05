@@ -32,7 +32,7 @@ public class JcjyListActivity extends BaseActivity {
     private ViewPager viewpager;
     private TextView user_info;
     private ImageView users_all,user_name_up,user_name_down,title_back;
-    private String cw,name;
+    private String cw,name,Patient_no;
     @Override
     public int setLayoutId() {
         return R.layout.activity_jcjy_list;
@@ -114,11 +114,9 @@ public class JcjyListActivity extends BaseActivity {
             }
         });
         UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
-//        checkBean = CheckBeanOpe.queryRecord_no(JcjyListActivity.this,userBean.getRecord_no());
-//        checkBean = CheckBeanOpe.queryRecord_no(JcjyListActivity.this,"");
-//        LogUtils.showLog("22223333",checkBean.toString());
         cw=userBean.getRecord_no();
         name=userBean.getBed_no()+"  "+userBean.getPatient_name();
+        Patient_no=userBean.getPatient_no();
         user_info.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
         users_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,5 +167,8 @@ public class JcjyListActivity extends BaseActivity {
     }
     public String  getname(){
         return  name;
+    }
+    public String  getPatient_no(){
+        return  Patient_no;
     }
 }

@@ -8,7 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.bean.Bodybean;
+import com.pda.pda_android.bean.JcBodybean;
+import com.pda.pda_android.bean.JyBodybean;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder>{
     private Context context;
     private LayoutInflater mLayoutInflater;
-    private List<Bodybean.Body> list;
+    private List<JyBodybean.Body> list;
 
-    public JyBodyAdapter(Context context, List<Bodybean.Body> list) {
+    public JyBodyAdapter(Context context, List<JyBodybean.Body> list) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);

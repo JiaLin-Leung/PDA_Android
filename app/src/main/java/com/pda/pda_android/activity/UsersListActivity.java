@@ -110,4 +110,10 @@ public class UsersListActivity extends BaseActivity {
         Intent intent = new Intent(context,UsersListActivity.class);
         context.startActivity(intent);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        et_search.setText("");
+    }
 }

@@ -10,7 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.bean.Bodybean;
+import com.pda.pda_android.bean.JcBodybean;
+import com.pda.pda_android.bean.JyBodybean;
 
 import java.util.List;
 
@@ -26,9 +27,9 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
 
     private Context context;
     private List<String> headList;
-    private List<Bodybean> bodyList;
+    private List<JyBodybean> bodyList;
 
-    public JyDetailAdapter(Context context, List<Bodybean> bodyList) {
+    public JyDetailAdapter(Context context, List<JyBodybean> bodyList) {
         this.context = context;
         this.bodyList=bodyList;
     }
@@ -38,7 +39,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         notifyDataSetChanged();
     }
 
-    public void setBodyList(List<Bodybean> bodyList) {
+    public void setBodyList(List<JyBodybean> bodyList) {
         this.bodyList = bodyList;
         notifyDataSetChanged();
     }
@@ -103,7 +104,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         }
         //设置数据
         headHolder.headTv.setText(bodyList.get(position).getTitle());
-        headHolder.item_num_tv.setText("总共"+bodyList.get(position).getBodyList().size()+"条");
+        headHolder.item_num_tv.setText("共"+bodyList.get(position).getBodyList().size()+"条");
         headHolder.item_shaixuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

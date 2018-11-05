@@ -1,15 +1,20 @@
 package com.pda.pda_android.fragment.jcjy;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.adapter.jcjy.JyDetailAdapter;
-import com.pda.pda_android.bean.Bodybean;
+import com.pda.pda_android.bean.JcBodybean;
+import com.pda.pda_android.bean.JyBodybean;
+import com.pda.pda_android.db.Entry.AssayBean;
+import com.pda.pda_android.db.Entry.AssayDetailBean;
+import com.pda.pda_android.db.dbutil.AssayBeanOpe;
+import com.pda.pda_android.db.dbutil.AssayDetailDaoOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -26,9 +31,12 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class JyFragment extends Fragment {
     private StickyListHeadersListView stickyListHeadersListView;
     private JyDetailAdapter mainAdapter;
-    private List<Bodybean> bodyList;
+    private List<JyBodybean> bodyList;
     //下拉控件
     private RefreshLayout refreshLayout;
+    //住院号  名字
+    private  String cw,name;
+    private List<AssayBean> assayBeans;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,81 +54,96 @@ public class JyFragment extends Fragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        assayBeans=  AssayBeanOpe.queryRecord_no(getActivity(),cw);
+        int size=assayBeans.size();
         //设置内容的数据
         bodyList = new ArrayList<>();
-        List<Bodybean.Body> list;
-        for (int i = 0; i < 10; i++) {
-            Bodybean bodybean=new Bodybean();
-            bodybean.setTitle("2018-6-"+i);
+        List<JyBodybean.Body> list;
+        for (int i=0;i<size;i++){
+            JyBodybean bodybean=new JyBodybean();
+            bodybean.setTitle(assayBeans.get(i).getDate());
             list=new ArrayList<>();
-            if (i==1){
-                for (int j=0;j<5;j++){
-                    Bodybean.Body body= new Bodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6-" + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
-            }else if (i==2){
-                for (int j=0;j<3;j++){
-                    Bodybean.Body body=  new Bodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6- " + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
-            }else if (i==3){
-                for (int j=0;j<2;j++){
-                    Bodybean.Body body=  new Bodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6- " + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
-            }else {
-                for (int j=0;j<5;j++){
-                    Bodybean.Body body=  new Bodybean.Body();
-                    body.setName("找小虎"+i);
-                    body.setData("2018-6- " + j);
-                    body.setProject("项目"+j);
-                    body.setShebei("设备"+j);
-                    list.add(body);
-                }
-                bodybean.setBodyList(list);
+            for (int j=0;j<assayBeans.get(i).getList().size();j++){
+                JyBodybean.Body body= new JyBodybean.Body();
+                body.setProject(assayBeans.get(i).getList().get(j).getXmmc());
+                body.setData(assayBeans.get(i).getList().get(j).getJydate());
+                body.setName(name+" 的检查结果");
+                list.add(body);
             }
+            bodybean.setBodyList(list);
             bodyList.add(bodybean);
         }
-        mainAdapter = new JyDetailAdapter(getActivity(),bodyList);
-//        mainAdapter.setBodyList(bodyList);
 
-        //设置头部的点击事件
-        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
-            @Override
-            public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky) {
-                Toast.makeText(getActivity(), "headerId:" + headerId, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        for (int i = 0; i < 10; i++) {
+//            JcBodybean bodybean=new JcBodybean();
+//            bodybean.setTitle("2018-6-"+i);
+//            list=new ArrayList<>();
+//            if (i==1){
+//                for (int j=0;j<5;j++){
+//                    JcBodybean.Body body= new JcBodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6-" + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }else if (i==2){
+//                for (int j=0;j<3;j++){
+//                    JcBodybean.Body body=  new JcBodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6- " + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }else if (i==3){
+//                for (int j=0;j<2;j++){
+//                    JcBodybean.Body body=  new JcBodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6- " + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }else {
+//                for (int j=0;j<5;j++){
+//                    JcBodybean.Body body=  new JcBodybean.Body();
+//                    body.setName("找小虎"+i);
+//                    body.setData("2018-6- " + j);
+//                    body.setProject("项目"+j);
+//                    body.setShebei("设备"+j);
+//                    list.add(body);
+//                }
+//                bodybean.setBodyList(list);
+//            }
+//            bodyList.add(bodybean);
+//        }
+        mainAdapter = new JyDetailAdapter(getActivity(),bodyList);
+
+//        //设置头部的点击事件
+//        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
+//            @Override
+//            public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky) {
+//                Toast.makeText(getActivity(), "headerId:" + headerId, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         //设置内容的点击事件
-        stickyListHeadersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), "i:" + i, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        stickyListHeadersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(getActivity(), "i:" + i, Toast.LENGTH_SHORT).show();
+//            }
+//        });
         //默认滑动一段距离   适配筛选图标显示隐藏
         stickyListHeadersListView.setStickyHeaderTopOffset(1);
         //设置头部改变的监听
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-//                Toast.makeText(getActivity(), "itemPosition:" + itemPosition, Toast.LENGTH_SHORT).show();
                 header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
             }
         });
@@ -128,5 +151,10 @@ public class JyFragment extends Fragment {
         stickyListHeadersListView.setAdapter(mainAdapter);
         return view;
     }
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        cw = ((JcjyListActivity) context).getcw();
+        name = ((JcjyListActivity) context).getname();
+    }
 }

@@ -7,15 +7,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.adapter.jcjy.JcDetailAdapter;
 import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.utils.LogUtils;
-import com.pda.pda_android.bean.Bodybean;
+import com.pda.pda_android.bean.JcBodybean;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -33,7 +31,7 @@ public class JcFragment extends BaseFragment {
 
     private StickyListHeadersListView stickyListHeadersListView;
     private JcDetailAdapter mainAdapter;
-    private List<Bodybean> bodyList;
+    private List<JcBodybean> bodyList;
     //下拉控件
     private RefreshLayout refreshLayout;
     private  List<CheckBean> checkBeanList=new ArrayList<>();
@@ -78,16 +76,15 @@ public class JcFragment extends BaseFragment {
     public void initData() {
         //设置内容的数据
         bodyList = new ArrayList<>();
-        LogUtils.showLog("3333333",checkBeanList.size()+"");
         int size=checkBeanList.size();
-        List<Bodybean.Body> list = null;
+        List<JcBodybean.Body> list = null;
 
         for (int i=0;i<size;i++){
-            Bodybean bodybean=new Bodybean();
+            JcBodybean bodybean=new JcBodybean();
             bodybean.setTitle(checkBeanList.get(i).getDate());
             list=new ArrayList<>();
             for (int j=0;j<checkBeanList.get(i).getList().size();j++){
-                Bodybean.Body body= new Bodybean.Body();
+                JcBodybean.Body body= new JcBodybean.Body();
                 body.setProject(checkBeanList.get(i).getList().get(j).getItem_name());
                 body.setData(checkBeanList.get(i).getList().get(j).getJcdate());
                 body.setName(name+" 的检查结果");
@@ -100,20 +97,20 @@ public class JcFragment extends BaseFragment {
         LogUtils.showLog("dbj",bodyList.toString());
         mainAdapter = new JcDetailAdapter(getActivity(),bodyList);
         //设置头部的点击事件
-        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
-            @Override
-            public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky) {
-                Toast.makeText(getActivity(), "headerId:" + headerId, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
+//            @Override
+//            public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky) {
+//                Toast.makeText(getActivity(), "headerId:" + headerId, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-        //设置内容的点击事件
-        stickyListHeadersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), "i:" + i, Toast.LENGTH_SHORT).show();
-            }
-        });
+         //设置内容的点击事件
+//        stickyListHeadersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(getActivity(), "i:" + i, Toast.LENGTH_SHORT).show();
+//            }
+//        });
         //默认滑动一段距离   适配筛选图标显示隐藏
         stickyListHeadersListView.setStickyHeaderTopOffset(1);
         //设置头部改变的监听
