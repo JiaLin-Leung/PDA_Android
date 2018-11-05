@@ -51,7 +51,7 @@ public class JyFragment extends Fragment {
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         assayBeans=  AssayBeanOpe.queryPATIENT_NO(getActivity(),Patient_no);
         LogUtils.showLog("jy_shuju",assayBeans.toString());
-        mainAdapter = new JyDetailAdapter(getActivity(),assayBeans,name+" 的检查结果");
+        mainAdapter = new JyDetailAdapter(getActivity(),assayBeans,name);
 
 //        //设置头部的点击事件
 //        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {

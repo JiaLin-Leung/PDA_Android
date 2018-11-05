@@ -66,7 +66,7 @@ public class JcFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        mainAdapter = new JcDetailAdapter(getActivity(),checkBeanList,name+" 的检查结果");
+        mainAdapter = new JcDetailAdapter(getActivity(),checkBeanList,name);
         //设置头部的点击事件
 //        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
 //            @Override

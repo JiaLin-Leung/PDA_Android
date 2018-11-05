@@ -2,6 +2,7 @@ package com.pda.pda_android.adapter.jcjy;
 
 import android.content.Context;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.apps.detail.jcjydetail.JcDetailActivity;
+import com.pda.pda_android.activity.apps.detail.jcjydetail.JyDetailActivity;
 import com.pda.pda_android.db.Entry.CheckBeanListBean;
 
 import java.util.List;
@@ -45,7 +48,12 @@ public class JcBodyAdapter extends RecyclerView.Adapter<JcBodyAdapter.ViewHolder
         holder.jc_rootview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,name,Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context,JcDetailActivity.class);
+                intent.putExtra("name",name+" 的检查结果");
+                intent.putExtra("jc_content",list.get(position).getBgresult());
+                intent.putExtra("bg_content",list.get(position).getBgjy());
+                intent.putExtra("zd_content",list.get(position).getZdyj());
+                context.startActivity(intent);
             }
         });
     }

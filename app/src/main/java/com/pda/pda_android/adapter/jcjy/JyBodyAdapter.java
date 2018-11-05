@@ -1,6 +1,7 @@
 package com.pda.pda_android.adapter.jcjy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.apps.detail.jcjydetail.JyDetailActivity;
 import com.pda.pda_android.db.Entry.AssayBeanListBean;
 
 import java.util.List;
@@ -36,13 +38,16 @@ public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.name.setText(name);
+        holder.name.setText(name+" 的检查结果");
         holder.data.setText(list.get(position).getJydate());
         holder.project.setText(list.get(position).getXmmc());
         holder.jy_rootview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context,JyDetailActivity.class);
+                intent.putExtra("name",name);
+                intent.putExtra("Patient_no",list.get(position).getPatient_no());
+                context.startActivity(intent);
             }
         });
     }
