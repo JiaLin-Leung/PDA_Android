@@ -5,7 +5,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.bean.Bodybean;
@@ -39,6 +41,12 @@ public class JcBodyAdapter extends RecyclerView.Adapter<JcBodyAdapter.ViewHolder
         holder.data.setText(list.get(position).getData());
         holder.shebei.setText(list.get(position).getShebei());
         holder.project.setText(list.get(position).getProject());
+        holder.jc_rootview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,list.get(position).getName(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -48,7 +56,7 @@ public class JcBodyAdapter extends RecyclerView.Adapter<JcBodyAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView name,project,shebei,data;
-
+        LinearLayout jc_rootview;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -56,6 +64,7 @@ public class JcBodyAdapter extends RecyclerView.Adapter<JcBodyAdapter.ViewHolder
             project=itemView.findViewById(R.id.project);
             shebei=itemView.findViewById(R.id.shebei);
             data=itemView.findViewById(R.id.data);
+            jc_rootview=itemView.findViewById(R.id.jc_rootview);
         }
     }
 }

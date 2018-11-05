@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
@@ -37,6 +38,12 @@ public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder
         holder.name.setText(list.get(position).getName());
         holder.data.setText(list.get(position).getData());
         holder.project.setText(list.get(position).getProject());
+        holder.jy_rootview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -46,13 +53,14 @@ public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView name,project,data;
-
+        LinearLayout jy_rootview;
 
         ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.user_name);
             project=itemView.findViewById(R.id.project);
             data=itemView.findViewById(R.id.data);
+            jy_rootview=itemView.findViewById(R.id.jy_rootview);
         }
     }
 }

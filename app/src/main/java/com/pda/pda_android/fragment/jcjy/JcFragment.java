@@ -89,7 +89,7 @@ public class JcFragment extends BaseFragment {
             for (int j=0;j<checkBeanList.get(i).getList().size();j++){
                 Bodybean.Body body= new Bodybean.Body();
                 body.setProject(checkBeanList.get(i).getList().get(j).getItem_name());
-                body.setData(checkBeanList.get(i).getList().get(j).getBgdate());
+                body.setData(checkBeanList.get(i).getList().get(j).getJcdate());
                 body.setName(name+" 的检查结果");
                 body.setShebei(checkBeanList.get(i).getList().get(j).getDevicetype());
                 list.add(body);
