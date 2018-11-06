@@ -60,7 +60,7 @@
 
         <activity android:name=".activity.apps.detail.jcjydetail.JcDetailActivity" />
         <activity android:name=".activity.apps.detail.jcjydetail.JyDetailActivity"></activity>
-
+<activity android:name=".activity.apps.detail.SsxxInfomationDetailActivity"></activity>
         <service
             android:name="com.pda.pda_android.service.UsersAssayListService"
             android:enabled="true"

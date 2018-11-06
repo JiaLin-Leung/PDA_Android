@@ -15,6 +15,7 @@ import com.pda.pda_android.db.Entry.CheckBeanListBean;
 import com.pda.pda_android.db.Entry.SsxxBean;
 import com.pda.pda_android.db.Entry.SsxxBeanListBean;
 
+import java.io.Serializable;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -49,8 +50,8 @@ public class SsxxBodyAdapter extends RecyclerView.Adapter<SsxxBodyAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,SsxxInfomationDetailActivity.class);
-                intent.putExtra("name",name+" 的手术信息");
-
+                intent.putExtra("name",name);
+                intent.putExtra("SsxxBeanListBean", (Serializable) list.get(position));
                 context.startActivity(intent);
             }
         });

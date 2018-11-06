@@ -37,6 +37,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/ops_num"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -64,6 +65,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/ops_staue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -91,6 +93,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/bxbh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -118,6 +121,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/ops_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -145,6 +149,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/ops_dj"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -172,6 +177,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/ops_bm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -199,6 +205,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/docter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -226,6 +233,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/yy_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -253,6 +261,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/dj_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -280,6 +289,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/ops_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -307,6 +317,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/end_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -334,6 +345,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/sq_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -365,6 +377,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/out_ops_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -392,6 +405,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/inpacu_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -419,6 +433,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/outpacu_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -446,6 +461,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/oper_roomno"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -473,6 +489,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/sequence_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -500,6 +517,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/operdiag_after"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -527,6 +545,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/mzys_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -554,6 +573,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/mzfs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
@@ -581,6 +601,7 @@
                     android:textSize="15dp" />
 
                 <TextView
+                    android:id="@+id/xhhs_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="28dp"
