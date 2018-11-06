@@ -53,8 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text=""
-            android:textColor="#ffffff"
+            android:text="水电"
+            android:textColor="@color/ziti_lanse"
             android:textSize="14dp" />
 
         <ImageView
