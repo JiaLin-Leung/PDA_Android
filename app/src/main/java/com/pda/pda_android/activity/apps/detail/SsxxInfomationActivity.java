@@ -35,6 +35,7 @@ public class SsxxInfomationActivity extends BaseActivity {
     private List<SsxxBean> list;
     private TextView no_data;
 
+    private TextView user_info;
     @Override
     public int setLayoutId() {
         return R.layout.activity_ssxxinfomation;
@@ -44,7 +45,6 @@ public class SsxxInfomationActivity extends BaseActivity {
     public void initView() {
         stickyListHeadersListView =  findViewById(R.id.ssxx_list_ssxx);
         refreshLayout = findViewById(R.id.refreshLayout1_ssxx);
-        no_data = findViewById(R.id.no_data);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
@@ -78,5 +78,9 @@ public class SsxxInfomationActivity extends BaseActivity {
             adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,userBean.getPatient_name());
             stickyListHeadersListView.setAdapter(adapter);
         }
+        String name=userBean.getBed_no()+"  "+userBean.getPatient_name();
+        user_info.setText(name);
+        adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,name);
+        stickyListHeadersListView.setAdapter(adapter);
     }
 }
