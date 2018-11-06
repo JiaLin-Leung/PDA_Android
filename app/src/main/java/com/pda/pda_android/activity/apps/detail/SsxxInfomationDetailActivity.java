@@ -18,7 +18,7 @@ public class SsxxInfomationDetailActivity extends BaseActivity {
     private ImageView iv_top_back;
     private TextView username_badnum,ops_num,ops_staue,bxbh,ops_name,ops_dj,ops_bm,docter,
             yy_time,dj_time,end_time,sq_code,out_ops_time,inpacu_time,outpacu_time,operdiag_after,
-            mzys_name,mzfs,xhhs_code,sequence_no,oper_roomno,tv_top_sure;
+            mzys_name,mzfs,xhhs_code,sequence_no,oper_roomno,tv_top_sure,ops_time;
     private String name;
     @Override
     public int setLayoutId() {
@@ -52,6 +52,7 @@ public class SsxxInfomationDetailActivity extends BaseActivity {
         xhhs_code=findViewById(R.id.xhhs_code);
         sequence_no=findViewById(R.id.sequence_no);
         oper_roomno=findViewById(R.id.oper_roomno);
+        ops_time=findViewById(R.id.ops_time);
         tv_top_sure.setVisibility(View.GONE);
         iv_top_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,5 +86,6 @@ public class SsxxInfomationDetailActivity extends BaseActivity {
         xhhs_code.setText(ssxxBeanListBean.getXhhs_name());
         sequence_no.setText(ssxxBeanListBean.getSequence_no());
         oper_roomno.setText(ssxxBeanListBean.getOper_roomno());
+        ops_time.setText(ssxxBeanListBean.getInoper_time());
     }
 }
