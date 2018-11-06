@@ -42,14 +42,16 @@ public class UsersCheckListService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtils.showLog("UsersCheckListService", "onStartCommand");
-        if (intent.getStringExtra("flags").equals("3")) {
-            //判断当系统版本大于20，即超过Android5.0时，我们采用线程循环的方式请求。
-            //当小于5.0时的系统则采用定时唤醒服务的方式执行循环
-            int currentapiVersion = android.os.Build.VERSION.SDK_INT;
-            if (currentapiVersion > 20) {
-                getPushThread();
-            } else {
-                handler.sendEmptyMessage(DOINTERNET);
+        if (intent != null) {
+            if (intent.getStringExtra("flags").equals("3")) {
+                //判断当系统版本大于20，即超过Android5.0时，我们采用线程循环的方式请求。
+                //当小于5.0时的系统则采用定时唤醒服务的方式执行循环
+                int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+                if (currentapiVersion > 20) {
+                    getPushThread();
+                } else {
+                    handler.sendEmptyMessage(DOINTERNET);
+                }
             }
         }
         return super.onStartCommand(intent, flags, startId);
