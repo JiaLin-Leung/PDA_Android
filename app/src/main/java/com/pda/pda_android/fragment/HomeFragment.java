@@ -22,8 +22,8 @@ import com.google.gson.JsonParser;
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.JcjyActivity;
 import com.pda.pda_android.activity.apps.SSXXActivity;
-import com.pda.pda_android.activity.apps.WJBQSActivity;
-import com.pda.pda_android.activity.apps.YZYBHDActivity;
+import com.pda.pda_android.activity.apps.detail.WjbqsInfomationActivity;
+import com.pda.pda_android.activity.apps.detail.YzybhdDetailActivity;
 import com.pda.pda_android.activity.home.MenuManageActivity;
 import com.pda.pda_android.adapter.IndexDataAdapter;
 import com.pda.pda_android.base.BaseFragment;
@@ -138,12 +138,12 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                         startActivity(intent);
                         break;
                     case "WJBQS": //无菌包签收
-                        intent.setClass(getActivity(),WJBQSActivity.class);
+                        intent.setClass(getActivity(),WjbqsInfomationActivity.class);
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
                     case "YZYBHD": //医嘱药包核对
-                        intent.setClass(getActivity(),YZYBHDActivity.class);
+                        intent.setClass(getActivity(),YzybhdDetailActivity.class);
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;

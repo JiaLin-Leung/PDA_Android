@@ -8,7 +8,7 @@
     android:orientation="vertical">
     <include
         android:id="@+id/common"
-        layout="@layout/detail_titles" />
+        layout="@layout/common_top" />
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tablayout_yzybhd"
         android:layout_width="match_parent"

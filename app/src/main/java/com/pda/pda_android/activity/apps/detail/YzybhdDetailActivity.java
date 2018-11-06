@@ -87,10 +87,9 @@ public class YzybhdDetailActivity extends BaseActivity {
     public void initView() {
         tablayout = findViewById(R.id.tablayout_yzybhd);
         viewpager = findViewById(R.id.viewpager_yzybhd);
-        users_all=findViewById(R.id.users_all);
-        user_name_down=findViewById(R.id.user_name_down);
-        user_name_up=findViewById(R.id.user_name_up);
-        title_back = findViewById(R.id.title_back);
+        TextView tv_top_title = findViewById(R.id.tv_top_title);
+        tv_top_title.setText("医嘱药包执行");
+        title_back = findViewById(R.id.iv_top_back);
         FragmentManager fragmentManager=getSupportFragmentManager();
         user_info=findViewById(R.id.user_info);
         tablayout.post(new Runnable() {
@@ -103,14 +102,14 @@ public class YzybhdDetailActivity extends BaseActivity {
         //getChildFragmentManager() 防止内层Fragment数据丢失
         viewpager.setAdapter(new TabAdapter(fragmentManager));
         tablayout.setupWithViewPager(viewpager);
-        UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
-        user_info.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
-        users_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
+//        user_info.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
+//        users_all.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
         title_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -87,8 +87,10 @@ public class WjbqsInfomationActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
-        title_back = findViewById(R.id.title_back);
+//        UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
+        TextView tv_top_title = findViewById(R.id.tv_top_title);
+        tv_top_title.setText("无菌包签收");
+        title_back = findViewById(R.id.iv_top_back);
         tablayout = findViewById(R.id.tablayout_wjbqs);
         viewpager = findViewById(R.id.viewpager_wjbqs);
         title_back.setOnClickListener(new View.OnClickListener() {
@@ -97,29 +99,7 @@ public class WjbqsInfomationActivity extends BaseActivity {
                 WjbqsInfomationActivity.this.finish();
             }
         });
-        user_name_up = findViewById(R.id.user_name_up);
-        user_name_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        user_name_down = findViewById(R.id.user_name_down);
-        user_name_down.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        users_all = findViewById(R.id.users_all);
-        users_all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WjbqsInfomationActivity.this.finish();
-            }
-        });
-        user_info = findViewById(R.id.user_info);
-        user_info.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
+//        user_info.setText(userBean.getBed_no()+"  "+userBean.getPatient_name());
         FragmentManager fragmentManager=getSupportFragmentManager();
         tablayout.post(new Runnable() {
             @Override
