@@ -45,6 +45,7 @@ public class SsxxInfomationActivity extends BaseActivity {
     public void initView() {
         stickyListHeadersListView =  findViewById(R.id.ssxx_list_ssxx);
         refreshLayout = findViewById(R.id.refreshLayout1_ssxx);
+        no_data = findViewById(R.id.no_data);
         user_info=findViewById(R.id.user_info);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
