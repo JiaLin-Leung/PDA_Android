@@ -1,6 +1,9 @@
 package com.pda.pda_android.activity.apps.detail;
 
+import android.view.View;
+
 import com.pda.pda_android.R;
+import com.pda.pda_android.adapter.ssxx.SsxxDetailAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.SsxxBean;
@@ -24,9 +27,8 @@ public class SsxxInfomationActivity extends BaseActivity {
 
     private StickyListHeadersListView stickyListHeadersListView;
     private RefreshLayout refreshLayout;
-    private  List<CheckBean> checkBeanList=new ArrayList<>();
     private  String cw;
-//    private SsxxAdapter adapter;
+    private SsxxDetailAdapter adapter;
     private UserBean userBean;
     private String record_no;
     private List<SsxxBean> list;
@@ -38,7 +40,7 @@ public class SsxxInfomationActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        stickyListHeadersListView =  findViewById(R.id.jc_list_ssxx);
+        stickyListHeadersListView =  findViewById(R.id.ssxx_list_ssxx);
         refreshLayout = findViewById(R.id.refreshLayout1_ssxx);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
@@ -49,6 +51,17 @@ public class SsxxInfomationActivity extends BaseActivity {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(SsxxInfomationActivity.this));
+        //默认滑动一段距离   适配筛选图标显示隐藏
+        stickyListHeadersListView.setStickyHeaderTopOffset(1);
+        //设置头部改变的监听
+        stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
+            @Override
+            public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
+                header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
+            }
+        });
+
+
     }
 
     @Override
@@ -56,7 +69,7 @@ public class SsxxInfomationActivity extends BaseActivity {
         userBean = (UserBean) getIntent().getSerializableExtra("userBean");
         record_no = userBean.getRecord_no();
         list = SsxxBeanOpe.queryRecord_no(SsxxInfomationActivity.this,record_no);
-//        adapter = new SsxxAdapter(SsxxInfomationActivity.this,list);
-//        stickyListHeadersListView.setAdapter(adapter);
+        adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,userBean.getPatient_name());
+        stickyListHeadersListView.setAdapter(adapter);
     }
 }
