@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="水电"
+            android:text=""
             android:textColor="@color/ziti_lanse"
             android:textSize="14dp" />
 

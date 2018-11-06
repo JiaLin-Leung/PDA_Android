@@ -1,6 +1,7 @@
 package com.pda.pda_android.activity.apps.detail;
 
 import android.view.View;
+import android.widget.TextView;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.adapter.ssxx.SsxxDetailAdapter;
@@ -32,6 +33,7 @@ public class SsxxInfomationActivity extends BaseActivity {
     private UserBean userBean;
     private String record_no;
     private List<SsxxBean> list;
+    private TextView no_data;
 
     @Override
     public int setLayoutId() {
@@ -42,6 +44,7 @@ public class SsxxInfomationActivity extends BaseActivity {
     public void initView() {
         stickyListHeadersListView =  findViewById(R.id.ssxx_list_ssxx);
         refreshLayout = findViewById(R.id.refreshLayout1_ssxx);
+        no_data = findViewById(R.id.no_data);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
@@ -69,7 +72,11 @@ public class SsxxInfomationActivity extends BaseActivity {
         userBean = (UserBean) getIntent().getSerializableExtra("userBean");
         record_no = userBean.getRecord_no();
         list = SsxxBeanOpe.queryRecord_no(SsxxInfomationActivity.this,record_no);
-        adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,userBean.getPatient_name());
-        stickyListHeadersListView.setAdapter(adapter);
+        if (list.size() == 0){
+            no_data.setVisibility(View.VISIBLE);
+        }else{
+            adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,userBean.getPatient_name());
+            stickyListHeadersListView.setAdapter(adapter);
+        }
     }
 }
