@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
@@ -34,6 +35,7 @@ public class JcFragment extends BaseFragment {
     private  List<CheckBean> checkBeanList=new ArrayList<>();
     //床位 患者名字
     private  String cw,name;
+    private TextView no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class JcFragment extends BaseFragment {
         View view=inflater.inflate(R.layout.fragment_jc, container, false);
         //初始化
         stickyListHeadersListView =  view.findViewById(R.id.jc_list);
+        no_data = view.findViewById(R.id.no_data);
         refreshLayout = view.findViewById(R.id.refreshLayout1);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
@@ -66,7 +69,10 @@ public class JcFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        mainAdapter = new JcDetailAdapter(getActivity(),checkBeanList,name);
+        if (checkBeanList.size() == 0){
+            no_data.setVisibility(View.VISIBLE);
+        }else
+            mainAdapter = new JcDetailAdapter(getActivity(),checkBeanList,name);
         //设置头部的点击事件
 //        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
 //            @Override

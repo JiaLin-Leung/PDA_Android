@@ -5,7 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".fragment.jcjy.JyFragment"
     android:orientation="vertical">
-
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/no_data"
+        android:textSize="15dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="暂无信息"
+        />
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

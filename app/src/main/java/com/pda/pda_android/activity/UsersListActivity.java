@@ -19,6 +19,7 @@ import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.db.Entry.UserBean;
+import com.pda.pda_android.db.dbutil.SsxxBeanOpe;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
 import java.util.List;
@@ -50,6 +51,7 @@ public class UsersListActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        SsxxBeanOpe.queryRecord_no(UsersListActivity.this,"Record_no");
         user_list = UserDaoOpe.queryAll(UsersListActivity.this);
         adapter = new UserAdapter(UsersListActivity.this,user_list);
         users_listview.setAdapter(adapter);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
@@ -32,6 +33,7 @@ public class JyFragment extends Fragment {
     //住院号  名字
     private  String Patient_no,name;
     private List<AssayBean> assayBeans;
+    private TextView no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class JyFragment extends Fragment {
         //初始化
         stickyListHeadersListView =  view.findViewById(R.id.jy_list);
         refreshLayout = view.findViewById(R.id.refreshLayout_jy);
+        no_data = view.findViewById(R.id.no_data);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
@@ -51,7 +54,12 @@ public class JyFragment extends Fragment {
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         assayBeans=  AssayBeanOpe.queryPATIENT_NO(getActivity(),Patient_no);
         LogUtils.showLog("jy_shuju",assayBeans.toString());
-        mainAdapter = new JyDetailAdapter(getActivity(),assayBeans,name);
+        if (assayBeans.size() == 0){
+            no_data.setVisibility(View.VISIBLE);
+        }else{
+            mainAdapter = new JyDetailAdapter(getActivity(),assayBeans,name);
+        }
+
 
 //        //设置头部的点击事件
 //        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
