@@ -258,12 +258,12 @@ public class OkHttpManager {
                 if (cookies.size() != 0) {
                     String session = cookies.get(0).toString();
                     LogUtils.showLog("获取的cookie", "session" + session);
-                    if (session.contains("nis_token=")) {
+                    if (session.contains("nis-token=")) {
                         int start = session.indexOf("=");
                         int end = session.indexOf(";");
                         String sessionidSplit = session.substring(start + 1, end);
                         LogUtils.showLog("获取的cookieSplit:", "" + sessionidSplit);
-                        SpUtils.getInstance(context).save("nis_token", nis_token);
+                        SpUtils.getInstance(context).save("nis-token", nis_token);
                     }
                 }
                 if (resultBean.error.contains("no_user")) {//如果是no_user直接调到登录页!
@@ -278,7 +278,7 @@ public class OkHttpManager {
                 } else if (result.contains("no_class")) {//网络层获取没有班级
                     //TODO 网络层获取no_class处理逻辑
 
-                } else if (resultBean.getResponse().equals("fail")) {
+                } else if (resultBean.getResponse().equals("\"response\": \"fail\"")) {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -324,8 +324,8 @@ public class OkHttpManager {
         nis_token = sp.getString("nis_token", "");
         Request.Builder builder = new Request.Builder();
         builder.url(url);
-        builder.addHeader("nis_token", nis_token);
-        LogUtils.showLog(nis_token);
+        builder.addHeader("nis-token", nis_token);
+        LogUtils.showLog("nis_token--------",nis_token);
         if (methodType == HttpMethodType.GET) {
             builder.get();
         } else if (methodType == HttpMethodType.POST) {
