@@ -19,5 +19,8 @@ public class ContentUrl {
     //提交
     public static final String getNotSignedList = "/apps/module/sterile/not_signed/list"; //获取未签收的无菌包列表
 
+    //手动签收
+    public static final String sign = "/apps/module/sterile/manual/sign"; //手动签收无菌包
+
 
 }

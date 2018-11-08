@@ -5,17 +5,29 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.pda.pda_android.R;
+import com.pda.pda_android.base.network.LoadCallBack;
+import com.pda.pda_android.base.network.OkHttpManager;
+import com.pda.pda_android.base.network.bean.ResultBean;
+import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.bean.WjbqsBean;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.Call;
+import okhttp3.Response;
 
 
 public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.ViewHolder>{
@@ -23,11 +35,11 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
     private LayoutInflater mLayoutInflater;
     private List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list;
     private String name;
-    public WjbqsBodyAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list, String name) {
+    public WjbqsBodyAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
-        this.name=name;
+
     }
     @NonNull
     @Override
@@ -38,16 +50,13 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.name.setText(name+" 的检查结果");
-        holder.data.setText(list.get(position).getCode());
-        holder.project.setText(list.get(position).getName());
-        holder.jy_rootview.setOnClickListener(new View.OnClickListener() {
+        holder.name.setText(list.get(position).getName());
+        holder.data.setText(list.get(position).getSend_date());
+        holder.code.setText(list.get(position).getCode());
+        holder.qianshou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context,JyDetailActivity.class);
-//                intent.putExtra("name",name);
-//                intent.putExtra("Patient_no",list.get(position).getSend_date());
-//                context.startActivity(intent);
+                PostData(list.get(position).getCode(),position);
             }
         });
     }
@@ -58,15 +67,35 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name,project,data;
-        RelativeLayout jy_rootview;
-
+        TextView name,code,data;
+        Button qianshou;
         ViewHolder(View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.user_name);
-            project=itemView.findViewById(R.id.project);
+            name = itemView.findViewById(R.id.name);
+            code=itemView.findViewById(R.id.code);
             data=itemView.findViewById(R.id.data);
-            jy_rootview=itemView.findViewById(R.id.wjbqs_rootview);
+            qianshou=itemView.findViewById(R.id.qianshou);
         }
+    }
+
+    private void PostData(String code, final int position) {
+        Map<String, String> params = new HashMap<>(); //提交数据包
+        params.put("sterile_code", code); //将姓名参数添加到数据包
+        OkHttpManager.getInstance().postRequest(context, ContentUrl.TestUrl_local + ContentUrl.sign, new LoadCallBack<String>(context) {
+            @Override
+            protected void onFailure(Call call, IOException e) {
+            }
+            @Override
+            protected void onSuccess(Call call, Response response, String s) throws IOException {
+                Gson gson = new Gson();
+                ResultBean resultBean= gson.fromJson(s,ResultBean.class);
+                if (resultBean.response.equals("ok")){
+                    Toast.makeText(context,resultBean.getMessage(),Toast.LENGTH_SHORT).show();
+                    list.remove(position);
+                    notifyDataSetChanged();
+                }
+            }
+        },params);
+
     }
 }

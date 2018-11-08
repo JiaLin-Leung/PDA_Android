@@ -27,11 +27,11 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
     private Context context;
     private List<String> headList;
     private List<WjbqsBean.WjbqsBeanListBean> bodyList;
-    private String name;
-    public WjbqsDetailAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean> bodyList,String name) {
+
+    public WjbqsDetailAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean> bodyList) {
         this.context = context;
         this.bodyList=bodyList;
-        this.name=name;
+
     }
 
     public void setHeadList(List<String> headList) {
@@ -85,7 +85,7 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
         bodyHolder.bodyrv.setHasFixedSize(true);
         bodyHolder.bodyrv.setNestedScrollingEnabled(false);
         //设置数据
-        bodyHolder.bodyrv.setAdapter(new WjbqsBodyAdapter(context,bodyList.get(i).getList(),name));
+        bodyHolder.bodyrv.setAdapter(new WjbqsBodyAdapter(context,bodyList.get(i).getList()));
 
         return view;
     }

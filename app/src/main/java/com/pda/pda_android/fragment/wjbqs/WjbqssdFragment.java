@@ -68,7 +68,7 @@ public class WjbqssdFragment extends Fragment {
                     Gson gson = new Gson();
                     wjbqsBean = gson.fromJson(s,WjbqsBean.class);
                     wjbqsBeanListBeans = wjbqsBean.getData();
-                    mainAdapter = new WjbqsDetailAdapter(getActivity(),wjbqsBeanListBeans,name);
+                    mainAdapter = new WjbqsDetailAdapter(getActivity(),wjbqsBeanListBeans);
                     stickyListHeadersListView.setAdapter(mainAdapter);
             }
         },params);
