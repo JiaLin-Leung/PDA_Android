@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
@@ -58,14 +59,14 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView name,project,data;
-        LinearLayout jy_rootview;
+        RelativeLayout jy_rootview;
 
         ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.user_name);
             project=itemView.findViewById(R.id.project);
             data=itemView.findViewById(R.id.data);
-            jy_rootview=itemView.findViewById(R.id.jy_rootview);
+            jy_rootview=itemView.findViewById(R.id.wjbqs_rootview);
         }
     }
 }

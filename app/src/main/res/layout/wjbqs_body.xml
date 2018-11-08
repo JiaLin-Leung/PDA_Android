@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/jy_rootview">
+    android:id="@+id/wjbqs_rootview">
     <LinearLayout
         android:background="@drawable/shape_ssxxinfomation"
         android:layout_marginTop="6dp"
@@ -19,7 +19,7 @@
             android:layout_marginTop="20dp"
             android:textColor="@color/black"
             android:textSize="15dp"
-            android:text="001 找小虎"
+            android:text="缝合包"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <LinearLayout
@@ -31,7 +31,7 @@
             <TextView
                 android:textColor="@color/ziti_huise"
                 android:textSize="12dp"
-                android:text="项目："
+                android:text="编号："
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -70,4 +70,4 @@
         android:layout_width="match_parent"
         android:background="@color/bg_layout"
         android:layout_height="10dp"></View>
-</LinearLayout>
+</RelativeLayout>
