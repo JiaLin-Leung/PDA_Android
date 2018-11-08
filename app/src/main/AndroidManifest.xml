@@ -55,6 +55,10 @@
             android:name=".service.UsersSsxxListService"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name="com.pda.pda_android.service.PostCacheService"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity android:name=".activity.apps.detail.jcjydetail.JcDetailActivity" />
         <activity android:name=".activity.apps.detail.jcjydetail.JyDetailActivity"></activity>
