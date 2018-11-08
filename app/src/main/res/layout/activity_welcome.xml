@@ -4,16 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@mipmap/start"
     android:layout_height="match_parent"
-    android:background="@color/bg_12b7f5"
     tools:context=".activity.LoginActivity">
 
-    <TextView
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="别问我是谁！就是欢迎你！"
-        android:textSize="30dp"
-        />
 
 </LinearLayout>
