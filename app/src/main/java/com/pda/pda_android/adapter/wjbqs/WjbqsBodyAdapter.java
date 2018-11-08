@@ -18,6 +18,7 @@ import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.network.bean.ResultBean;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.bean.WjbqsBean;
+import com.pda.pda_android.fragment.wjbqs.WjbqssdFragment;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,12 +35,15 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
     private Context context;
     private LayoutInflater mLayoutInflater;
     private List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list;
-    private String name;
-    public WjbqsBodyAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list) {
+    String  time;
+    private WjbqsDetailAdapter wjbqsDetailAdapter=new WjbqsDetailAdapter();
+    private List<WjbqsBean.WjbqsBeanListBean> listBeans;
+    public WjbqsBodyAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list, List<WjbqsBean.WjbqsBeanListBean> listBeans) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
 
+        this.listBeans=listBeans;
     }
     @NonNull
     @Override
@@ -56,6 +60,7 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
         holder.qianshou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                time=list.get(position).getSend_date().split(" ")[0];
                 PostData(list.get(position).getCode(),position);
             }
         });
@@ -78,7 +83,7 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
         }
     }
 
-    private void PostData(String code, final int position) {
+    private void PostData(final String code, final int position) {
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("sterile_code", code); //将姓名参数添加到数据包
         OkHttpManager.getInstance().postRequest(context, ContentUrl.TestUrl_local + ContentUrl.sign, new LoadCallBack<String>(context) {
@@ -91,8 +96,14 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
                 ResultBean resultBean= gson.fromJson(s,ResultBean.class);
                 if (resultBean.response.equals("ok")){
                     Toast.makeText(context,resultBean.getMessage(),Toast.LENGTH_SHORT).show();
-                    list.remove(position);
-                    notifyDataSetChanged();
+//                    wjbqsDetailAdapter.notifyDataSetChanged();
+                    for (int i=0;i<listBeans.size();i++){
+                        if (time.equals(listBeans.get(i).getDate())){
+                                wjbqsDetailAdapter.update(i,position);
+
+                        }
+                    }
+//                    wjbqssdFragment.mainAdapter.notifyDataSetChanged();
                 }
             }
         },params);

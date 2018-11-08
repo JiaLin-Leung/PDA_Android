@@ -40,7 +40,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class WjbqssdFragment extends Fragment {
     private RefreshLayout refreshLayout;
     private StickyListHeadersListView stickyListHeadersListView;
-    private WjbqsDetailAdapter mainAdapter;
+    public WjbqsDetailAdapter mainAdapter;
     private  String Patient_no,name;
     private List<WjbqsBean.WjbqsBeanListBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbqsBean wjbqsBean;
@@ -54,27 +54,23 @@ public class WjbqssdFragment extends Fragment {
         return view;
     }
 
-    private void initData() {
+    public void initData() {
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("page", 1+""); //将姓名参数添加到数据包
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getNotSignedList, new LoadCallBack<String>(getActivity()) {
             @Override
             protected void onFailure(Call call, IOException e) {
-
             }
-
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
-                    Gson gson = new Gson();
-                    wjbqsBean = gson.fromJson(s,WjbqsBean.class);
-                    wjbqsBeanListBeans = wjbqsBean.getData();
-                    mainAdapter = new WjbqsDetailAdapter(getActivity(),wjbqsBeanListBeans);
-                    stickyListHeadersListView.setAdapter(mainAdapter);
+                Gson gson = new Gson();
+                wjbqsBean = gson.fromJson(s,WjbqsBean.class);
+                wjbqsBeanListBeans = wjbqsBean.getData();
+                mainAdapter = new WjbqsDetailAdapter(getActivity(),wjbqsBeanListBeans);
+                stickyListHeadersListView.setAdapter(mainAdapter);
             }
         },params);
-
     }
-
     private void init(View view) {
         refreshLayout=view.findViewById(R.id.refreshLayout1);
         stickyListHeadersListView=view.findViewById(R.id.wsjqs_sd_list);
@@ -96,11 +92,15 @@ public class WjbqssdFragment extends Fragment {
                 header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
             }
         });
+
     }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         Patient_no = "ZY040000469876";
         name = "1231231";
+    }
+    public void setupdate(){
+        mainAdapter.notifyDataSetChanged();
     }
 }

@@ -67,9 +67,17 @@ public class WjbqsBean implements Serializable {
     }
 
     public class WjbqsBeanListBean implements Serializable{
-
+        private int index;
         private String date;
         private List<WjbqsBeanListBeanListBean> list;
+
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
 
         @Override
         public String toString() {
@@ -100,6 +108,8 @@ public class WjbqsBean implements Serializable {
             private String code;
             private String name;
             private String send_date;
+
+
 
             @Override
             public String toString() {

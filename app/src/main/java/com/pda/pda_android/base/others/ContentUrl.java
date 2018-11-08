@@ -22,5 +22,6 @@ public class ContentUrl {
     //手动签收
     public static final String sign = "/apps/module/sterile/manual/sign"; //手动签收无菌包
 
-
+    //已签收
+    public static final String sign_list = "/apps/module/sterile/signed/list"; //已经签收无菌包
 }

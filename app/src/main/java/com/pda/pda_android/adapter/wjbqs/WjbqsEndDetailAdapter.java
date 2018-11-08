@@ -1,7 +1,6 @@
 package com.pda.pda_android.adapter.wjbqs;
 
 import android.content.Context;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.bean.WjbEndBean;
 import com.pda.pda_android.bean.WjbqsBean;
-import com.pda.pda_android.fragment.wjbqs.WjbqssdFragment;
 
 import java.util.List;
-import java.util.logging.Handler;
 
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,17 +24,16 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * 梁佳霖创建于：2018/11/7 13:44
  * 功能：
  */
-public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+public class WjbqsEndDetailAdapter extends BaseAdapter implements StickyListHeadersAdapter {
     private Context context;
-    private static List<WjbqsBean.WjbqsBeanListBean> bodyList;
-    private WjbqssdFragment wjbqssdFragment=new WjbqssdFragment();
-    public WjbqsDetailAdapter() {
+    private List<WjbEndBean.DataBean> bodyList;
 
-    }
-    public WjbqsDetailAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean> bodyList) {
+    public WjbqsEndDetailAdapter(Context context, List<WjbEndBean.DataBean> bodyList) {
         this.context = context;
         this.bodyList=bodyList;
     }
+
+
 
     //设置数据的个数
     @Override
@@ -66,21 +63,20 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        WjbqsDetailAdapter.BodyHolder bodyHolder = null;
+        WjbqsEndDetailAdapter.BodyHolder bodyHolder = null;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.wjbqs_list_body, viewGroup, false);
-            bodyHolder = new WjbqsDetailAdapter.BodyHolder(view);
+            view = LayoutInflater.from(context).inflate(R.layout.wjbqs_end_list_body, viewGroup, false);
+            bodyHolder = new WjbqsEndDetailAdapter.BodyHolder(view);
             view.setTag(bodyHolder);
         } else {
-            bodyHolder = (WjbqsDetailAdapter.BodyHolder) view.getTag();
+            bodyHolder = (WjbqsEndDetailAdapter.BodyHolder) view.getTag();
         }
         bodyHolder.bodyrv.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         bodyHolder.bodyrv.setItemAnimator(new DefaultItemAnimator());
         bodyHolder.bodyrv.setHasFixedSize(true);
         bodyHolder.bodyrv.setNestedScrollingEnabled(false);
-        bodyList.get(i).setIndex(i);
         //设置数据
-        bodyHolder.bodyrv.setAdapter(new WjbqsBodyAdapter(context,bodyList.get(i).getList(),bodyList));
+        bodyHolder.bodyrv.setAdapter(new WjbqsEndBodyAdapter(context,bodyList.get(i).getList()));
 
         return view;
     }
@@ -89,13 +85,13 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
     @Override
     public View getHeaderView(final int position, View convertView, ViewGroup parent) {
 
-        WjbqsDetailAdapter.HeadHolder headHolder = null;
+        WjbqsEndDetailAdapter.HeadHolder headHolder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.wjbqs_head, parent, false);
-            headHolder = new WjbqsDetailAdapter.HeadHolder(convertView);
+            convertView = LayoutInflater.from(context).inflate(R.layout.wjbqs_end_head, parent, false);
+            headHolder = new WjbqsEndDetailAdapter.HeadHolder(convertView);
             convertView.setTag(headHolder);
         } else {
-            headHolder = (WjbqsDetailAdapter.HeadHolder) convertView.getTag();
+            headHolder = (WjbqsEndDetailAdapter.HeadHolder) convertView.getTag();
         }
         //设置数据
         headHolder.headTv.setText(bodyList.get(position).getDate());
@@ -108,22 +104,8 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
         });
         return convertView;
     }
-    //    public  android.os.Handler handler = new android.os.Handler(){
-//
-//        @Override
-//        public void handleMessage(Message msg) {
-//            context.notifyAll();
-//            super.handleMessage(msg);
-//        }
-//    };
-    public void update(int i,int position){
-        if (bodyList.get(i).getList().size()==0){
-            bodyList.remove(i);
-        }else {
-            bodyList.get(i).getList().remove(position);
-        }
-         notifyDataSetChanged();
-    }
+
+
     //头部的内部类
     public class HeadHolder {
         private TextView headTv,item_num_tv;
