@@ -3,6 +3,8 @@ package com.pda.pda_android.widget;
 import android.app.Application;
 import android.content.Context;
 
+import com.pda.pda_android.utils.Util;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,6 +30,7 @@ public class AppContext extends Application {
 	public void onCreate() {
 		super.onCreate();
 		context = this;// 全局上下文
+		Util.init(context);
 		init();
 	}
 

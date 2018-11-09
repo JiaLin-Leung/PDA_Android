@@ -5,29 +5,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".activity.LoginActivity">
 
-    <EditText
-        android:text="000775"
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ed_username"
-        />
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/logo"
+            />
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="80dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp">
 
-    <EditText
-        android:text="111111"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/ed_password"
-        />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:background="@mipmap/username"
+                />
 
-    <Button
-        android:onClick="onClick"
-        android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="登录"
-        />
+            <EditText
+                android:text="000775"
+                android:id="@+id/login_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="0123456789"
+                android:gravity="center_vertical"
+                android:hint="请输入工号"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:singleLine="true"
+                android:textColor="#333"
+                android:textColorHint="#dcdcdc"
+                android:textSize="15sp" />
 
+            <ImageView
+                android:id="@+id/iv_clear_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="7dp"
+                android:src="@mipmap/clear"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="280dp"
+            android:layout_height="0.5dp"
+            android:background="#d1d1d1" />
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="48dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:background="@mipmap/password" />
+
+            <EditText
+                android:text="111111"
+                android:id="@+id/login_pasw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:hint="请输入密码"
+                android:inputType="textPassword"
+                android:maxLength="16"
+                android:textColor="#333"
+                android:textColorHint="#dcdcdc"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@+id/iv_clear_pasw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="7dp"
+                android:src="@mipmap/clear"
+                android:visibility="gone" />
+
+        </LinearLayout>
+        <View
+            android:id="@+id/view2"
+            android:layout_width="280dp"
+            android:layout_height="0.5dp"
+            android:background="#d1d1d1" />
+        <Button
+            android:onClick="onClick"
+            android:id="@+id/login_btn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="280dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/login_bt_noseleter"
+            android:clickable="false"
+            android:enabled="false"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 </LinearLayout>
