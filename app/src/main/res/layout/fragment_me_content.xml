@@ -8,44 +8,21 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@drawable/timg"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="20dp"
-        android:paddingTop="20dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/me_back"
+        android:gravity="bottom|center"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_user_name"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/ver_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:gravity="center_horizontal"
-            android:text=""
-            android:textColor="#FFFFFF"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/tv_user_class"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:textColor="#FFFFFF"
+            android:text=" "
+            android:textColor="@color/white"
             android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/tv_change_head_frame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center_horizontal"
-            android:text="更换头像边框"
-            android:textColor="#127b9e"
-            android:textSize="12sp"
-            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -62,7 +39,7 @@
             <LinearLayout
                 android:id="@+id/layout_add_child"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="12dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
@@ -70,11 +47,12 @@
                 android:paddingRight="12dp">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="5dp"
-                    android:src="@drawable/my_add_img" />
+                    android:src="@mipmap/me_gonghao" />
 
                 <TextView
                     android:layout_width="279dp"
@@ -83,7 +61,7 @@
                     android:layout_marginLeft="7dp"
                     android:layout_weight="1"
                     android:text="工号：00001"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -91,7 +69,7 @@
             <LinearLayout
                 android:id="@+id/layout_change_name"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="48dp"
 
                 android:background="@color/white"
                 android:orientation="horizontal"
@@ -99,11 +77,12 @@
                 android:paddingRight="12dp">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="5dp"
-                    android:src="@drawable/my_rename_img" />
+                    android:src="@mipmap/me_xingming" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -112,7 +91,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="姓名：陈奕迅"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <TextView
@@ -134,18 +113,19 @@
             <LinearLayout
                 android:id="@+id/layoutChangeBingqu"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="48dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="5dp"
-                    android:src="@drawable/my_password_img" />
+                    android:src="@mipmap/me_bingqu" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -154,7 +134,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="病区：护士站001"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <ImageView
@@ -162,7 +142,7 @@
                     android:layout_height="16dp"
                     android:layout_marginRight="12dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/right_arrow" />
+                    android:src="@mipmap/me_next" />
             </LinearLayout>
 
             <View
@@ -173,7 +153,7 @@
             <LinearLayout
                 android:id="@+id/layout_password"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="12dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
@@ -181,11 +161,12 @@
                 android:paddingRight="12dp">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="5dp"
-                    android:src="@drawable/my_feedback_img" />
+                    android:src="@mipmap/me_xiugaimima" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -194,7 +175,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="修改密码"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
                 <ImageView
@@ -202,7 +183,7 @@
                     android:layout_height="16dp"
                     android:layout_marginRight="12dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/right_arrow" />
+                    android:src="@mipmap/me_next" />
             </LinearLayout>
 
             <View
@@ -213,18 +194,19 @@
             <LinearLayout
                 android:id="@+id/layout_check_version"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="48dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="5dp"
-                    android:src="@drawable/my_newversion_img" />
+                    android:src="@mipmap/me_jiancexinbanben" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -234,18 +216,9 @@
                     android:layout_weight="1"
                     android:baselineAligned="false"
                     android:text="检测新版本"
-                    android:textColor="@color/text_color"
+                    android:textColor="@color/black"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/ver_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
-                    android:gravity="center_vertical|right"
-                    android:text=""
-                    android:textColor="@color/text_hint_color"
-                    android:textSize="15sp" />
 
                 <ImageView
                     android:id="@+id/ver_img"
@@ -258,25 +231,45 @@
                     android:visibility="gone" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/line_color" />
-
-            <Button
+            <LinearLayout
                 android:id="@+id/btn_quit"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/bg_btn_quit"
-                android:text="退出登录"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp">
+
+                <ImageView
+                    android:layout_marginRight="16dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/me_tuichu" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:baselineAligned="false"
+                    android:text="退出登录"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+
+                <ImageView
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/dot_version"
+                    android:visibility="gone" />
+            </LinearLayout>
+
 
         </LinearLayout>
 

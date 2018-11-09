@@ -40,7 +40,7 @@ public class MeFragment extends BaseFragment {
     /**
      * 退出按钮
      */
-    private Button btnQuit;
+    private  LinearLayout btnQuit;
 
     public static MeFragment newInstance(String s) {
         MeFragment meFragment = new MeFragment();
