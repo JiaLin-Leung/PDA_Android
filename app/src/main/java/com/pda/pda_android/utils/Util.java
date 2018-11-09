@@ -14,6 +14,10 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -31,19 +35,23 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.tabs.TabLayout;
 import com.pda.pda_android.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,7 +72,7 @@ public class Util {
     }
 
     /**
-     * 初始化工具类Util.getVersionName());
+     * 初始化工具类
      *
      * @param context 上下文
      */
@@ -82,35 +90,13 @@ public class Util {
         throw new NullPointerException("u should init first");
     }
 
-    public static int getLocalVersion(Context ctx) {
-        int localVersion = 0;
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo = ctx.getApplicationContext()
-                    .getPackageManager()
-                    .getPackageInfo(ctx.getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        localVersion = packageInfo.versionCode;
-        return localVersion;
-    }
-
     /**
-     * 获取本地软件版本号名称
+     * View获取Activity的工具
+     *
+     * @param view view
+     * @return Activity
      */
-    public static String getLocalVersionName(Context ctx) {
-        String localVersion = "";
-        try {
-            PackageInfo packageInfo = ctx.getApplicationContext()
-                    .getPackageManager()
-                    .getPackageInfo(ctx.getPackageName(), 0);
-            localVersion = packageInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return localVersion;
-    }
+    public static
     @NonNull
     Activity getAttachActivity(View view) {
         Context context = view.getContext();
@@ -334,23 +320,25 @@ public class Util {
 
     /**
      * 禁止EditText输入空格
+     *
      * @param editText
      */
-    public static void setEditTextInhibitInputSpace(int maxLength,EditText editText){
-        InputFilter filter=new InputFilter() {
+    public static void setEditTextInhibitInputSpace(int maxLength, EditText editText) {
+        InputFilter filter = new InputFilter() {
             @Override
             public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                if(source.equals(" ")){
+                if (source.equals(" ")) {
                     return "";
-                }else
+                } else
                     return null;
             }
         };
-        editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength),filter});
+        editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength), filter});
     }
 
     /**
      * 获取手机系统版本号
+     *
      * @return
      */
     public static String getAndroidVersion() {
@@ -360,6 +348,7 @@ public class Util {
 
     /**
      * 获取手机设备名称
+     *
      * @param context
      * @return
      */
@@ -371,6 +360,7 @@ public class Util {
 
     /**
      * 获取设备序列号
+     *
      * @param context
      * @return
      */
@@ -382,6 +372,7 @@ public class Util {
 
     /**
      * 获取设备型号UUID
+     *
      * @param context
      * @return
      */
@@ -391,12 +382,18 @@ public class Util {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             return "";
         }
-        String deviceId = tm.getDeviceId();
+        String deviceId;
+        if (tm != null) {
+            deviceId = tm.getDeviceId();
+        }else {
+            deviceId = "";
+        }
         return deviceId;
     }
 
     /**
      * 获取app当前版本号
+     *
      * @param context
      * @return
      */
@@ -418,6 +415,27 @@ public class Util {
 
     /**
      * 获取app当前版本号
+     *
+     * @param context
+     * @return
+     */
+    public static String getVersionCode(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        PackageInfo packageInfo;
+        String versionCode = "";
+        try {
+            packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
+            versionCode = packageInfo.versionCode + "";
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionCode;
+    }
+
+
+    /**
+     * 获取app当前版本号
+     *
      * @param context
      * @return
      */
@@ -434,6 +452,7 @@ public class Util {
         }
         return version;
     }
+
     //图片压缩
     public static String compressImage(String filePath, String targetPath,
                                        int quality) {
@@ -452,13 +471,14 @@ public class Util {
             }
             FileOutputStream out = new FileOutputStream(outputFile);
             bm.compress(Bitmap.CompressFormat.JPEG, quality, out);
-            if (out!=null){
+            if (out != null) {
                 out.close();
             }
         } catch (Exception e) {
         }
         return outputFile.getPath();
     }
+
     /**
      * 旋转照片
      *
@@ -476,6 +496,7 @@ public class Util {
         }
         return bitmap;
     }
+
     /**
      * 根据路径获得图片信息并按比例压缩，返回bitmap
      */
@@ -522,6 +543,7 @@ public class Util {
 
     /**
      * 计算缩放比
+     *
      * @param options
      * @param reqWidth
      * @param reqHeight
@@ -541,8 +563,44 @@ public class Util {
         return inSampleSize;
     }
 
+
+    /**
+     * 判断按钮是否可点击
+     */
+    public static void bt_isselecter(Button bt, EditText et1, EditText et2) {
+        if (!TextUtils.isEmpty(et1.getText().toString()) && !TextUtils.isEmpty(et2.getText().toString())) {
+            bt.setBackgroundResource(R.drawable.login_bt_seleter);
+            bt.setTextColor(context.getResources().getColor(R.color.white));
+            bt.setClickable(true);
+            bt.setEnabled(true);
+        } else {
+            bt.setBackgroundResource(R.drawable.login_bt_noseleter);
+            bt.setTextColor(context.getResources().getColor(R.color.bt_noseleter_text));
+            bt.setClickable(false);
+            bt.setEnabled(false);
+        }
+    }
+
+    /**
+     * 判断按钮是否可点击
+     */
+    public static void bt_isselecter(Button bt, EditText et1) {
+        if (!TextUtils.isEmpty(et1.getText().toString())) {
+            bt.setBackgroundResource(R.drawable.login_bt_seleter);
+            bt.setTextColor(context.getResources().getColor(R.color.white));
+            bt.setClickable(true);
+            bt.setEnabled(true);
+        } else {
+            bt.setBackgroundResource(R.drawable.login_bt_noseleter);
+            bt.setTextColor(context.getResources().getColor(R.color.bt_noseleter_text));
+            bt.setClickable(false);
+            bt.setEnabled(false);
+        }
+    }
+
     /**
      * 判定输入汉字
+     *
      * @param c
      * @return
      */
@@ -568,47 +626,55 @@ public class Util {
         }
     }
 
-    /**
-     * 设置tablayout下划线的宽度
-     */
-    public static void reflex(final TabLayout tabLayout){
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    //拿到tabLayout的mTabStrip属性
-                    Field mTabStripField = tabLayout.getClass().getDeclaredField("mTabStrip");
-                    mTabStripField.setAccessible(true);
-                    LinearLayout mTabStrip = (LinearLayout) mTabStripField.get(tabLayout);
-                    int dp10 = Util.dp2px( 10);
-                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-                        View tabView = mTabStrip.getChildAt(i);
-                        //拿到tabView的mTextView属性
-                        Field mTextViewField = tabView.getClass().getDeclaredField("mTextView");
-                        mTextViewField.setAccessible(true);
-                        TextView mTextView = (TextView) mTextViewField.get(tabView);
-                        tabView.setPadding(0, 0, 0, 0);
-                        //因为我想要的效果是   字多宽线就多宽，所以测量mTextView的宽度
-                        int width = 0;
-                        width = mTextView.getWidth();
-                        if (width == 0) {
-                            mTextView.measure(0, 0);
-                            width = mTextView.getMeasuredWidth();
-                        }
-                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-                        params.width = width ;
-                        params.leftMargin = dp10;
-                        params.rightMargin = dp10;
-                        tabView.setLayoutParams(params);
-                        tabView.invalidate();
-                    }
-                } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    // 获得当前时间
+    public static String getTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH：mm：ss");
+        Date curDate = new Date(System.currentTimeMillis());// 获取当前时间
+        return formatter.format(curDate);
     }
 
+    public static String getIPAddress(Context context) {
+        NetworkInfo info = ((ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        if (info != null && info.isConnected()) {
+            if (info.getType() == ConnectivityManager.TYPE_MOBILE) {//当前使用2G/3G/4G网络
+                try {
+                    //Enumeration<NetworkInterface> en=NetworkInterface.getNetworkInterfaces();
+                    for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+                        NetworkInterface intf = en.nextElement();
+                        for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+                            InetAddress inetAddress = enumIpAddr.nextElement();
+                            if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+                                return inetAddress.getHostAddress();
+                            }
+                        }
+                    }
+                } catch (SocketException e) {
+                    e.printStackTrace();
+                }
+
+            } else if (info.getType() == ConnectivityManager.TYPE_WIFI) {//当前使用无线网络
+                WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+                WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                String ipAddress = intIP2StringIP(wifiInfo.getIpAddress());//得到IPV4地址
+                return ipAddress;
+            }
+        } else {
+            //当前无网络连接,请在设置中打开网络
+        }
+        return null;
+    }
+
+    /**
+     * 将得到的int类型的IP转换为String类型
+     *
+     * @param ip
+     * @return
+     */
+    public static String intIP2StringIP(int ip) {
+        return (ip & 0xFF) + "." +
+                ((ip >> 8) & 0xFF) + "." +
+                ((ip >> 16) & 0xFF) + "." +
+                (ip >> 24 & 0xFF);
+    }
 }

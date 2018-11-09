@@ -2,10 +2,14 @@ package com.pda.pda_android.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -18,6 +22,7 @@ import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.bean.LoginBean;
 import com.pda.pda_android.bean.LoginBeanFail;
+import com.pda.pda_android.utils.Util;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,6 +40,8 @@ public class LoginActivity extends BaseActivity {
     private String password;
     private OkHttpManager okHttpManager;
     private Gson gson;
+    private ImageView iv_clear_phone;
+    private ImageView iv_clear_pasw;
 
     @Override
     public int setLayoutId() {
@@ -43,9 +50,12 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        ed_username = findViewById(R.id.ed_username);
-        ed_password = findViewById(R.id.ed_password);
-        loginButton = findViewById(R.id.loginButton);
+        ed_username = findViewById(R.id.login_account);
+        ed_password = findViewById(R.id.login_pasw);
+        loginButton = findViewById(R.id.login_btn);
+        iv_clear_phone = findViewById(R.id.iv_clear_phone);
+        iv_clear_pasw = findViewById(R.id.iv_clear_pasw);
+        initTextChanged();
     }
 
     @Override
@@ -57,7 +67,7 @@ public class LoginActivity extends BaseActivity {
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()){
-            case R.id.loginButton:
+            case R.id.login_btn:
                 username = ed_username.getText().toString();
                 password = ed_password.getText().toString();
                 login(username,password);
@@ -99,5 +109,58 @@ public class LoginActivity extends BaseActivity {
     public static void goLoginAcvtivity(Context context){
         Intent intent = new Intent(context,LoginActivity.class);
         context.startActivity(intent);
+    }
+
+    private void initTextChanged() {
+        //密码框监听
+        ed_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() != 0) {
+                    iv_clear_pasw.setVisibility(View.VISIBLE);
+                } else {
+                    iv_clear_pasw.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Util.bt_isselecter(loginButton, ed_username, ed_password);
+            }
+        });
+        //账号框输入监听
+        ed_username.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                if (s.length() != 0) {
+                    iv_clear_phone.setVisibility(View.VISIBLE);
+                } else {
+                    iv_clear_phone.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                Util.bt_isselecter(loginButton, ed_username, ed_password);
+            }
+        });
+        iv_clear_pasw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ed_password.setText("");
+            }
+        });
+        iv_clear_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ed_username.setText("");
+            }
+        });
     }
 }
