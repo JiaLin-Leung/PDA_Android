@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +48,7 @@ public class WjbqssdFragment extends Fragment {
     private List<WjbqsBean.WjbqsBeanListBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbqsBean wjbqsBean;
     private View view;
-    private ImageView no_data;
+    private LinearLayout no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
