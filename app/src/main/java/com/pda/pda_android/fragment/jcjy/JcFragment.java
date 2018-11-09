@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
@@ -35,7 +36,7 @@ public class JcFragment extends BaseFragment {
     private  List<CheckBean> checkBeanList=new ArrayList<>();
     //床位 患者名字
     private  String cw,name;
-    private TextView no_data;
+    private ImageView no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

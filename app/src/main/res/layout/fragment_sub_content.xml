@@ -25,7 +25,7 @@
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@drawable/daiban"
+                android:src="@mipmap/daiban"
                 android:layout_marginRight="8dp"/>
             <TextView
                 android:onClick="onClick"
@@ -68,7 +68,7 @@
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@drawable/tixing"
+                android:src="@mipmap/tixing"
                 android:layout_marginRight="8dp"/>
             <TextView
                 android:onClick="onClick"

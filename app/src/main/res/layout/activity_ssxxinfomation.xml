@@ -10,13 +10,13 @@
         android:id="@+id/common"
         layout="@layout/detail_titles" />
 
-    <TextView
+    <ImageView
         android:id="@+id/no_data"
         android:visibility="gone"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="暂无信息"
+        android:src="@mipmap/empty"
         />
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"

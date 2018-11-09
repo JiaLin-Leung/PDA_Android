@@ -16,6 +16,7 @@ import com.pda.pda_android.adapter.wjbqs.WjbqsEndDetailAdapter;
 import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
+import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.WjbEndBean;
 import com.pda.pda_android.bean.WjbqsBean;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -65,13 +66,12 @@ public class WjbqsendFragment extends Fragment {
             protected void onFailure(Call call, IOException e) {
             }
             @Override
-            protected void onSuccess(Call call, Response response, String s) throws IOException {
+            protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
                 wjbEndBean = gson.fromJson(s,WjbEndBean.class);
                 wjbqsBeanListBeans = wjbEndBean.getData();
                 mainAdapter = new WjbqsEndDetailAdapter(getActivity(),wjbqsBeanListBeans);
                 stickyListHeadersListView.setAdapter(mainAdapter);
-
             }
         },params);
     }
@@ -93,6 +93,7 @@ public class WjbqsendFragment extends Fragment {
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
+                LogUtils.showLog("已完成筛选");
                 header.findViewById(R.id.item_end_shaixuan).setVisibility(View.VISIBLE);
             }
         });

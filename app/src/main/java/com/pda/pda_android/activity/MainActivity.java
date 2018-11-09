@@ -55,9 +55,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
         bottom_navigation_bar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
         bottom_navigation_bar.setMode(BottomNavigationBar.MODE_FIXED);
-        bottom_navigation_bar.addItem(new BottomNavigationItem(R.drawable.first_sele, getString(R.string.home_main_string)).setInactiveIconResource(R.drawable.first_nosele).setActiveColorResource(R.color.text_lan).setInActiveColorResource(R.color.text_huise))
-                .addItem(new BottomNavigationItem(R.drawable.huanze_sele, getString(R.string.user_main_string)).setInactiveIconResource(R.drawable.huanze_nosele).setActiveColorResource(R.color.text_lan).setInActiveColorResource(R.color.text_huise))
-                .addItem(new BottomNavigationItem(R.drawable.me_sele, getString(R.string.me_main_string)).setInactiveIconResource(R.drawable.me_nosele).setActiveColorResource(R.color.text_lan).setInActiveColorResource(R.color.text_huise))
+        bottom_navigation_bar.addItem(new BottomNavigationItem(R.mipmap.first_sele, getString(R.string.home_main_string)).setInactiveIconResource(R.mipmap.first_nosele).setActiveColorResource(R.color.text_lan).setInActiveColorResource(R.color.text_huise))
+                .addItem(new BottomNavigationItem(R.mipmap.huanze_sele, getString(R.string.user_main_string)).setInactiveIconResource(R.mipmap.huanze_nosele).setActiveColorResource(R.color.text_lan).setInActiveColorResource(R.color.text_huise))
+                .addItem(new BottomNavigationItem(R.mipmap.me_sele, getString(R.string.me_main_string)).setInactiveIconResource(R.mipmap.me_nosele).setActiveColorResource(R.color.text_lan).setInActiveColorResource(R.color.text_huise))
                 .setFirstSelectedPosition(0)
                 .initialise();
         bottom_navigation_bar.setTabSelectedListener(this);

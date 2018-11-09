@@ -137,12 +137,12 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
     public class HeadHolder {
         private TextView headTv,item_num_tv;
         private LinearLayout item_shaixuan;
-        private LinearLayout wjbqs_ln;
+
         public HeadHolder(View itemHeadView) {
             item_num_tv=  itemHeadView.findViewById(R.id.item_num_tv);
             headTv =  itemHeadView.findViewById(R.id.item_head_tv);
             item_shaixuan=itemHeadView.findViewById(R.id.item_sd_shaixuan);
-            wjbqs_ln=itemHeadView.findViewById(R.id.wjbqs_ln);
+
         }
     }
 
