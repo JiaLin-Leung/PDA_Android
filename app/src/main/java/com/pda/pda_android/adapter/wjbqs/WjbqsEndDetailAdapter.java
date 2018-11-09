@@ -33,8 +33,6 @@ public class WjbqsEndDetailAdapter extends BaseAdapter implements StickyListHead
         this.bodyList=bodyList;
     }
 
-
-
     //设置数据的个数
     @Override
     public int getCount() {
@@ -96,10 +94,10 @@ public class WjbqsEndDetailAdapter extends BaseAdapter implements StickyListHead
         //设置数据
         headHolder.headTv.setText(bodyList.get(position).getDate());
         headHolder.item_num_tv.setText("共"+bodyList.get(position).getList().size()+"条");
-        headHolder.item_shaixuan.setOnClickListener(new View.OnClickListener() {
+        headHolder.item_end_shaixuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,bodyList.get(position).getDate(),Toast.LENGTH_SHORT).show();
+
             }
         });
         return convertView;
@@ -109,11 +107,11 @@ public class WjbqsEndDetailAdapter extends BaseAdapter implements StickyListHead
     //头部的内部类
     public class HeadHolder {
         private TextView headTv,item_num_tv;
-        private LinearLayout item_shaixuan;
+        private LinearLayout item_end_shaixuan;
         public HeadHolder(View itemHeadView) {
             item_num_tv=  itemHeadView.findViewById(R.id.item_num_tv);
             headTv =  itemHeadView.findViewById(R.id.item_head_tv);
-            item_shaixuan=itemHeadView.findViewById(R.id.item_shaixuan);
+            item_end_shaixuan =  itemHeadView.findViewById(R.id.item_end_shaixuan);
         }
     }
 
@@ -121,7 +119,7 @@ public class WjbqsEndDetailAdapter extends BaseAdapter implements StickyListHead
     class BodyHolder {
         private RecyclerView bodyrv;
         public BodyHolder(View itemBodyView) {
-            bodyrv = (RecyclerView) itemBodyView.findViewById(R.id.rv);
+            bodyrv = itemBodyView.findViewById(R.id.rv);
         }
     }
 

@@ -3,6 +3,7 @@ package com.pda.pda_android.adapter.wjbqs;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.bean.WjbqsBean;
 import com.pda.pda_android.fragment.wjbqs.WjbqssdFragment;
@@ -29,14 +31,12 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * 功能：
  */
 public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeadersAdapter {
-    private static final int ITEM_SIZE = 10101;
+    public static final int ITEM_SIZE = 10101;
     private Context context;
     private Handler handler;
     public static List<WjbqsBean.WjbqsBeanListBean> bodyList;
     private static int item_siza;
-    public WjbqsDetailAdapter() {
-
-    }
+    private WjbqsBodyAdapter wjbqsBodyAdapter;
     public WjbqsDetailAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean> bodyList) {
         this.context = context;
         this.bodyList=bodyList;
@@ -82,16 +82,15 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
         bodyHolder.bodyrv.setItemAnimator(new DefaultItemAnimator());
         bodyHolder.bodyrv.setHasFixedSize(true);
         bodyHolder.bodyrv.setNestedScrollingEnabled(false);
-        bodyList.get(i).setIndex(i);
         //设置数据
-        bodyHolder.bodyrv.setAdapter(new WjbqsBodyAdapter(context,bodyList.get(i).getList(),bodyList,handler));
+        wjbqsBodyAdapter=new WjbqsBodyAdapter(context,bodyList.get(i).getList(),bodyList);
+        bodyHolder.bodyrv.setAdapter(wjbqsBodyAdapter);
         return view;
     }
 
     //绑定头部的数据
     @Override
     public View getHeaderView(final int position, View convertView, ViewGroup parent) {
-
         WjbqsDetailAdapter.HeadHolder headHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.wjbqs_head, parent, false);
@@ -100,52 +99,50 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
         } else {
             headHolder = (WjbqsDetailAdapter.HeadHolder) convertView.getTag();
         }
-        //设置数据
-        item_siza = bodyList.get(position).getList().size();
-        SpUtils.save("item_size",item_siza);
-        headHolder.headTv.setText(bodyList.get(position).getDate());
-        headHolder.item_num_tv.setText("共"+item_siza+"条");
-        setItemSize(headHolder.item_num_tv);
-        headHolder.item_shaixuan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,bodyList.get(position).getDate(),Toast.LENGTH_SHORT).show();
-            }
-        });
+            //设置数据
+            item_siza = bodyList.get(position).getList().size();
+            headHolder.headTv.setText(bodyList.get(position).getDate());
+            headHolder.item_num_tv.setText("共"+item_siza+"条");
+            setItemSize();
+            headHolder.item_shaixuan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context,bodyList.get(position).getDate(),Toast.LENGTH_SHORT).show();
+                }
+            });
+
         return convertView;
     }
-        public void setItemSize(final TextView view){
+        public void setItemSize(){
              handler = new Handler(){
-
                 @Override
                 public void handleMessage(Message msg) {
                     super.handleMessage(msg);
                     switch (msg.what){
                         case ITEM_SIZE:
-                            view.setText("共"+item_siza+"条");
+                            int size=bodyList.get(msg.arg1).getList().size();
+                            if (size==0){
+                                bodyList.remove(msg.arg1);
+                            }
+                            LogUtils.showLog(msg.arg1+"-----------------");
                             notifyDataSetChanged();
                             break;
                     }
                 }
             };
+             wjbqsBodyAdapter.setthandle(handler);
         }
 
-//    public void update(int i,int position){
-//        if (bodyList.get(i).getList().size()==0){
-//            bodyList.remove(i);
-//        }else {
-//            bodyList.get(i).getList().remove(position);
-//        }
-//         notifyDataSetChanged();
-//    }
     //头部的内部类
     public class HeadHolder {
         private TextView headTv,item_num_tv;
         private LinearLayout item_shaixuan;
+        private LinearLayout wjbqs_ln;
         public HeadHolder(View itemHeadView) {
             item_num_tv=  itemHeadView.findViewById(R.id.item_num_tv);
             headTv =  itemHeadView.findViewById(R.id.item_head_tv);
-            item_shaixuan=itemHeadView.findViewById(R.id.item_shaixuan);
+            item_shaixuan=itemHeadView.findViewById(R.id.item_sd_shaixuan);
+            wjbqs_ln=itemHeadView.findViewById(R.id.wjbqs_ln);
         }
     }
 

@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:gravity="right|center_vertical"
         android:orientation="horizontal"
-        android:id="@+id/item_shaixuan"
+        android:id="@+id/item_end_shaixuan"
         android:visibility="gone">
         <ImageView
             android:layout_width="15dp"

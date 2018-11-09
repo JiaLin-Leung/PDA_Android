@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.pda.pda_android.R;
@@ -40,15 +41,15 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 public class WjbqssdFragment extends Fragment {
     private RefreshLayout refreshLayout;
     private StickyListHeadersListView stickyListHeadersListView;
-    public WjbqsDetailAdapter mainAdapter;
+    public  WjbqsDetailAdapter mainAdapter;
     private  String Patient_no,name;
     private List<WjbqsBean.WjbqsBeanListBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbqsBean wjbqsBean;
-
+    private View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_wjbqssd, container, false);
+        view=inflater.inflate(R.layout.fragment_wjbqssd, container, false);
         init(view);
         initData();
         return view;
@@ -68,13 +69,13 @@ public class WjbqssdFragment extends Fragment {
                 wjbqsBeanListBeans = wjbqsBean.getData();
                 mainAdapter = new WjbqsDetailAdapter(getActivity(),wjbqsBeanListBeans);
                 stickyListHeadersListView.setAdapter(mainAdapter);
+
             }
         },params);
     }
     private void init(View view) {
         refreshLayout=view.findViewById(R.id.refreshLayout1);
         stickyListHeadersListView=view.findViewById(R.id.wsjqs_sd_list);
-        refreshLayout = view.findViewById(R.id.refreshLayout1);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
@@ -89,10 +90,9 @@ public class WjbqssdFragment extends Fragment {
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-                header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
+                header.findViewById(R.id.item_sd_shaixuan).setVisibility(View.VISIBLE);
             }
         });
-
     }
     @Override
     public void onAttach(Context context) {
@@ -100,7 +100,6 @@ public class WjbqssdFragment extends Fragment {
         Patient_no = "ZY040000469876";
         name = "1231231";
     }
-    public void setupdate(){
-        mainAdapter.notifyDataSetChanged();
-    }
+
+
 }

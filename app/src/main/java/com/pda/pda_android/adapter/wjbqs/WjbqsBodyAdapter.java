@@ -3,6 +3,7 @@ package com.pda.pda_android.adapter.wjbqs;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,16 +37,14 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
     private Context context;
     private LayoutInflater mLayoutInflater;
     private List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list;
-    String  time;
-    private WjbqsDetailAdapter wjbqsDetailAdapter=new WjbqsDetailAdapter();
-    private List<WjbqsBean.WjbqsBeanListBean> listBeans;
-    private Handler handler;
-    public WjbqsBodyAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list, List<WjbqsBean.WjbqsBeanListBean> listBeans,Handler handler) {
+     private Handler handler;
+     private String time;
+     private List<WjbqsBean.WjbqsBeanListBean> listBeans;
+    public WjbqsBodyAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list,List<WjbqsBean.WjbqsBeanListBean> listBeans) {
         this.list = list;
         this.context = context;
-        mLayoutInflater = LayoutInflater.from(context);
-        this.handler=handler;
         this.listBeans=listBeans;
+        mLayoutInflater = LayoutInflater.from(context);
     }
     @NonNull
     @Override
@@ -59,10 +58,10 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
         holder.name.setText(list.get(position).getName());
         holder.data.setText(list.get(position).getSend_date());
         holder.code.setText(list.get(position).getCode());
+        time=list.get(position).getSend_date().split(" ")[0];
         holder.qianshou.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                time=list.get(position).getSend_date().split(" ")[0];
                 PostData(list.get(position).getCode(),position);
             }
         });
@@ -97,23 +96,26 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
                 Gson gson = new Gson();
                 ResultBean resultBean= gson.fromJson(s,ResultBean.class);
                 if (resultBean.response.equals("ok")){
-                    handler=new Handler();
-                    handler.sendEmptyMessage(10101);
+                    int size=listBeans.size();
+                    int index=-1;
+                    for (int i=0;i<size;i++){
+                        if (time.equals(listBeans.get(i).getDate())){
+                            index=i;
+                        }
+                    }
+                    Message msg = handler.obtainMessage();
+                    msg.what=10101;
+                    msg.arg1=index;
+                    handler.sendMessage(msg);
                     Toast.makeText(context,resultBean.getMessage(),Toast.LENGTH_SHORT).show();
                     list.remove(position);
                     notifyDataSetChanged();
 
-
-//                    for (int i=0;i<listBeans.size();i++){
-//                        if (time.equals(listBeans.get(i).getDate())){
-//                                wjbqsDetailAdapter.update(i,position);
-//
-//                        }
-//                    }
-//                    wjbqssdFragment.mainAdapter.notifyDataSetChanged();
                 }
             }
         },params);
-
+    }
+    public void setthandle(Handler handler){
+        this.handler=handler;
     }
 }

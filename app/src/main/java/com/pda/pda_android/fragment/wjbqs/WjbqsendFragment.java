@@ -3,6 +3,8 @@ package com.pda.pda_android.fragment.wjbqs;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,8 @@ import okhttp3.Call;
 import okhttp3.Response;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
+import static com.pda.pda_android.adapter.wjbqs.WjbqsDetailAdapter.ITEM_SIZE;
+
 /**
  * 无菌包签收已确认
  */
@@ -42,11 +46,12 @@ public class WjbqsendFragment extends Fragment {
     private  String Patient_no,name;
     private List<WjbEndBean.DataBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbEndBean wjbEndBean;
-
+    private View view;
+//    private
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_wjbqsend, container, false);
+        view=inflater.inflate(R.layout.fragment_wjbqsend, container, false);
         init(view);
         initData();
         return view;
@@ -58,9 +63,7 @@ public class WjbqsendFragment extends Fragment {
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.sign_list, new LoadCallBack<String>(getActivity()) {
             @Override
             protected void onFailure(Call call, IOException e) {
-
             }
-
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 Gson gson = new Gson();
@@ -68,15 +71,14 @@ public class WjbqsendFragment extends Fragment {
                 wjbqsBeanListBeans = wjbEndBean.getData();
                 mainAdapter = new WjbqsEndDetailAdapter(getActivity(),wjbqsBeanListBeans);
                 stickyListHeadersListView.setAdapter(mainAdapter);
+
             }
         },params);
-
     }
 
     private void init(View view) {
         refreshLayout=view.findViewById(R.id.refreshLayout1);
         stickyListHeadersListView=view.findViewById(R.id.wsjqs_end_list);
-        refreshLayout = view.findViewById(R.id.refreshLayout1);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
@@ -91,7 +93,7 @@ public class WjbqsendFragment extends Fragment {
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-                header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
+                header.findViewById(R.id.item_end_shaixuan).setVisibility(View.VISIBLE);
             }
         });
     }
@@ -100,5 +102,13 @@ public class WjbqsendFragment extends Fragment {
         super.onAttach(context);
         Patient_no = "ZY040000469876";
         name = "1231231";
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+
+        }
     }
 }
