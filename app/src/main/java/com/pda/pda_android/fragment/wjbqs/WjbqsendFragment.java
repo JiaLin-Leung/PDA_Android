@@ -8,6 +8,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.gson.Gson;
 import com.pda.pda_android.R;
@@ -48,7 +49,7 @@ public class WjbqsendFragment extends Fragment {
     private List<WjbEndBean.DataBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbEndBean wjbEndBean;
     private View view;
-//    private
+    private ImageView no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,6 +71,9 @@ public class WjbqsendFragment extends Fragment {
                 Gson gson = new Gson();
                 wjbEndBean = gson.fromJson(s,WjbEndBean.class);
                 wjbqsBeanListBeans = wjbEndBean.getData();
+                if (wjbqsBeanListBeans.size()==0){
+                    no_data.setVisibility(View.GONE);
+                }
                 mainAdapter = new WjbqsEndDetailAdapter(getActivity(),wjbqsBeanListBeans);
                 stickyListHeadersListView.setAdapter(mainAdapter);
             }
@@ -79,6 +83,7 @@ public class WjbqsendFragment extends Fragment {
     private void init(View view) {
         refreshLayout=view.findViewById(R.id.refreshLayout1);
         stickyListHeadersListView=view.findViewById(R.id.wsjqs_end_list);
+        no_data=view.findViewById(R.id.no_data);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
@@ -93,7 +98,6 @@ public class WjbqsendFragment extends Fragment {
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-                LogUtils.showLog("已完成筛选");
                 header.findViewById(R.id.item_end_shaixuan).setVisibility(View.VISIBLE);
             }
         });
@@ -103,13 +107,5 @@ public class WjbqsendFragment extends Fragment {
         super.onAttach(context);
         Patient_no = "ZY040000469876";
         name = "1231231";
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser){
-
-        }
     }
 }

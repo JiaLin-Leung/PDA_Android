@@ -18,6 +18,13 @@
             android:layout_height="match_parent"/>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
+    <ImageView
+        android:id="@+id/no_data"
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/empty"
+        />
 
 </LinearLayout>

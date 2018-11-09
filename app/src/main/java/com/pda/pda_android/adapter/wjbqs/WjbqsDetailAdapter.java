@@ -104,6 +104,10 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
             headHolder.headTv.setText(bodyList.get(position).getDate());
             headHolder.item_num_tv.setText("共"+item_siza+"条");
             setItemSize();
+            if (position==0){
+                headHolder.item_shaixuan.setVisibility(View.VISIBLE);
+                LogUtils.showLog("dbj----"+headHolder.item_shaixuan.getVisibility()+"------"+position);
+            }
             headHolder.item_shaixuan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

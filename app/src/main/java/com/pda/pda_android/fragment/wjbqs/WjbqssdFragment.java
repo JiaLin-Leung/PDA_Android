@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class WjbqssdFragment extends Fragment {
     private List<WjbqsBean.WjbqsBeanListBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbqsBean wjbqsBean;
     private View view;
+    private ImageView no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,6 +69,9 @@ public class WjbqssdFragment extends Fragment {
                 Gson gson = new Gson();
                 wjbqsBean = gson.fromJson(s,WjbqsBean.class);
                 wjbqsBeanListBeans = wjbqsBean.getData();
+                if (wjbqsBeanListBeans.size()==0){
+                    no_data.setVisibility(View.VISIBLE);
+                }
                 mainAdapter = new WjbqsDetailAdapter(getActivity(),wjbqsBeanListBeans);
                 stickyListHeadersListView.setAdapter(mainAdapter);
             }
@@ -75,6 +80,7 @@ public class WjbqssdFragment extends Fragment {
     private void init(View view) {
         refreshLayout=view.findViewById(R.id.refreshLayout1);
         stickyListHeadersListView=view.findViewById(R.id.wsjqs_sd_list);
+        no_data=view.findViewById(R.id.no_data);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
@@ -89,7 +95,6 @@ public class WjbqssdFragment extends Fragment {
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-                LogUtils.showLog("手动筛选");
                 header.findViewById(R.id.item_sd_shaixuan).setVisibility(View.VISIBLE);
             }
         });
@@ -100,6 +105,4 @@ public class WjbqssdFragment extends Fragment {
         Patient_no = "ZY040000469876";
         name = "1231231";
     }
-
-
 }
