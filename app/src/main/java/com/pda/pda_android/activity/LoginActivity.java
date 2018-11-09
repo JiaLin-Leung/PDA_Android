@@ -55,6 +55,7 @@ public class LoginActivity extends BaseActivity {
         loginButton = findViewById(R.id.login_btn);
         iv_clear_phone = findViewById(R.id.iv_clear_phone);
         iv_clear_pasw = findViewById(R.id.iv_clear_pasw);
+        Util.bt_isselecter(loginButton, ed_username, ed_password);
         initTextChanged();
     }
 
