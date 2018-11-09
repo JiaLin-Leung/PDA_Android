@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.gson.Gson;
 import com.pda.pda_android.R;
@@ -49,7 +50,7 @@ public class WjbqsendFragment extends Fragment {
     private List<WjbEndBean.DataBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbEndBean wjbEndBean;
     private View view;
-    private ImageView no_data;
+    private LinearLayout no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,7 +58,6 @@ public class WjbqsendFragment extends Fragment {
         init(view);
         initData();
         return view;
-
     }
     private void initData() {
         Map<String, String> params = new HashMap<>(); //提交数据包
