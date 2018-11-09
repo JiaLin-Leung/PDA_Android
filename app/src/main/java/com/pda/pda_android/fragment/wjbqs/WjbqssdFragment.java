@@ -69,7 +69,6 @@ public class WjbqssdFragment extends Fragment {
                 wjbqsBeanListBeans = wjbqsBean.getData();
                 mainAdapter = new WjbqsDetailAdapter(getActivity(),wjbqsBeanListBeans);
                 stickyListHeadersListView.setAdapter(mainAdapter);
-
             }
         },params);
     }
@@ -90,6 +89,7 @@ public class WjbqssdFragment extends Fragment {
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
+                LogUtils.showLog("手动筛选");
                 header.findViewById(R.id.item_sd_shaixuan).setVisibility(View.VISIBLE);
             }
         });

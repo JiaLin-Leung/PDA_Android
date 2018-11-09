@@ -1,6 +1,7 @@
 package com.pda.pda_android.activity.apps.detail;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
@@ -33,7 +34,7 @@ public class SsxxInfomationActivity extends BaseActivity {
     private UserBean userBean;
     private String record_no;
     private List<SsxxBean> list;
-    private TextView no_data;
+    private ImageView no_data;
 
     private TextView user_info;
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pda.pda_android.R;
@@ -33,7 +34,7 @@ public class JyFragment extends Fragment {
     //住院号  名字
     private  String Patient_no,name;
     private List<AssayBean> assayBeans;
-    private TextView no_data;
+    private ImageView no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

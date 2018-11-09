@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@drawable/timg"
+        android:background="@mipmap/timg"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingBottom="20dp"
@@ -74,7 +74,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:padding="5dp"
-                    android:src="@drawable/my_add_img" />
+                    android:src="@mipmap/my_add_img" />
 
                 <TextView
                     android:layout_width="279dp"
@@ -103,7 +103,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:padding="5dp"
-                    android:src="@drawable/my_rename_img" />
+                    android:src="@mipmap/my_rename_img" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -145,7 +145,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:padding="5dp"
-                    android:src="@drawable/my_password_img" />
+                    android:src="@mipmap/my_password_img" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -162,7 +162,7 @@
                     android:layout_height="16dp"
                     android:layout_marginRight="12dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/right_arrow" />
+                    android:src="@mipmap/right_arrow" />
             </LinearLayout>
 
             <View
@@ -185,7 +185,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:padding="5dp"
-                    android:src="@drawable/my_feedback_img" />
+                    android:src="@mipmap/my_feedback_img" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -202,7 +202,7 @@
                     android:layout_height="16dp"
                     android:layout_marginRight="12dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/right_arrow" />
+                    android:src="@mipmap/right_arrow" />
             </LinearLayout>
 
             <View
@@ -224,7 +224,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
                     android:padding="5dp"
-                    android:src="@drawable/my_newversion_img" />
+                    android:src="@mipmap/my_newversion_img" />
 
                 <TextView
                     android:layout_width="0dp"
