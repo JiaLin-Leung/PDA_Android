@@ -1,6 +1,7 @@
 package com.pda.pda_android.adapter.wjbqs;
 
 import android.content.Context;
+import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.bean.WjbqsBean;
 import com.pda.pda_android.fragment.wjbqs.WjbqssdFragment;
 
 import java.util.List;
-import java.util.logging.Handler;
+
 
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,9 +29,11 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
  * 功能：
  */
 public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+    private static final int ITEM_SIZE = 10101;
     private Context context;
-    private static List<WjbqsBean.WjbqsBeanListBean> bodyList;
-    private WjbqssdFragment wjbqssdFragment=new WjbqssdFragment();
+    private Handler handler;
+    public static List<WjbqsBean.WjbqsBeanListBean> bodyList;
+    private static int item_siza;
     public WjbqsDetailAdapter() {
 
     }
@@ -80,8 +84,7 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
         bodyHolder.bodyrv.setNestedScrollingEnabled(false);
         bodyList.get(i).setIndex(i);
         //设置数据
-        bodyHolder.bodyrv.setAdapter(new WjbqsBodyAdapter(context,bodyList.get(i).getList(),bodyList));
-
+        bodyHolder.bodyrv.setAdapter(new WjbqsBodyAdapter(context,bodyList.get(i).getList(),bodyList,handler));
         return view;
     }
 
@@ -98,8 +101,11 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
             headHolder = (WjbqsDetailAdapter.HeadHolder) convertView.getTag();
         }
         //设置数据
+        item_siza = bodyList.get(position).getList().size();
+        SpUtils.save("item_size",item_siza);
         headHolder.headTv.setText(bodyList.get(position).getDate());
-        headHolder.item_num_tv.setText("共"+bodyList.get(position).getList().size()+"条");
+        headHolder.item_num_tv.setText("共"+item_siza+"条");
+        setItemSize(headHolder.item_num_tv);
         headHolder.item_shaixuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,22 +114,30 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
         });
         return convertView;
     }
-    //    public  android.os.Handler handler = new android.os.Handler(){
-//
-//        @Override
-//        public void handleMessage(Message msg) {
-//            context.notifyAll();
-//            super.handleMessage(msg);
-//        }
-//    };
-    public void update(int i,int position){
-        if (bodyList.get(i).getList().size()==0){
-            bodyList.remove(i);
-        }else {
-            bodyList.get(i).getList().remove(position);
+        public void setItemSize(final TextView view){
+             handler = new Handler(){
+
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    switch (msg.what){
+                        case ITEM_SIZE:
+                            view.setText("共"+item_siza+"条");
+                            notifyDataSetChanged();
+                            break;
+                    }
+                }
+            };
         }
-         notifyDataSetChanged();
-    }
+
+//    public void update(int i,int position){
+//        if (bodyList.get(i).getList().size()==0){
+//            bodyList.remove(i);
+//        }else {
+//            bodyList.get(i).getList().remove(position);
+//        }
+//         notifyDataSetChanged();
+//    }
     //头部的内部类
     public class HeadHolder {
         private TextView headTv,item_num_tv;
@@ -139,7 +153,7 @@ public class WjbqsDetailAdapter extends BaseAdapter implements StickyListHeaders
     class BodyHolder {
         private RecyclerView bodyrv;
         public BodyHolder(View itemBodyView) {
-            bodyrv = (RecyclerView) itemBodyView.findViewById(R.id.rv);
+            bodyrv =  itemBodyView.findViewById(R.id.rv);
         }
     }
 

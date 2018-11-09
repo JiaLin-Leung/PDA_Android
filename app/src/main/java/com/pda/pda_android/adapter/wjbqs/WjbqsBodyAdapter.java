@@ -2,6 +2,7 @@ package com.pda.pda_android.adapter.wjbqs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,11 +39,12 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
     String  time;
     private WjbqsDetailAdapter wjbqsDetailAdapter=new WjbqsDetailAdapter();
     private List<WjbqsBean.WjbqsBeanListBean> listBeans;
-    public WjbqsBodyAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list, List<WjbqsBean.WjbqsBeanListBean> listBeans) {
+    private Handler handler;
+    public WjbqsBodyAdapter(Context context, List<WjbqsBean.WjbqsBeanListBean.WjbqsBeanListBeanListBean> list, List<WjbqsBean.WjbqsBeanListBean> listBeans,Handler handler) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
-
+        this.handler=handler;
         this.listBeans=listBeans;
     }
     @NonNull
@@ -95,14 +97,19 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
                 Gson gson = new Gson();
                 ResultBean resultBean= gson.fromJson(s,ResultBean.class);
                 if (resultBean.response.equals("ok")){
+                    handler=new Handler();
+                    handler.sendEmptyMessage(10101);
                     Toast.makeText(context,resultBean.getMessage(),Toast.LENGTH_SHORT).show();
-//                    wjbqsDetailAdapter.notifyDataSetChanged();
-                    for (int i=0;i<listBeans.size();i++){
-                        if (time.equals(listBeans.get(i).getDate())){
-                                wjbqsDetailAdapter.update(i,position);
+                    list.remove(position);
+                    notifyDataSetChanged();
 
-                        }
-                    }
+
+//                    for (int i=0;i<listBeans.size();i++){
+//                        if (time.equals(listBeans.get(i).getDate())){
+//                                wjbqsDetailAdapter.update(i,position);
+//
+//                        }
+//                    }
 //                    wjbqssdFragment.mainAdapter.notifyDataSetChanged();
                 }
             }
