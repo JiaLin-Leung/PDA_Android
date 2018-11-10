@@ -18,20 +18,18 @@ public class ContentUrl {
     public static final String getUsersSsxx = "/sync/patient/operation/list"; //获取患者手术信息
     public static final String getUsersAssayListDetail = "/sync/patient/assay/detail"; //获取患者检验详情
 
-    //提交
     public static final String getNotSignedList = "/apps/module/sterile/not_signed/list"; //获取未签收的无菌包列表
 
-    //手动签收
     public static final String sign = "/apps/module/sterile/manual/sign"; //手动签收无菌包
 
-    //已签收
     public static final String sign_list = "/apps/module/sterile/signed/list"; //已经签收无菌包
 
-    //护士个人信息接口
-    public static final String getNurseProfile = "/apps/profile"; //已经签收无菌包
+    public static final String getNurseProfile = "/apps/profile"; //护士个人信息接口
 
-    //扫描签收无菌包
     public static final String postScanWjbqs = "/apps/module/sterile/scan"; //扫描签收
+
+
+    public static final String setPass = "/apps/set/pwd"; //设置密码
 
 
 }
