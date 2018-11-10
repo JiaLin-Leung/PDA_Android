@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.bean.JyBean;
 import com.pda.pda_android.db.Entry.AssayBean;
 
 import java.util.List;
@@ -26,34 +27,27 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
 
     private Context context;
     private List<String> headList;
-    private List<AssayBean> bodyList;
+//    private List<AssayBean> bodyList;
+    private List<JyBean.DataBean> beanList;
     private String name;
-    public JyDetailAdapter(Context context, List<AssayBean> bodyList,String name) {
+    public JyDetailAdapter(Context context,  List<JyBean.DataBean> beanList,String name) {
         this.context = context;
-        this.bodyList=bodyList;
+        this.beanList=beanList;
         this.name=name;
     }
 
-    public void setHeadList(List<String> headList) {
-        this.headList = headList;
-        notifyDataSetChanged();
-    }
 
-    public void setBodyList(List<AssayBean> bodyList) {
-        this.bodyList = bodyList;
-        notifyDataSetChanged();
-    }
 
     //设置数据的个数
     @Override
     public int getCount() {
-        return bodyList.size();
+        return beanList.size();
     }
 
     //设置item的条数
     @Override
     public Object getItem(int i) {
-        return bodyList.get(i).getList().size();
+        return beanList.get(i).getList().size();
     }
 
     //获得相应数据集合中特定位置的数据项
@@ -85,7 +79,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         bodyHolder.bodyrv.setHasFixedSize(true);
         bodyHolder.bodyrv.setNestedScrollingEnabled(false);
         //设置数据
-        bodyHolder.bodyrv.setAdapter(new JyBodyAdapter(context,bodyList.get(i).getList(),name));
+        bodyHolder.bodyrv.setAdapter(new JyBodyAdapter(context,beanList.get(i).getList(),name));
 
         return view;
     }
@@ -103,12 +97,12 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
             headHolder = (HeadHolder) convertView.getTag();
         }
         //设置数据
-        headHolder.headTv.setText(bodyList.get(position).getDate());
-        headHolder.item_num_tv.setText("共"+bodyList.get(position).getList().size()+"条");
+        headHolder.headTv.setText(beanList.get(position).getDate());
+        headHolder.item_num_tv.setText("共"+beanList.get(position).getList().size()+"条");
         headHolder.item_shaixuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,bodyList.get(position).getDate(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,beanList.get(position).getDate(),Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;

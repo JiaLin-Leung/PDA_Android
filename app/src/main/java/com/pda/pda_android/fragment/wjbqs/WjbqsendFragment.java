@@ -55,8 +55,6 @@ public class WjbqsendFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_wjbqsend, container, false);
-        init(view);
-        initData();
         return view;
     }
     private void initData() {
@@ -107,5 +105,14 @@ public class WjbqsendFragment extends Fragment {
         super.onAttach(context);
         Patient_no = "ZY040000469876";
         name = "1231231";
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            init(view);
+            initData();
+        }
     }
 }

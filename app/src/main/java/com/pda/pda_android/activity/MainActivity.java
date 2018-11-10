@@ -66,10 +66,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
      */
     private void startService() {
         UsersListService.getConnet(this);
-        UsersCheckListService.getConnet(this);
-        UsersSsxxListService.getConnet(this);
-        UsersAssayListService.getConnet(this);
-        UsersAssayDetailListService.getConnet(this);
+//        UsersCheckListService.getConnet(this);
+//        UsersSsxxListService.getConnet(this);
+//        UsersAssayListService.getConnet(this);
+//        UsersAssayDetailListService.getConnet(this);
         PostCacheService.getConnet(this);
     }
 

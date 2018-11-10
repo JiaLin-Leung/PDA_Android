@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.detail.jcjydetail.JyDetailActivity;
+import com.pda.pda_android.bean.JyBean;
 import com.pda.pda_android.db.Entry.AssayBeanListBean;
 
 import java.util.List;
@@ -21,9 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder>{
     private Context context;
     private LayoutInflater mLayoutInflater;
-    private List<AssayBeanListBean> list;
+//    private List<AssayBeanListBean> list;
+    private List<JyBean.DataBean.ListBean> list;
     private String name;
-    public JyBodyAdapter(Context context, List<AssayBeanListBean> list,String name) {
+    public JyBodyAdapter(Context context, List<JyBean.DataBean.ListBean> list,String name) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
@@ -39,14 +41,14 @@ public class JyBodyAdapter extends RecyclerView.Adapter<JyBodyAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.name.setText(name+" 的检查结果");
-        holder.data.setText(list.get(position).getJydate());
-        holder.project.setText(list.get(position).getXmmc());
+        holder.data.setText(list.get(position).getResult_date());
+        holder.project.setText(list.get(position).getName());
         holder.jy_rootview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,JyDetailActivity.class);
                 intent.putExtra("name",name);
-                intent.putExtra("Patient_no",list.get(position).getPatient_no());
+                intent.putExtra("Patient_no",list.get(position).getSqxh());
                 context.startActivity(intent);
             }
         });

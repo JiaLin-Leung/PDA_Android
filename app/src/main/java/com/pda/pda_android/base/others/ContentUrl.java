@@ -14,9 +14,10 @@ public class ContentUrl {
     public static final String login = "/apps/login";//登录接口地址
     public static final String getUsersList = "/sync/patient/list"; //获取患者列表
     public static final String getUsersCheckList = "/sync/patient/checking/list"; //获取患者检查列表
-    public static final String getUsersAssayList = "/sync/patient/assay/list"; //获取患者检验列表
-    public static final String getUsersSsxx = "/sync/patient/operation/list"; //获取患者手术列表
-    public static final String getUsersAssayListDetail = "/sync/patient/assay/detail"; //获取患者检验详情
+    public static final String getUsersAssayList = "/apps/patient/assay/list"; //获取患者检验列表
+    public static final String getUsersSsxx = "/apps/patient/operation/list"; //获取患者手术列表
+    public static final String getUsersSsxxDetail = "/apps/patient/operation/detail"; //获取患者手术详情
+    public static final String getUsersAssayListDetail = "/apps/patient/assay/detail"; //获取患者检验详情
 
     //提交
     public static final String getNotSignedList = "/apps/module/sterile/not_signed/list"; //获取未签收的无菌包列表

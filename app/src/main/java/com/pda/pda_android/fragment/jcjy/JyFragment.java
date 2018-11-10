@@ -20,6 +20,7 @@ import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.JcBean;
+import com.pda.pda_android.bean.JyBean;
 import com.pda.pda_android.db.Entry.AssayBean;
 import com.pda.pda_android.db.dbutil.AssayBeanOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -49,7 +50,8 @@ public class JyFragment extends BaseFragment {
     private  String Patient_no,name;
     private List<AssayBean> assayBeans;
     private ImageView no_data;
-
+    private JyBean jyBean;
+    private List<JyBean.DataBean> beanList;
     @Override
     public void initData() {
         postdata();
@@ -69,14 +71,14 @@ public class JyFragment extends BaseFragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        assayBeans=  AssayBeanOpe.queryPATIENT_NO(getActivity(),Patient_no);
-        LogUtils.showLog("jy_shuju",assayBeans.toString());
-        if (assayBeans.size() == 0){
-            no_data.setVisibility(View.VISIBLE);
-        }else{
-            mainAdapter = new JyDetailAdapter(getActivity(),assayBeans,name);
-        }
-//        //设置头部的点击事件
+//        assayBeans=  AssayBeanOpe.queryPATIENT_NO(getActivity(),Patient_no);
+//        LogUtils.showLog("jy_shuju",assayBeans.toString());
+//        if (assayBeans.size() == 0){
+//            no_data.setVisibility(View.VISIBLE);
+//        }else{
+//            mainAdapter = new JyDetailAdapter(getActivity(),assayBeans,name);
+//        }
+//         设置头部的点击事件
 //        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
 //            @Override
 //            public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky) {
@@ -100,7 +102,7 @@ public class JyFragment extends BaseFragment {
                 header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
             }
         });
-        stickyListHeadersListView.setAdapter(mainAdapter);
+//        stickyListHeadersListView.setAdapter(mainAdapter);
     }
 
     @Override
@@ -126,14 +128,14 @@ public class JyFragment extends BaseFragment {
             protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
                 LogUtils.showLog(s.toString());
-//                jcBean = gson.fromJson(s,JcBean.class);
-//                list = jcBean.getData();
-//                if (list.size() == 0){
-//                    no_data.setVisibility(View.VISIBLE);
-//                }else
-//                    no_data.setVisibility(View.GONE);
-//                mainAdapter = new JcDetailAdapter(getActivity(),list,name);
-//                stickyListHeadersListView.setAdapter(mainAdapter);
+                jyBean = gson.fromJson(s,JyBean.class);
+                beanList = jyBean.getData();
+                if (beanList.size() == 0){
+                    no_data.setVisibility(View.VISIBLE);
+                }else
+                    no_data.setVisibility(View.GONE);
+                mainAdapter = new JyDetailAdapter(getActivity(),beanList,name);
+                stickyListHeadersListView.setAdapter(mainAdapter);
             }
         },params);
     }

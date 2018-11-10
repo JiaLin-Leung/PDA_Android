@@ -44,10 +44,10 @@ public class SsxxInfomationActivity extends BaseActivity {
     private SsxxDetailAdapter adapter;
     private UserBean userBean;
     private String record_no;
-    private List<SsxxBean> list;
+//    private List<SsxxBean> list;
     private ImageView no_data;
-
     private TextView user_info;
+    private List<com.pda.pda_android.bean.SsxxBean.DataBean> list;
     @Override
     public int setLayoutId() {
         return R.layout.activity_ssxxinfomation;
@@ -86,25 +86,16 @@ public class SsxxInfomationActivity extends BaseActivity {
         userBean = (UserBean) getIntent().getSerializableExtra("userBean");
         record_no = userBean.getRecord_no();
         patient_no=userBean.getPatient_no();
-        list = SsxxBeanOpe.queryRecord_no(SsxxInfomationActivity.this,record_no);
-        if (list.size() == 0){
-            no_data.setVisibility(View.VISIBLE);
-        }else{
-            adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,userBean.getPatient_name());
-            stickyListHeadersListView.setAdapter(adapter);
-        }
-        String name=userBean.getBed_no()+"  "+userBean.getPatient_name();
-        user_info.setText(name);
-        adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,name);
-        stickyListHeadersListView.setAdapter(adapter);
+//        list = SsxxBeanOpe.queryRecord_no(SsxxInfomationActivity.this,record_no);
+
         postdata();
     }
 
     public void postdata(){
         Map<String, String> params = new HashMap<>(); //提交数据包
-        params.put("patient_no", patient_no); //住院号
-        params.put("record_no", record_no); //病历号
-        OkHttpManager.getInstance().postRequest(SsxxInfomationActivity.this, ContentUrl.TestUrl_local + ContentUrl.getUsersAssayList, new LoadCallBack<String>(SsxxInfomationActivity.this) {
+        params.put("patient_no", "ZY010000505789"); //住院号
+        params.put("record_no", "0000505789"); //病历号
+        OkHttpManager.getInstance().postRequest(SsxxInfomationActivity.this, ContentUrl.TestUrl_local + ContentUrl.getUsersSsxx, new LoadCallBack<String>(SsxxInfomationActivity.this) {
             @Override
             protected void onFailure(Call call, IOException e) {
                 showShortToast("请求失败，请稍后重试");
@@ -113,14 +104,15 @@ public class SsxxInfomationActivity extends BaseActivity {
             protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
                 LogUtils.showLog(s.toString());
-//                jcBean = gson.fromJson(s,JcBean.class);
-//                list = jcBean.getData();
-//                if (list.size() == 0){
-//                    no_data.setVisibility(View.VISIBLE);
-//                }else
-//                    no_data.setVisibility(View.GONE);
-//                mainAdapter = new JcDetailAdapter(getActivity(),list,name);
-//                stickyListHeadersListView.setAdapter(mainAdapter);
+                com.pda.pda_android.bean.SsxxBean ssxxBean = gson.fromJson(s,com.pda.pda_android.bean.SsxxBean.class);
+                list = ssxxBean.getData();
+                if (list.size() == 0){
+                    no_data.setVisibility(View.VISIBLE);
+                }else{
+                    String name=userBean.getBed_no()+"  "+userBean.getPatient_name();
+                    user_info.setText(name);
+                    adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,name);
+                    stickyListHeadersListView.setAdapter(adapter);}
             }
         },params);
     }

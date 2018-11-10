@@ -25,9 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 public class SsxxBodyAdapter extends RecyclerView.Adapter<SsxxBodyAdapter.ViewHolder>{
     private Context context;
     private LayoutInflater mLayoutInflater;
-    private List<SsxxBeanListBean> list;
+    private List<com.pda.pda_android.bean.SsxxBean.DataBean.ListBean> list;
     private String name;
-    public SsxxBodyAdapter(Context context, List<SsxxBeanListBean> list, String name) {
+    public SsxxBodyAdapter(Context context, List<com.pda.pda_android.bean.SsxxBean.DataBean.ListBean> list, String name) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);
@@ -43,7 +43,7 @@ public class SsxxBodyAdapter extends RecyclerView.Adapter<SsxxBodyAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.name.setText(name+"的手术信息");
-        holder.data.setText(list.get(position).getInoper_time());
+        holder.data.setText(list.get(position).getEndoper_time());
         holder.ops_name.setText(list.get(position).getOper_name());
         holder.docter.setText(list.get(position).getSurgeon_name());
         holder.jc_rootview.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +51,7 @@ public class SsxxBodyAdapter extends RecyclerView.Adapter<SsxxBodyAdapter.ViewHo
             public void onClick(View v) {
                 Intent intent = new Intent(context,SsxxInfomationDetailActivity.class);
                 intent.putExtra("name",name);
-                intent.putExtra("SsxxBeanListBean", (Serializable) list.get(position));
+                intent.putExtra("id",  list.get(position).getId()+"");
                 context.startActivity(intent);
             }
         });

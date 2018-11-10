@@ -72,6 +72,7 @@ public class MenuManageActivity extends BaseActivity {
 		tv_top_sure = (TextView) findViewById(R.id.tv_top_sure);
 		tv_top_title.setText("全部应用");
 		tv_top_sure.setText("编辑");
+//		tv_top_sure.setTextColor(getResources().getColor(R.color.text_red));
 		tv_top_sure.setVisibility(View.VISIBLE);
 		tv_drag_tip= (TextView) findViewById(R.id.tv_drag_tip);
 		sv_index= (DragForScrollView)findViewById(R.id.sv_index);
@@ -169,7 +170,7 @@ public class MenuManageActivity extends BaseActivity {
 		menuList.clear();
 		try {
 			MenuEntity index = new MenuEntity();
-			index.setTitle("全部应用");
+			index.setTitle("点击添加应用");
 			index.setId("1");
 			List<MenuEntity> indexLC=new ArrayList<MenuEntity>();
 			for (int i = 0; i < indexAll.size(); i++) {
