@@ -37,7 +37,7 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         public final static Property Doctor = new Property(10, String.class, "doctor", false, "DOCTOR");
         public final static Property Result = new Property(11, String.class, "result", false, "RESULT");
         public final static Property Zrhs_code = new Property(12, String.class, "zrhs_code", false, "ZRHS_CODE");
-        public final static Property Hs_name = new Property(13, String.class, "hs_name", false, "HS_NAME");
+        public final static Property Zrhs_name = new Property(13, String.class, "zrhs_name", false, "ZRHS_NAME");
         public final static Property Ward_name = new Property(14, String.class, "ward_name", false, "WARD_NAME");
     }
 
@@ -67,7 +67,7 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
                 "\"DOCTOR\" TEXT," + // 10: doctor
                 "\"RESULT\" TEXT," + // 11: result
                 "\"ZRHS_CODE\" TEXT," + // 12: zrhs_code
-                "\"HS_NAME\" TEXT," + // 13: hs_name
+                "\"ZRHS_NAME\" TEXT," + // 13: zrhs_name
                 "\"WARD_NAME\" TEXT);"); // 14: ward_name
     }
 
@@ -146,9 +146,9 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
             stmt.bindString(13, zrhs_code);
         }
  
-        String hs_name = entity.getHs_name();
-        if (hs_name != null) {
-            stmt.bindString(14, hs_name);
+        String zrhs_name = entity.getZrhs_name();
+        if (zrhs_name != null) {
+            stmt.bindString(14, zrhs_name);
         }
  
         String ward_name = entity.getWard_name();
@@ -226,9 +226,9 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
             stmt.bindString(13, zrhs_code);
         }
  
-        String hs_name = entity.getHs_name();
-        if (hs_name != null) {
-            stmt.bindString(14, hs_name);
+        String zrhs_name = entity.getZrhs_name();
+        if (zrhs_name != null) {
+            stmt.bindString(14, zrhs_name);
         }
  
         String ward_name = entity.getWard_name();
@@ -258,7 +258,7 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
             cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // doctor
             cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // result
             cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // zrhs_code
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // hs_name
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // zrhs_name
             cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14) // ward_name
         );
         return entity;
@@ -279,7 +279,7 @@ public class UserBeanDao extends AbstractDao<UserBean, Long> {
         entity.setDoctor(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
         entity.setResult(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
         entity.setZrhs_code(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setHs_name(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setZrhs_name(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
         entity.setWard_name(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
      }
     

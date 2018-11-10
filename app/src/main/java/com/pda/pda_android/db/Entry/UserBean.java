@@ -27,13 +27,13 @@ public class UserBean implements Serializable{
     private String doctor;
     private String result;
     private String zrhs_code;
-    private String hs_name;
+    private String zrhs_name;
     private String ward_name;
-    @Generated(hash = 1178796037)
+    @Generated(hash = 967774286)
     public UserBean(Long id, String record_no, String patient_no,
             String patient_name, String bed_no, String sex, String tend, String age,
             String ward_code, String in_date, String doctor, String result,
-            String zrhs_code, String hs_name, String ward_name) {
+            String zrhs_code, String zrhs_name, String ward_name) {
         this.id = id;
         this.record_no = record_no;
         this.patient_no = patient_no;
@@ -47,7 +47,7 @@ public class UserBean implements Serializable{
         this.doctor = doctor;
         this.result = result;
         this.zrhs_code = zrhs_code;
-        this.hs_name = hs_name;
+        this.zrhs_name = zrhs_name;
         this.ward_name = ward_name;
     }
     @Generated(hash = 1203313951)
@@ -131,11 +131,11 @@ public class UserBean implements Serializable{
     public void setZrhs_code(String zrhs_code) {
         this.zrhs_code = zrhs_code;
     }
-    public String getHs_name() {
-        return this.hs_name;
+    public String getZrhs_name() {
+        return this.zrhs_name;
     }
-    public void setHs_name(String hs_name) {
-        this.hs_name = hs_name;
+    public void setZrhs_name(String zrhs_name) {
+        this.zrhs_name = zrhs_name;
     }
     public String getWard_name() {
         return this.ward_name;
@@ -160,7 +160,7 @@ public class UserBean implements Serializable{
                 ", doctor='" + doctor + '\'' +
                 ", result='" + result + '\'' +
                 ", zrhs_code='" + zrhs_code + '\'' +
-                ", hs_name='" + hs_name + '\'' +
+                ", zrhs_name='" + zrhs_name + '\'' +
                 ", ward_name='" + ward_name + '\'' +
                 '}';
     }
