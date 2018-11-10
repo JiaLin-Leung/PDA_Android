@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PDA_Android</string>
+    <string name="app_name">移动护理</string>
     <string name="item_home">PDA_Android</string>
     <string name="tips">Hello</string>
     <string name="home_main_string">主页</string>
