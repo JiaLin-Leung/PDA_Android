@@ -1,4 +1,4 @@
-package com.pda.pda_android.base;
+package com.pda.pda_android.bean;
 
 import java.io.Serializable;
 import java.util.List;

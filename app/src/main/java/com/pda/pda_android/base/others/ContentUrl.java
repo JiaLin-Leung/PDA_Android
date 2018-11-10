@@ -30,5 +30,8 @@ public class ContentUrl {
     //护士个人信息接口
     public static final String getNurseProfile = "/apps/profile"; //已经签收无菌包
 
+    //扫描签收无菌包
+    public static final String postScanWjbqs = "/apps/module/sterile/scan"; //扫描签收
+
 
 }

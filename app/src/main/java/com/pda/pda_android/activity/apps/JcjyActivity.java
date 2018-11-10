@@ -4,21 +4,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.pda.pda_android.R;
-import com.pda.pda_android.activity.MainActivity;
 import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.base.BaseActivity;
-import com.pda.pda_android.base.ScanUserBean;
+import com.pda.pda_android.bean.ScanUserBean;
 import com.pda.pda_android.base.others.ContentUrl;
-import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 

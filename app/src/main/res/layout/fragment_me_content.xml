@@ -140,12 +140,6 @@
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
-                <ImageView
-                    android:layout_width="8dp"
-                    android:layout_height="16dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@mipmap/me_next" />
             </LinearLayout>
 
             <View

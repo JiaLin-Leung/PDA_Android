@@ -13,7 +13,7 @@ import com.pda.pda_android.R;
 import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.activity.apps.detail.SsxxInfomationActivity;
 import com.pda.pda_android.base.BaseActivity;
-import com.pda.pda_android.base.ScanUserBean;
+import com.pda.pda_android.bean.ScanUserBean;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
