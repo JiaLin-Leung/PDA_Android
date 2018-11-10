@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.detail.jcjydetail.JcDetailActivity;
 import com.pda.pda_android.activity.apps.detail.jcjydetail.JyDetailActivity;
+import com.pda.pda_android.bean.JcBean;
 import com.pda.pda_android.db.Entry.CheckBeanListBean;
 
 import java.util.List;
@@ -24,9 +25,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class JcBodyAdapter extends RecyclerView.Adapter<JcBodyAdapter.ViewHolder>{
     private Context context;
     private LayoutInflater mLayoutInflater;
-    private List<CheckBeanListBean> list;
+//    private List<CheckBeanListBean> list;
     private String name;
-    public JcBodyAdapter(Context context, List<CheckBeanListBean> list,String name) {
+    private List<JcBean.DataBean.ListBean> list;
+    public JcBodyAdapter(Context context, List<JcBean.DataBean.ListBean> list,String name) {
         this.list = list;
         this.context = context;
         mLayoutInflater = LayoutInflater.from(context);

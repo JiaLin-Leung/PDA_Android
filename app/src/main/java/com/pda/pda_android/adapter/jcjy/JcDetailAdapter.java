@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.bean.JcBean;
 import com.pda.pda_android.db.Entry.CheckBean;
 
 import java.util.List;
@@ -26,23 +27,16 @@ public class JcDetailAdapter extends BaseAdapter implements StickyListHeadersAda
 
     private Context context;
     private List<String> headList;
-    private List<CheckBean> bodyList;
+//    private List<CheckBean> bodyList;
     private String name;
-    public JcDetailAdapter(Context context, List<CheckBean> bodyList, String name) {
+    private List<JcBean.DataBean> bodyList;
+    public JcDetailAdapter(Context context, List<JcBean.DataBean> bodyList, String name) {
         this.context = context;
         this.bodyList=bodyList;
         this.name=name;
     }
 
-    public void setHeadList(List<String> headList) {
-        this.headList = headList;
-        notifyDataSetChanged();
-    }
 
-    public void setBodyList(List<CheckBean> bodyList) {
-        this.bodyList = bodyList;
-        notifyDataSetChanged();
-    }
 
     //设置数据的个数
     @Override

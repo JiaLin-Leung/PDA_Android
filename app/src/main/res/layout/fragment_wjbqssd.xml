@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".fragment.wjbqs.WjbqssdFragment">
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -17,19 +16,18 @@
             android:id="@+id/wsjqs_sd_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:overScrollMode="never"
           />
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    <LinearLayout
+
+    <ImageView
         android:id="@+id/no_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
-    <ImageView
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/empty"
+        android:background="@mipmap/empty"
+        android:visibility="gone"
         />
-    </LinearLayout>
+
 </FrameLayout>

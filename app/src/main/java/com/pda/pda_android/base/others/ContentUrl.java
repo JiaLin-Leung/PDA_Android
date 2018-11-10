@@ -13,7 +13,7 @@ public class ContentUrl {
     public static final String getUsersList = "/sync/patient/list"; //获取患者列表
     public static final String getUsersCheckList = "/sync/patient/checking/list"; //获取患者检查列表
     public static final String getUsersAssayList = "/sync/patient/assay/list"; //获取患者检验列表
-    public static final String getUsersSsxx = "/sync/patient/operation/list"; //获取患者手术信息
+    public static final String getUsersSsxx = "/sync/patient/operation/list"; //获取患者手术列表
     public static final String getUsersAssayListDetail = "/sync/patient/assay/detail"; //获取患者检验详情
 
     //提交

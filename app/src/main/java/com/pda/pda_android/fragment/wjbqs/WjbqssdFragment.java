@@ -48,7 +48,7 @@ public class WjbqssdFragment extends Fragment {
     private List<WjbqsBean.WjbqsBeanListBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbqsBean wjbqsBean;
     private View view;
-    private LinearLayout no_data;
+    private ImageView no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

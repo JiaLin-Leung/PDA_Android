@@ -72,7 +72,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getXhhs_name() {
-        return xhhs_name;
+        return xhhs_name==null?"":xhhs_name;
     }
 
     public void setXhhs_name(String xhhs_name) {
@@ -80,7 +80,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOperdiag() {
-        return operdiag;
+        return operdiag==null?"":operdiag;
     }
 
     public void setOperdiag(String operdiag) {
@@ -88,7 +88,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOperdiag_after() {
-        return operdiag_after;
+        return operdiag_after==null?"":operdiag_after;
     }
 
     public void setOperdiag_after(String operdiag_after) {
@@ -96,7 +96,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getHisappform() {
-        return hisappform;
+        return hisappform==null?"":hisappform;
     }
 
     public void setHisappform(String hisappform) {
@@ -104,7 +104,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getMzfs() {
-        return mzfs;
+        return mzfs==null?"":mzfs;
     }
 
     public void setMzfs(String mzfs) {
@@ -112,7 +112,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getMzys_code() {
-        return mzys_code;
+        return mzys_code==null?"":mzys_code;
     }
 
     public void setMzys_code(String mzys_code) {
@@ -120,7 +120,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getMzys_name() {
-        return mzys_name;
+        return mzys_name==null?"":mzys_name;
     }
 
     public void setMzys_name(String mzys_name) {
@@ -128,7 +128,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOperscale() {
-        return operscale;
+        return operscale==null?"":operscale;
     }
 
     public void setOperscale(String operscale) {
@@ -136,7 +136,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOperstate() {
-        return operstate;
+        return operstate==null?"":operstate;
     }
 
     public void setOperstate(String operstate) {
@@ -144,7 +144,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getDjtime() {
-        return djtime;
+        return djtime==null?"":djtime;
     }
 
     public void setDjtime(String djtime) {
@@ -152,7 +152,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOperxh() {
-        return operxh;
+        return operxh==null?"":operxh;
     }
 
     public void setOperxh(String operxh) {
@@ -160,7 +160,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getRecord_no() {
-        return record_no;
+        return record_no==null?"":record_no;
     }
 
     public void setRecord_no(String record_no) {
@@ -168,7 +168,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getPatient_no() {
-        return patient_no;
+        return patient_no==null?"":patient_no;
     }
 
     public void setPatient_no(String patient_no) {
@@ -176,7 +176,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getWard_code() {
-        return ward_code;
+        return ward_code==null?"":ward_code;
     }
 
     public void setWard_code(String ward_code) {
@@ -184,7 +184,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getWard_name() {
-        return ward_name;
+        return ward_name==null?"":ward_name;
     }
 
     public void setWard_name(String ward_name) {
@@ -192,7 +192,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOperid() {
-        return operid;
+        return operid==null?"":operid;
     }
 
     public void setOperid(String operid) {
@@ -200,7 +200,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOper_name() {
-        return oper_name;
+        return oper_name==null?"":oper_name;
     }
 
     public void setOper_name(String oper_name) {
@@ -208,7 +208,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOper_code() {
-        return oper_code;
+        return oper_code==null?"":oper_code;
     }
 
     public void setOper_code(String oper_code) {
@@ -216,7 +216,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getYytime() {
-        return yytime;
+        return yytime==null?"":yytime;
     }
 
     public void setYytime(String yytime) {
@@ -224,7 +224,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getInoper_time() {
-        return inoper_time;
+        return inoper_time==null?"":inoper_time;
     }
 
     public void setInoper_time(String inoper_time) {
@@ -232,7 +232,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getEndoper_time() {
-        return endoper_time;
+        return endoper_time==null?"":endoper_time;
     }
 
     public void setEndoper_time(String endoper_time) {
@@ -240,7 +240,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOutoper_time() {
-        return outoper_time;
+        return outoper_time==null?"":outoper_time;
     }
 
     public void setOutoper_time(String outoper_time) {
@@ -248,7 +248,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getInpacu_time() {
-        return inpacu_time;
+        return inpacu_time==null?"":inpacu_time;
     }
 
     public void setInpacu_time(String inpacu_time) {
@@ -256,7 +256,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOutpacu_time() {
-        return outpacu_time;
+        return outpacu_time==null?"":outpacu_time;
     }
 
     public void setOutpacu_time(String outpacu_time) {
@@ -264,7 +264,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getOper_roomno() {
-        return oper_roomno;
+        return oper_roomno==null?"":oper_roomno;
     }
 
     public void setOper_roomno(String oper_roomno) {
@@ -272,7 +272,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getSequence_no() {
-        return sequence_no;
+        return sequence_no==null?"":sequence_no;
     }
 
     public void setSequence_no(String sequence_no) {
@@ -280,7 +280,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getSurgeon_name() {
-        return surgeon_name;
+        return surgeon_name==null?"":surgeon_name;
     }
 
     public void setSurgeon_name(String surgeon_name) {
@@ -288,7 +288,7 @@ public class SsxxBeanListBean implements Serializable {
     }
 
     public String getSurgeon_code() {
-        return surgeon_code;
+        return surgeon_code==null?"":surgeon_code;
     }
 
     public void setSurgeon_code(String surgeon_code) {

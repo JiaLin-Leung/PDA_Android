@@ -50,7 +50,7 @@ public class WjbqsendFragment extends Fragment {
     private List<WjbEndBean.DataBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbEndBean wjbEndBean;
     private View view;
-    private LinearLayout no_data;
+    private ImageView no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,7 +72,7 @@ public class WjbqsendFragment extends Fragment {
                 wjbEndBean = gson.fromJson(s,WjbEndBean.class);
                 wjbqsBeanListBeans = wjbEndBean.getData();
                 if (wjbqsBeanListBeans.size()==0){
-                    no_data.setVisibility(View.GONE);
+                    no_data.setVisibility(View.VISIBLE);
                 }
                 mainAdapter = new WjbqsEndDetailAdapter(getActivity(),wjbqsBeanListBeans);
                 stickyListHeadersListView.setAdapter(mainAdapter);

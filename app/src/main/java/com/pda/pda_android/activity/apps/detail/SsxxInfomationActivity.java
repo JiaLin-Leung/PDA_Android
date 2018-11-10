@@ -5,9 +5,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.pda.pda_android.R;
 import com.pda.pda_android.adapter.ssxx.SsxxDetailAdapter;
 import com.pda.pda_android.base.BaseActivity;
+import com.pda.pda_android.base.network.LoadCallBack;
+import com.pda.pda_android.base.network.OkHttpManager;
+import com.pda.pda_android.base.others.ContentUrl;
+import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.SsxxBean;
 import com.pda.pda_android.db.Entry.UserBean;
@@ -16,9 +21,14 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Response;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 
@@ -30,12 +40,12 @@ public class SsxxInfomationActivity extends BaseActivity {
 
     private StickyListHeadersListView stickyListHeadersListView;
     private RefreshLayout refreshLayout;
-    private  String cw;
+    private  String patient_no;
     private SsxxDetailAdapter adapter;
     private UserBean userBean;
     private String record_no;
     private List<SsxxBean> list;
-    private LinearLayout no_data;
+    private ImageView no_data;
 
     private TextView user_info;
     @Override
@@ -75,6 +85,7 @@ public class SsxxInfomationActivity extends BaseActivity {
     public void initData() {
         userBean = (UserBean) getIntent().getSerializableExtra("userBean");
         record_no = userBean.getRecord_no();
+        patient_no=userBean.getPatient_no();
         list = SsxxBeanOpe.queryRecord_no(SsxxInfomationActivity.this,record_no);
         if (list.size() == 0){
             no_data.setVisibility(View.VISIBLE);
@@ -86,5 +97,31 @@ public class SsxxInfomationActivity extends BaseActivity {
         user_info.setText(name);
         adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,name);
         stickyListHeadersListView.setAdapter(adapter);
+        postdata();
+    }
+
+    public void postdata(){
+        Map<String, String> params = new HashMap<>(); //提交数据包
+        params.put("patient_no", patient_no); //住院号
+        params.put("record_no", record_no); //病历号
+        OkHttpManager.getInstance().postRequest(SsxxInfomationActivity.this, ContentUrl.TestUrl_local + ContentUrl.getUsersAssayList, new LoadCallBack<String>(SsxxInfomationActivity.this) {
+            @Override
+            protected void onFailure(Call call, IOException e) {
+                showShortToast("请求失败，请稍后重试");
+            }
+            @Override
+            protected void onSuccess(Call call, Response response, String s)  {
+                Gson gson = new Gson();
+                LogUtils.showLog(s.toString());
+//                jcBean = gson.fromJson(s,JcBean.class);
+//                list = jcBean.getData();
+//                if (list.size() == 0){
+//                    no_data.setVisibility(View.VISIBLE);
+//                }else
+//                    no_data.setVisibility(View.GONE);
+//                mainAdapter = new JcDetailAdapter(getActivity(),list,name);
+//                stickyListHeadersListView.setAdapter(mainAdapter);
+            }
+        },params);
     }
 }

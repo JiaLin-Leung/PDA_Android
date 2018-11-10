@@ -95,6 +95,9 @@ public class WjbqsEndDetailAdapter extends BaseAdapter implements StickyListHead
         //设置数据
         headHolder.headTv.setText(bodyList.get(position).getDate());
         headHolder.item_num_tv.setText("共"+bodyList.get(position).getList().size()+"条");
+        if (position==0){
+            headHolder.item_end_shaixuan.setVisibility(View.VISIBLE);
+        }
         headHolder.item_end_shaixuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

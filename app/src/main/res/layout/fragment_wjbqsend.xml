@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:context=".fragment.wjbqs.WjbqsendFragment">
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:layout_width="match_parent"
@@ -16,20 +15,19 @@
         <se.emilsjolander.stickylistheaders.StickyListHeadersListView
             android:id="@+id/wsjqs_end_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:overScrollMode="never"/>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    <LinearLayout
-        android:id="@+id/no_data"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+
         <ImageView
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/empty"
+            android:visibility="gone"
+            android:id="@+id/no_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/empty"
             />
-    </LinearLayout>
+
 
 </LinearLayout>

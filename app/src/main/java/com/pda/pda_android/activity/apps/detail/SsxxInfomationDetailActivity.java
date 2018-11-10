@@ -66,8 +66,12 @@ public class SsxxInfomationDetailActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        ops_num.setText(ssxxBeanListBean.getOperxh());
-        ops_bm.setText(ssxxBeanListBean.getOper_code());
+        if (null!=ssxxBeanListBean.getOperxh()){
+            ops_num.setText(ssxxBeanListBean.getOperxh());
+        }
+        if (null!=ssxxBeanListBean.getOper_code()){
+            ops_bm.setText(ssxxBeanListBean.getOper_code());
+        }
         ops_dj.setText(ssxxBeanListBean.getOperscale());
         ops_name.setText(ssxxBeanListBean.getOper_name());
         ops_staue.setText(ssxxBeanListBean.getOperstate());

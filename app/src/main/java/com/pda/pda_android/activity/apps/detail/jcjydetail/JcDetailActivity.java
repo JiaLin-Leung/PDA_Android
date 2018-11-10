@@ -44,9 +44,15 @@ public class JcDetailActivity extends BaseActivity {
             }
         });
         tv_top_title.setText(getIntent().getStringExtra("name"));
-        jc_content.setText(getIntent().getStringExtra("jc_content"));
-        zd_content.setText(getIntent().getStringExtra("zd_content"));
-        bg_content.setText(getIntent().getStringExtra("bg_content"));
+        if (null!=getIntent().getStringExtra("jc_content")){
+            jc_content.setText(getIntent().getStringExtra("jc_content"));
+        }
+        if (null!=getIntent().getStringExtra("zd_content")){
+            zd_content.setText(getIntent().getStringExtra("zd_content"));
+        }
+        if (null!=getIntent().getStringExtra("bg_content")){
+            bg_content.setText(getIntent().getStringExtra("bg_content"));
+        }
         bg_content.setMovementMethod(ScrollingMovementMethod.getInstance());
         zd_content.setMovementMethod(ScrollingMovementMethod.getInstance());
         jc_content.setMovementMethod(ScrollingMovementMethod.getInstance());
