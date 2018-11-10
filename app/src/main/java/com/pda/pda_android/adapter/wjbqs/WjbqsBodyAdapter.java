@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.network.LoadCallBack;
@@ -20,7 +22,8 @@ import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.network.bean.ResultBean;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.bean.WjbqsBean;
-import com.pda.pda_android.fragment.wjbqs.WjbqssdFragment;
+import com.pda.pda_android.db.Entry.PostCacheBean;
+import com.pda.pda_android.db.dbutil.PostCacheDaoOpe;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -31,7 +34,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import okhttp3.Call;
 import okhttp3.Response;
-
 
 public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.ViewHolder>{
     private Context context;
@@ -85,11 +87,16 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
     }
 
     private void PostData(final String code, final int position) {
-        Map<String, String> params = new HashMap<>(); //提交数据包
+        final Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("sterile_code", code); //将姓名参数添加到数据包
         OkHttpManager.getInstance().postRequest(context, ContentUrl.TestUrl_local + ContentUrl.sign, new LoadCallBack<String>(context) {
             @Override
             protected void onFailure(Call call, IOException e) {
+                PostCacheBean postCacheBean = new PostCacheBean();
+                postCacheBean.setCode("500");
+                postCacheBean.setParameter(JSON.toJSONString(params));
+                postCacheBean.setUrl(ContentUrl.TestUrl_local + ContentUrl.sign);
+                PostCacheDaoOpe.insertData(context,postCacheBean);
             }
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
