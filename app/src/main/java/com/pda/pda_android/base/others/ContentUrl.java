@@ -26,4 +26,9 @@ public class ContentUrl {
 
     //已签收
     public static final String sign_list = "/apps/module/sterile/signed/list"; //已经签收无菌包
+
+    //护士个人信息接口
+    public static final String getNurseProfile = "/apps/profile"; //已经签收无菌包
+
+
 }

@@ -62,6 +62,9 @@ public class JcjyActivity extends BaseActivity {
 
     }
 
+    /**
+     * 接收PDA扫描的广播
+     */
     class JcjyBroadcastReceiver extends BroadcastReceiver{
 
         @Override

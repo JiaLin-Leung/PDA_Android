@@ -55,12 +55,13 @@
                     android:src="@mipmap/me_gonghao" />
 
                 <TextView
+                    android:id="@+id/tv_gonghao"
                     android:layout_width="279dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="7dp"
                     android:layout_weight="1"
-                    android:text="工号：00001"
+                    android:text="工号："
                     android:textColor="@color/text_color"
                     android:textSize="15sp" />
 
@@ -85,12 +86,13 @@
                     android:src="@mipmap/me_xingming" />
 
                 <TextView
+                    android:id="@+id/tv_xingming"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="姓名：陈奕迅"
+                    android:text="姓名："
                     android:textColor="@color/text_color"
                     android:textSize="15sp" />
 
@@ -128,12 +130,13 @@
                     android:src="@mipmap/me_bingqu" />
 
                 <TextView
+                    android:id="@+id/tv_bingqu"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="7dp"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="病区：护士站001"
+                    android:text="病区："
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
