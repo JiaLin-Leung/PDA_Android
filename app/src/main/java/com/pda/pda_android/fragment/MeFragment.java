@@ -3,17 +3,14 @@ package com.pda.pda_android.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.pda.pda_android.R;
-import com.pda.pda_android.activity.me.ChangeBingQuActivity;
 import com.pda.pda_android.activity.me.ChangePasswordActivity;
 import com.pda.pda_android.base.BaseFragment;
-import com.pda.pda_android.base.Nursebean;
+import com.pda.pda_android.bean.Nursebean;
 import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
@@ -113,12 +110,6 @@ public class MeFragment extends BaseFragment {
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()){
-            case R.id.layoutChangeBingqu:
-                //切换病区
-                Intent intent = new Intent();
-                intent.setClass(getActivity(),ChangeBingQuActivity.class);
-                startActivity(intent);
-                break;
             case R.id.layout_password:
                 //更改密码
                 Intent intent_password = new Intent();
