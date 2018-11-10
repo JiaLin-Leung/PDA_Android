@@ -28,6 +28,7 @@ import com.pda.pda_android.bean.ScanUserBean;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.bean.ScanWjbqsBean;
 import com.pda.pda_android.bean.WjbqsFailBean;
+import com.pda.pda_android.bean.WjbqsOkBean;
 import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 
@@ -46,7 +47,8 @@ import okhttp3.Response;
 
 public class WjbqssmFragment extends Fragment {
 
-    private static final int RETURNTONORMAL =  10101;
+    private static final int RETURNTONORMAL_FAIL =  10101;
+    private static final int RETURNTONORMAL_OK =  10102;
     private LinearLayout scan_lin_out;//最外层正常布局
     private LinearLayout scan_response_lin;//最外层扫描时候的布局
     private RelativeLayout scan_response;//里层签收状态图片布局
@@ -61,6 +63,7 @@ public class WjbqssmFragment extends Fragment {
     private WjbqsBroadcastReceiver wjbqsBroadcastReceiver;
     private Gson gson;
     private WjbqsFailBean wjbqsFailBean;
+    private WjbqsOkBean wjbqsOkBean;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -134,13 +137,20 @@ public class WjbqssmFragment extends Fragment {
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 if (s.contains("\"response\": \"ok\"")){ //说明签收签收成功
-
+                    wjbqsOkBean = gson.fromJson(s,WjbqsOkBean.class);
+                    if (wjbqsOkBean != null && !TextUtils.isEmpty(wjbqsOkBean.getData().getCode())
+                                && !TextUtils.isEmpty(wjbqsOkBean.getData().getName())
+                            && !TextUtils.isEmpty(wjbqsOkBean.getData().getSend_date())){
+                        scan_lin_out.setVisibility(View.GONE);
+                        scan_response_lin.setVisibility(View.VISIBLE);
+                        response_infomatino.setVisibility(View.VISIBLE);
+                        wjbqs_ok.setVisibility(View.VISIBLE);
+                        scan_name.setText(wjbqsOkBean.getData().getName());
+                        scan_code.setText(wjbqsOkBean.getData().getCode());
+                        scan_data.setText(wjbqsOkBean.getData().getSend_date());
+                        handler.sendEmptyMessageDelayed(RETURNTONORMAL_OK,2000);
+                    }
                 }else{
-                    /*
-                    * type = 1 物品不存在
-                      type = 2 物品已签收
-                      type = 3 该物品不属于当前科室
-                     */
                     wjbqsFailBean = gson.fromJson(s,WjbqsFailBean.class);
                     if (wjbqsFailBean != null && !TextUtils.isEmpty(wjbqsFailBean.getData().getType())){
                         switch (wjbqsFailBean.getData().getType()){
@@ -149,21 +159,21 @@ public class WjbqssmFragment extends Fragment {
                                 scan_response_lin.setVisibility(View.VISIBLE);
                                 wjbqs_fail.setVisibility(View.VISIBLE);
                                 response_infomatino.setVisibility(View.GONE);
-                                handler.sendEmptyMessageDelayed(RETURNTONORMAL,2000);
+                                handler.sendEmptyMessageDelayed(RETURNTONORMAL_FAIL,2000);
                                 break;
                             case 2+"": //说明该物品已签收，并且签收失败
                                 scan_lin_out.setVisibility(View.GONE);
                                 scan_response_lin.setVisibility(View.VISIBLE);
                                 wjbqs_agen.setVisibility(View.VISIBLE);
                                 response_infomatino.setVisibility(View.GONE);
-                                handler.sendEmptyMessageDelayed(RETURNTONORMAL,2000);
+                                handler.sendEmptyMessageDelayed(RETURNTONORMAL_FAIL,2000);
                                 break;
                             case 3+"": //说明该物品不属于当前科室，并且签收失败
                                 scan_lin_out.setVisibility(View.GONE);
                                 scan_response_lin.setVisibility(View.VISIBLE);
                                 wjbqs_fail.setVisibility(View.VISIBLE);
                                 response_infomatino.setVisibility(View.GONE);
-                                handler.sendEmptyMessageDelayed(RETURNTONORMAL,2000);
+                                handler.sendEmptyMessageDelayed(RETURNTONORMAL_FAIL,2000);
                                 break;
                         }
                     }
@@ -173,17 +183,24 @@ public class WjbqssmFragment extends Fragment {
     }
 
     private Handler handler = new Handler(){
-
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what){
-                case RETURNTONORMAL:
+                case RETURNTONORMAL_FAIL:
                         scan_lin_out.setVisibility(View.VISIBLE);
                         scan_response_lin.setVisibility(View.GONE);
                         wjbqs_agen.setVisibility(View.GONE);
                         response_infomatino.setVisibility(View.VISIBLE);
                     break;
+                case RETURNTONORMAL_OK:
+                    scan_lin_out.setVisibility(View.VISIBLE);
+                    scan_response_lin.setVisibility(View.GONE);
+                    response_infomatino.setVisibility(View.GONE);
+                    wjbqs_ok.setVisibility(View.GONE);
+                    break;
+                default:
+                        scan_lin_out.setVisibility(View.VISIBLE);
             }
         }
     };
