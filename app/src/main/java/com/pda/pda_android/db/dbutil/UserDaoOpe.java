@@ -2,7 +2,9 @@ package com.pda.pda_android.db.dbutil;
 
 import android.content.Context;
 
+import com.pda.pda_android.db.Entry.SsxxBean;
 import com.pda.pda_android.db.Entry.UserBean;
+import com.pda.pda_android.db.dao.SsxxBeanDao;
 import com.pda.pda_android.db.dao.UserBeanDao;
 
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -95,6 +97,17 @@ public class UserDaoOpe {
         return builder.build().list();
     }
 
+    /**
+     * 按照唯一标志查找
+     *
+     * @param context
+     * @return
+     */
+    public static List<UserBean>  queryRecord_no(Context context, String Record_no) {
+        List<UserBean> userBeans= DbManager.getDaoSession(context).getUserBeanDao().queryBuilder().
+                where(UserBeanDao.Properties.Record_no.eq(Record_no)).list();
+        return userBeans;
+    }
 
 
     /**

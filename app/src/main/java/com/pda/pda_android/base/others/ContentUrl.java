@@ -6,6 +6,8 @@ package com.pda.pda_android.base.others;
  */
 public class ContentUrl {
 
+    public static String ACTION = "com.scanner.broadcast";//PDA广播标记
+
     public static final String ARGS = "args";
 //    public static final String TestUrl_local = "http://114.116.19.253:8001";//线上接口地址
     public static final String TestUrl_local = "http://192.168.7.136:8999";//本地接口地址
