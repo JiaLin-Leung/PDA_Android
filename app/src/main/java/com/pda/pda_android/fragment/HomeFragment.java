@@ -4,14 +4,19 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListPopupWindow;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -61,12 +66,16 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     private TextView tv_daiban;
     private TextView tv_allapp;
     private GridView gridView;
+    private LinearLayout ln_hsz;
+    private TextView hsz_name;
+    private ImageView hsz_arrow;
     private List<Map<String, Object>> dataList;
     private IndexDataAdapter adapter;
     private static AppContext appContext;
     private List<MenuEntity> indexDataList = new ArrayList<MenuEntity>();
     private final static String fileName = "menulist";
-
+    private ListPopupWindow listPopupWindow;
+    private List<String> hszlist;
     public static HomeFragment newInstance(String s) {
         HomeFragment homeFragment = new HomeFragment();
         Bundle bundle = new Bundle();
@@ -154,6 +163,22 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
 //                }
             }
         });
+        hszlist=new ArrayList<>();
+        hszlist.add("北京护士站");
+//        hszlist.add("郑州护士站");
+//        hszlist.add("新乡护士站");
+//        hszlist.add("上海护士站");
+        hsz_name.setText(hszlist.get(0));
+        ln_hsz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (hszlist.size() > 1) {
+                    hsz_arrow.setImageResource(R.mipmap.arrow_arrow);
+                    listPopupWindow.show();
+                }
+            }
+        });
+        initHszPopWindow();
     }
 
     public static String getJson(Context context, String fileName) {
@@ -174,6 +199,9 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     }
 
     public void initView(View view) {
+        hsz_arrow=view.findViewById(R.id.iv_arrow);
+        ln_hsz=view.findViewById(R.id.ln_hsz);
+        hsz_name=view.findViewById(R.id.hsz_name);
         tv_tixing = view.findViewById(R.id.tv_tixing);
         tv_tixing.setOnClickListener(this);
         banner = view.findViewById(R.id.banner);
@@ -275,6 +303,103 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         switch (view.getId()) {
             case R.id.tv_tixing:
                 break;
+        }
+    }
+
+    /**
+     * 选择护士站的弹出窗口的展示
+     */
+    private void initHszPopWindow() {
+
+        listPopupWindow = new ListPopupWindow(getActivity());
+        PopupWindowAdapter popupWindowAdapter = new PopupWindowAdapter(getContext(), hszlist);
+        listPopupWindow.setAdapter(popupWindowAdapter);
+        //设置背景
+        Drawable statusQuestionDrawable = getResources().getDrawable(R.color.white);
+        listPopupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);//设置宽度
+        View itemView = popupWindowAdapter.getView(0, null, null);
+        itemView.measure(0, 0);
+        int itemHight = itemView.getMeasuredHeight();
+        if (hszlist.size() > 3) {
+            listPopupWindow.setHeight(itemHight * 3);//设置高度
+        } else {
+            listPopupWindow.setHeight(itemHight * hszlist.size());//设置高度
+        }
+        listPopupWindow.setBackgroundDrawable(statusQuestionDrawable);//设置背景色
+        listPopupWindow.setAnchorView(ln_hsz);//设置ListPopupWindow的锚点，即关联PopupWindow的显示位置和这个锚点
+        listPopupWindow.setModal(true);//设置是否是模式
+        //item的点击事件
+        listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                hsz_name.setText(hszlist.get(position));
+                listPopupWindow.dismiss();
+                hsz_arrow.setImageResource(R.mipmap.down_down);
+            }
+        });
+        //界面消失的监听
+        listPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                hsz_arrow.setImageResource(R.mipmap.down_down);
+            }
+        });
+    }
+    /**
+     * 展示选择学校的适配器
+     */
+    public class PopupWindowAdapter extends BaseAdapter {
+
+        /**
+         * 上下文环境
+         */
+        private Context context;
+        /**
+         * 学校列表
+         */
+        private  List<String> hszlist;
+        private LayoutInflater inflater;
+
+        PopupWindowAdapter(Context context, List<String> hszlist) {
+            this.context = context;
+            this.hszlist = hszlist;
+            inflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getCount() {
+            return hszlist.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return hszlist.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            ViewHolder holder;
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = inflater.inflate(R.layout.pop_hsz_item, null);
+                holder.tvSchool = convertView.findViewById(R.id.item_hsz_name);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            holder.tvSchool.setText(hszlist.get(position));
+            holder.tvSchool.setSelected(true);
+            return convertView;
+        }
+
+        class ViewHolder {
+            TextView tvSchool;
         }
     }
 }

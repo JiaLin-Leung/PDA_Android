@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pda.pda_android.R;
 
@@ -69,5 +70,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void setTitle(String title) {
         TextView baseTitle = findViewById(R.id.teacher_details_users);
         baseTitle.setText(title);
+    }
+
+    /**
+     * Toast 公共Toast方法
+     *
+     * @param message 需要展示的信息
+     */
+    public void showShortToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

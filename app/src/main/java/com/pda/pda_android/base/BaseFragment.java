@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pda.pda_android.R;
 
@@ -96,5 +97,14 @@ public abstract class BaseFragment extends androidx.fragment.app.Fragment implem
 //                progress(checkVersonBean);
 //            }
 //        });
+    }
+
+    /**
+     * Toast 公共Toast方法
+     *
+     * @param message 需要展示的信息
+     */
+    public void showShortToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 }

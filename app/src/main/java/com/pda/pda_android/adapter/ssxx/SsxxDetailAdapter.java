@@ -10,9 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
-import com.pda.pda_android.adapter.jcjy.JcBodyAdapter;
-import com.pda.pda_android.db.Entry.CheckBean;
-import com.pda.pda_android.db.Entry.SsxxBean;
+import com.pda.pda_android.bean.SsxxBean;
+
 
 import java.util.List;
 
@@ -28,9 +27,9 @@ public class SsxxDetailAdapter extends BaseAdapter implements StickyListHeadersA
 
     private Context context;
     private List<String> headList;
-    private List<SsxxBean> bodyList;
+    private List<SsxxBean.DataBean> bodyList;
     private String name;
-    public SsxxDetailAdapter(Context context, List<SsxxBean> bodyList, String name) {
+    public SsxxDetailAdapter(Context context, List<SsxxBean.DataBean> bodyList, String name) {
         this.context = context;
         this.bodyList=bodyList;
         this.name=name;

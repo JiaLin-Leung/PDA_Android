@@ -4,13 +4,28 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 import com.pda.pda_android.R;
+import com.pda.pda_android.adapter.jcjy.JyDetailAdapter;
 import com.pda.pda_android.base.BaseActivity;
+import com.pda.pda_android.base.network.LoadCallBack;
+import com.pda.pda_android.base.network.OkHttpManager;
+import com.pda.pda_android.base.others.ContentUrl;
+import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.JyBean;
+import com.pda.pda_android.bean.JyDetailBean;
 import com.pda.pda_android.db.Entry.AssayDetailBean;
 import com.pda.pda_android.db.dbutil.AssayDetailDaoOpe;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * 检验结果页面
@@ -50,10 +65,30 @@ public class JyDetailActivity extends BaseActivity {
             }
         });
         tv_top_title.setText(names);
-        assayDetailBeans=AssayDetailDaoOpe.queryAllByPatient_no(JyDetailActivity.this,patient_no);
-        jy_data.setText(assayDetailBeans.get(0).getJydate());
-        sq_data.setText(assayDetailBeans.get(0).getSqdate());
-        bg_data.setText(assayDetailBeans.get(0).getBgdate());
+//        assayDetailBeans=AssayDetailDaoOpe.queryAllByPatient_no(JyDetailActivity.this,patient_no);
+        postdata();
     }
+    public void postdata(){
+        Map<String, String> params = new HashMap<>(); //提交数据包
+        params.put("sqxh", patient_no); //检查申请序号
+        OkHttpManager.getInstance().postRequest(this, ContentUrl.TestUrl_local + ContentUrl.getUsersAssayListDetail, new LoadCallBack<String>(this) {
+            @Override
+            protected void onFailure(Call call, IOException e) {
+                showShortToast("请求失败，请稍后重试");
+            }
+            @Override
+            protected void onSuccess(Call call, Response response, String s)  {
+                Gson gson = new Gson();
+                LogUtils.showLog(s.toString());
+                JyDetailBean jyDetailBean=gson.fromJson(s.toString(),JyDetailBean.class);
+                if (jyDetailBean.getResponse().equals("ok")){
+                    jy_data.setText(jyDetailBean.getData().getJcdate());
+                    sq_data.setText(jyDetailBean.getData().getSqdate());
+                    bg_data.setText(jyDetailBean.getData().getBgdate());
+//                    jy_detail.setText(jyDetailBean.getData().get(0).getJg());
+                }
 
+            }
+        },params);
+    }
 }

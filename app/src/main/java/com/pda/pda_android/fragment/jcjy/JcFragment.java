@@ -1,5 +1,7 @@
 package com.pda.pda_android.fragment.jcjy;
 
+import okhttp3.Call;
+import okhttp3.Response;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 import android.content.Context;
@@ -11,33 +13,45 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.adapter.jcjy.JcDetailAdapter;
+import com.pda.pda_android.adapter.wjbqs.WjbqsEndDetailAdapter;
 import com.pda.pda_android.base.BaseFragment;
+import com.pda.pda_android.base.network.LoadCallBack;
+import com.pda.pda_android.base.network.OkHttpManager;
+import com.pda.pda_android.base.others.ContentUrl;
+import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.JcBean;
+import com.pda.pda_android.bean.WjbEndBean;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.dbutil.CheckBeanOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 检查
  */
-
 public class JcFragment extends BaseFragment {
 
     private StickyListHeadersListView stickyListHeadersListView;
     private JcDetailAdapter mainAdapter;
     //下拉控件
     private RefreshLayout refreshLayout;
-    private  List<CheckBean> checkBeanList=new ArrayList<>();
+//    private  List<CheckBean> checkBeanList=new ArrayList<>();
     //床位 患者名字
     private  String cw,name;
-    private LinearLayout no_data;
+    private ImageView no_data;
+    private JcBean jcBean;
+    private List<JcBean.DataBean> list;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,8 +70,7 @@ public class JcFragment extends BaseFragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        checkBeanList = CheckBeanOpe.queryRecord_no(getActivity(),cw);
-
+//        checkBeanList = CheckBeanOpe.queryRecord_no(getActivity(),cw);
         initData();
         return  view;
     }
@@ -71,10 +84,7 @@ public class JcFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        if (checkBeanList.size() == 0){
-            no_data.setVisibility(View.VISIBLE);
-        }else
-            mainAdapter = new JcDetailAdapter(getActivity(),checkBeanList,name);
+        postdata();
         //设置头部的点击事件
 //        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
 //            @Override
@@ -83,7 +93,7 @@ public class JcFragment extends BaseFragment {
 //            }
 //        });
 
-         //设置内容的点击事件
+        //设置内容的点击事件
 //        stickyListHeadersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -99,10 +109,30 @@ public class JcFragment extends BaseFragment {
                 header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
             }
         });
-
-        stickyListHeadersListView.setAdapter(mainAdapter);
     }
-
+    public void postdata(){
+        Map<String, String> params = new HashMap<>(); //提交数据包
+        params.put("record_no", cw); //病历号
+        OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getUsersCheckList, new LoadCallBack<String>(getActivity()) {
+            @Override
+            protected void onFailure(Call call, IOException e) {
+                showShortToast("请求失败，请稍后重试");
+            }
+            @Override
+            protected void onSuccess(Call call, Response response, String s)  {
+                Gson gson = new Gson();
+                LogUtils.showLog(s.toString());
+                jcBean = gson.fromJson(s,JcBean.class);
+                list = jcBean.getData();
+                if (list.size() == 0){
+                    no_data.setVisibility(View.VISIBLE);
+                }else
+                    no_data.setVisibility(View.GONE);
+                mainAdapter = new JcDetailAdapter(getActivity(),list,name);
+                stickyListHeadersListView.setAdapter(mainAdapter);
+            }
+        },params);
+    }
     @Override
     public void initView(View view) {
     }

@@ -48,13 +48,11 @@ public class WjbqssdFragment extends Fragment {
     private List<WjbqsBean.WjbqsBeanListBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbqsBean wjbqsBean;
     private View view;
-    private LinearLayout no_data;
+    private ImageView no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view=inflater.inflate(R.layout.fragment_wjbqssd, container, false);
-        init(view);
-        initData();
         return view;
     }
 
@@ -105,5 +103,14 @@ public class WjbqssdFragment extends Fragment {
         super.onAttach(context);
         Patient_no = "ZY040000469876";
         name = "1231231";
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            init(view);
+            initData();
+        }
     }
 }

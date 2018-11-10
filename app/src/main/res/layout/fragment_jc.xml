@@ -3,33 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.jcjy.JyFragment"
-    android:background="@color/white">
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="12dp"
-        android:layout_marginLeft="12dp"
-        android:id="@+id/refreshLayout1">
-
-        <se.emilsjolander.stickylistheaders.StickyListHeadersListView
-            android:id="@+id/jc_list"
+    tools:context=".fragment.jcjy.JcFragment"
+    >
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:id="@+id/refreshLayout1">
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    <LinearLayout
-        android:id="@+id/no_data"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+            <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+                android:id="@+id/jc_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:overScrollMode="never"/>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
         <ImageView
-            android:gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/empty"
+            android:id="@+id/no_data"
             />
-    </LinearLayout>
+
 
 </FrameLayout>

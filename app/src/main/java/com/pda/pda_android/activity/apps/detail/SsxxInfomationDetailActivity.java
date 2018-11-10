@@ -4,9 +4,22 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.pda.pda_android.R;
+import com.pda.pda_android.adapter.ssxx.SsxxDetailAdapter;
 import com.pda.pda_android.base.BaseActivity;
-import com.pda.pda_android.db.Entry.SsxxBeanListBean;
+import com.pda.pda_android.base.network.LoadCallBack;
+import com.pda.pda_android.base.network.OkHttpManager;
+import com.pda.pda_android.base.others.ContentUrl;
+import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.SsxxDetailBean;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * 梁佳霖创建于：2018/10/31 09:33
@@ -14,12 +27,13 @@ import com.pda.pda_android.db.Entry.SsxxBeanListBean;
  */
 public class SsxxInfomationDetailActivity extends BaseActivity {
 
-    private SsxxBeanListBean ssxxBeanListBean;
     private ImageView iv_top_back;
     private TextView username_badnum,ops_num,ops_staue,bxbh,ops_name,ops_dj,ops_bm,docter,
             yy_time,dj_time,end_time,sq_code,out_ops_time,inpacu_time,outpacu_time,operdiag_after,
             mzys_name,mzfs,xhhs_code,sequence_no,oper_roomno,tv_top_sure,ops_time;
-    private String name;
+    private String name,id;
+    private SsxxDetailBean ssxxBeanListBean;
+
     @Override
     public int setLayoutId() {
         return R.layout.activity_ssxxinfomationdetail;
@@ -27,7 +41,7 @@ public class SsxxInfomationDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        ssxxBeanListBean = (SsxxBeanListBean) getIntent().getSerializableExtra("SsxxBeanListBean");
+        id =  getIntent().getStringExtra("id");
         name=getIntent().getStringExtra("name");
         iv_top_back = findViewById(R.id.iv_top_back);
         username_badnum = findViewById(R.id.tv_top_title);
@@ -66,26 +80,88 @@ public class SsxxInfomationDetailActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        ops_num.setText(ssxxBeanListBean.getOperxh());
-        ops_bm.setText(ssxxBeanListBean.getOper_code());
-        ops_dj.setText(ssxxBeanListBean.getOperscale());
-        ops_name.setText(ssxxBeanListBean.getOper_name());
-        ops_staue.setText(ssxxBeanListBean.getOperstate());
-        bxbh.setText(ssxxBeanListBean.getWard_code());
-        docter.setText(ssxxBeanListBean.getSurgeon_name());
-        yy_time.setText(ssxxBeanListBean.getYytime());
-        dj_time.setText(ssxxBeanListBean.getDjtime());
-        end_time.setText(ssxxBeanListBean.getEndoper_time());
-        sq_code.setText("");
-        out_ops_time.setText(ssxxBeanListBean.getOutoper_time());
-        inpacu_time.setText(ssxxBeanListBean.getInpacu_time());
-        outpacu_time.setText(ssxxBeanListBean.getOutpacu_time());
-        mzfs.setText(ssxxBeanListBean.getMzfs());
-        mzys_name.setText(ssxxBeanListBean.getMzys_name());
-        operdiag_after.setText(ssxxBeanListBean.getOperdiag_after());
-        xhhs_code.setText(ssxxBeanListBean.getXhhs_name());
-        sequence_no.setText(ssxxBeanListBean.getSequence_no());
-        oper_roomno.setText(ssxxBeanListBean.getOper_roomno());
-        ops_time.setText(ssxxBeanListBean.getInoper_time());
+        postdata();
+    }
+
+    public void postdata(){
+        Map<String, String> params = new HashMap<>(); //提交数据包
+        params.put("oper_id", id);
+        OkHttpManager.getInstance().postRequest(this, ContentUrl.TestUrl_local + ContentUrl.getUsersSsxxDetail, new LoadCallBack<String>(this) {
+            @Override
+            protected void onFailure(Call call, IOException e) {
+                showShortToast("请求失败，请稍后重试");
+            }
+            @Override
+            protected void onSuccess(Call call, Response response, String s)  {
+                Gson gson = new Gson();
+                LogUtils.showLog(s.toString());
+                ssxxBeanListBean=gson.fromJson(s.toString(),SsxxDetailBean.class);
+                if (ssxxBeanListBean.getResponse().equals("ok")){
+                    if (null!=ssxxBeanListBean.getData().getOperxh()){
+                        ops_num.setText(ssxxBeanListBean.getData().getOperxh());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getOper_code()){
+                        ops_bm.setText(ssxxBeanListBean.getData().getOper_code());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getOperscale()){
+                        ops_dj.setText(ssxxBeanListBean.getData().getOperscale());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getOper_name()){
+                        ops_name.setText(ssxxBeanListBean.getData().getOper_name());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getOperstate()){
+                        ops_staue.setText(ssxxBeanListBean.getData().getOperstate());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getWard_code()){
+                        bxbh.setText(ssxxBeanListBean.getData().getWard_code());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getSurgeon_name()){
+                        docter.setText(ssxxBeanListBean.getData().getSurgeon_name());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getYytime()){
+                        yy_time.setText(ssxxBeanListBean.getData().getYytime());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getDjtime()){
+                        dj_time.setText(ssxxBeanListBean.getData().getDjtime());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getEndoper_time()){
+                        end_time.setText(ssxxBeanListBean.getData().getEndoper_time());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getHisappform()){
+                        sq_code.setText(ssxxBeanListBean.getData().getHisappform());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getOutoper_time()){
+                        out_ops_time.setText(ssxxBeanListBean.getData().getOutoper_time());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getInpacu_time()){
+                        inpacu_time.setText(ssxxBeanListBean.getData().getInpacu_time());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getOutpacu_time()){
+                        outpacu_time.setText(ssxxBeanListBean.getData().getOutpacu_time());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getMzfs()){
+                        mzfs.setText(ssxxBeanListBean.getData().getMzfs());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getMzys_name()){
+                        mzys_name.setText(ssxxBeanListBean.getData().getMzys_name());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getOperdiag_after()){
+                        operdiag_after.setText(ssxxBeanListBean.getData().getOperdiag_after());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getXhhs_name()){
+                        xhhs_code.setText(ssxxBeanListBean.getData().getXhhs_name());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getSequence_no()){
+                        sequence_no.setText(ssxxBeanListBean.getData().getSequence_no());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getOper_roomno()){
+                        oper_roomno.setText(ssxxBeanListBean.getData().getOper_roomno());
+                    }
+                    if (null!=ssxxBeanListBean.getData().getInoper_time()){
+                        ops_time.setText(ssxxBeanListBean.getData().getInoper_time());
+                    }
+                }
+            }
+        },params);
     }
 }
