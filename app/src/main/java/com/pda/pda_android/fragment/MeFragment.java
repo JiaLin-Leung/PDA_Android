@@ -70,7 +70,6 @@ public class MeFragment extends BaseFragment {
             protected void onFailure(Call call, IOException e) {
 
             }
-
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
 

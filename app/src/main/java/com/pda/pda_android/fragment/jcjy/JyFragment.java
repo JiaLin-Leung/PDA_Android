@@ -54,7 +54,6 @@ public class JyFragment extends BaseFragment {
     private List<JyBean.DataBean> beanList;
     @Override
     public void initData() {
-        postdata();
     }
 
     @Override
@@ -93,15 +92,7 @@ public class JyFragment extends BaseFragment {
 //                Toast.makeText(getActivity(), "i:" + i, Toast.LENGTH_SHORT).show();
 //            }
 //        });
-        //默认滑动一段距离   适配筛选图标显示隐藏
-        stickyListHeadersListView.setStickyHeaderTopOffset(1);
-        //设置头部改变的监听
-        stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
-            @Override
-            public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-                header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
-            }
-        });
+
 //        stickyListHeadersListView.setAdapter(mainAdapter);
     }
 
@@ -136,7 +127,24 @@ public class JyFragment extends BaseFragment {
                     no_data.setVisibility(View.GONE);
                 mainAdapter = new JyDetailAdapter(getActivity(),beanList,name);
                 stickyListHeadersListView.setAdapter(mainAdapter);
+                //默认滑动一段距离   适配筛选图标显示隐藏
+                stickyListHeadersListView.setStickyHeaderTopOffset(1);
+                //设置头部改变的监听
+                stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
+                    @Override
+                    public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
+                        header.findViewById(R.id.jy_shaixuan).setVisibility(View.VISIBLE);
+                    }
+                });
             }
         },params);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            postdata();
+        }
     }
 }

@@ -57,23 +57,21 @@ public class MenuChildAdapter extends BaseAdapter {
 		}
 		final MenuEntity menuEntity = menuList.get(position);
 
-		if (IsEdit) {
-			viewHodler.deleteImg.setVisibility(View.VISIBLE);
-			if (menuEntity.isSelect()) {
-				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_select);
-			} else {
-				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_add);
-			}
-		} else {
-			viewHodler.deleteImg.setVisibility(View.GONE);
-		}
+//		if (IsEdit) {
+//			viewHodler.deleteImg.setVisibility(View.VISIBLE);
+//			if (menuEntity.isSelect()) {
+//				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_select);
+//			} else {
+//				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_add);
+//			}
+//		} else {
+//			viewHodler.deleteImg.setVisibility(View.GONE);
+//		}
 
 		viewHodler.deleteImg.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// datas.remove(position);
-				// String key = AppConfig.KEY_USER;
-				// appContext.saveObject((Serializable) datas, key);
+
 				if (!menuEntity.isSelect()) {
 					MenuManageActivity.AddMenu(menuEntity);
 				}

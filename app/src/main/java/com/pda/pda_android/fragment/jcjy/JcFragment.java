@@ -106,7 +106,7 @@ public class JcFragment extends BaseFragment {
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-                header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
+                header.findViewById(R.id.jc_shaixuan).setVisibility(View.VISIBLE);
             }
         });
     }

@@ -32,8 +32,11 @@ import com.pda.pda_android.activity.apps.detail.YzybhdDetailActivity;
 import com.pda.pda_android.activity.home.MenuManageActivity;
 import com.pda.pda_android.adapter.IndexDataAdapter;
 import com.pda.pda_android.base.BaseFragment;
+import com.pda.pda_android.base.network.LoadCallBack;
+import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.Nursebean;
 import com.pda.pda_android.entity.MenuEntity;
 import com.pda.pda_android.widget.AppConfig;
 import com.pda.pda_android.widget.AppContext;
@@ -52,6 +55,8 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.Nullable;
+import okhttp3.Call;
+import okhttp3.Response;
 
 /**
  * 梁佳霖创建于：2018/10/11 14:11
@@ -75,7 +80,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     private List<MenuEntity> indexDataList = new ArrayList<MenuEntity>();
     private final static String fileName = "menulist";
     private ListPopupWindow listPopupWindow;
-    private List<String> hszlist;
+    private List<Nursebean.NursebeanDataBean.NursebeanDataBeanWardsBean> hszlist;
     public static HomeFragment newInstance(String s) {
         HomeFragment homeFragment = new HomeFragment();
         Bundle bundle = new Bundle();
@@ -131,7 +136,6 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent();
-                Bundle bundle = new Bundle();
                 String title = indexDataList.get(position).getTitle();
                 String strId = indexDataList.get(position).getId();
                 switch (strId){
@@ -162,12 +166,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
 //                }
             }
         });
-        hszlist=new ArrayList<>();
-        hszlist.add("北京护士站");
-        hszlist.add("郑州护士站");
-        hszlist.add("新乡护士站");
-        hszlist.add("上海护士站");
-        hsz_name.setText(hszlist.get(0));
+        postdata();
         ln_hsz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,7 +176,26 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                 }
             }
         });
-        initHszPopWindow();
+    }
+
+    private void postdata() {
+        OkHttpManager.getInstance().getRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getNurseProfile, new LoadCallBack<String>(getActivity()) {
+            @Override
+            protected void onFailure(Call call, IOException e) throws RuntimeException{
+                showShortToast("请求失败，请稍后重试");
+            }
+            @Override
+            protected void onSuccess(Call call, Response response, String s) throws IOException {
+                Gson gson = new Gson();
+                Nursebean  nursebean = gson.fromJson(s,Nursebean.class);
+                if(nursebean.response.equals("ok")){
+                    hszlist=nursebean.getData().getWards();
+                    hsz_name.setText(hszlist.get(0).getWard_name());
+                    initHszPopWindow();
+                }
+            }
+
+        });
     }
 
     public static String getJson(Context context, String fileName) {
@@ -242,7 +260,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         tv_allapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent intent=new Intent(getActivity(), MenuManageActivity.class);
+                Intent intent=new Intent(getActivity(), MenuManageActivity.class);
                 startActivity(intent);
             }
         });
@@ -311,7 +329,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     private void initHszPopWindow() {
 
         listPopupWindow = new ListPopupWindow(getActivity());
-        PopupWindowAdapter popupWindowAdapter = new PopupWindowAdapter(getContext(), hszlist);
+        PopupWindowAdapter popupWindowAdapter = new PopupWindowAdapter(getActivity(), hszlist);
         listPopupWindow.setAdapter(popupWindowAdapter);
         //设置背景
         Drawable statusQuestionDrawable = getResources().getDrawable(R.color.white);
@@ -331,7 +349,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                hsz_name.setText(hszlist.get(position));
+                hsz_name.setText(hszlist.get(position).getWard_name());
                 listPopupWindow.dismiss();
                 hsz_arrow.setImageResource(R.mipmap.down_down);
             }
@@ -356,10 +374,10 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         /**
          * 学校列表
          */
-        private  List<String> hszlist;
+        private  List<Nursebean.NursebeanDataBean.NursebeanDataBeanWardsBean> hszlist;
         private LayoutInflater inflater;
 
-        PopupWindowAdapter(Context context, List<String> hszlist) {
+        PopupWindowAdapter(Context context, List<Nursebean.NursebeanDataBean.NursebeanDataBeanWardsBean> hszlist) {
             this.context = context;
             this.hszlist = hszlist;
             inflater = LayoutInflater.from(context);
@@ -392,7 +410,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.tvhsz.setText(hszlist.get(position));
+            holder.tvhsz.setText(hszlist.get(position).getWard_name());
             holder.tvhsz.setSelected(true);
             return convertView;
         }

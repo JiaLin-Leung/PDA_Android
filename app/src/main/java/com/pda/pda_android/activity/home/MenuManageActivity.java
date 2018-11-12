@@ -322,16 +322,15 @@ public class MenuManageActivity extends BaseActivity {
 
 	public  void DelMeun(MenuEntity indexData, int position) {
 
-//		menuList.get(0).setChilds(menuList.add(indexData));
+		menuList.get(0).getChilds().add(indexData);
 		// TODO Auto-generated method stub
-		for (int i = 0; i < menuList.size(); i++) {
-			for (int k = 0; k < menuList.get(i).getChilds().size(); k++) {
-				if (menuList.get(i).getChilds().get(k).getTitle().equals(indexData.getTitle())) {
-					menuList.get(i).getChilds().get(k).setSelect(false);
-
-				}
-			}
-		}
+//		for (int i = 0; i < menuList.size(); i++) {
+//			for (int k = 0; k < menuList.get(i).getChilds().size(); k++) {
+//				if (menuList.get(i).getChilds().get(k).getTitle().equals(indexData.getTitle())) {
+//					menuList.get(i).getChilds().get(k).setSelect(false);
+//				}
+//			}
+//		}
 		if(menuParentAdapter!=null){
 			menuParentAdapter.notifyDataSetChanged();
 		}
@@ -341,16 +340,17 @@ public class MenuManageActivity extends BaseActivity {
 	public static void AddMenu(MenuEntity menuEntity) {
 		// TODO Auto-generated method stub
 		indexSelect.add(menuEntity);
+		menuList.get(0).getChilds().remove(menuEntity);
 		String key = AppConfig.KEY_USER_TEMP;
 		appContext.saveObject((Serializable) indexSelect, key);
 
-		for (int i = 0; i < menuList.size(); i++) {
-			for (int k = 0; k < menuList.get(i).getChilds().size(); k++) {
-				if (menuList.get(i).getChilds().get(k).getTitle().equals(menuEntity.getTitle())) {
-					menuList.get(i).getChilds().get(k).setSelect(true);
-				}
-			}
-		}
+//		for (int i = 0; i < menuList.size(); i++) {
+//			for (int k = 0; k < menuList.get(i).getChilds().size(); k++) {
+//				if (menuList.get(i).getChilds().get(k).getTitle().equals(menuEntity.getTitle())) {
+//					menuList.get(i).getChilds().get(k).setSelect(true);
+//				}
+//			}
+//		}
 		menuParentAdapter.notifyDataSetChanged();
 		adapterSelect.notifyDataSetChanged();
 	}

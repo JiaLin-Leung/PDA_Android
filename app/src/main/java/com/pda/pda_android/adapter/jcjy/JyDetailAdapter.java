@@ -116,7 +116,7 @@ public class JyDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         public HeadHolder(View itemHeadView) {
             item_num_tv=  itemHeadView.findViewById(R.id.item_num_tv);
             headTv =  itemHeadView.findViewById(R.id.item_head_tv);
-            item_shaixuan=itemHeadView.findViewById(R.id.item_shaixuan);
+            item_shaixuan=itemHeadView.findViewById(R.id.jy_shaixuan);
         }
     }
 

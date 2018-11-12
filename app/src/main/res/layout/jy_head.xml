@@ -36,19 +36,19 @@
         android:layout_height="wrap_content"
         android:gravity="right|center_vertical"
         android:orientation="horizontal"
-        android:id="@+id/item_shaixuan"
-        android:visibility="gone">
+        android:id="@+id/jy_shaixuan"
+        android:visibility="invisible">
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:src="@mipmap/shuaixuan"
             android:layout_marginRight="5dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="筛选"
-        android:textSize="15sp"
-        android:textColor="#2e8aff"
-       />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="筛选"
+            android:textSize="15sp"
+            android:textColor="#2e8aff"
+            />
     </LinearLayout>
 </LinearLayout>
