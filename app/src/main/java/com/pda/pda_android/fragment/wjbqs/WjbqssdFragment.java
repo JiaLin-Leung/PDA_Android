@@ -32,14 +32,13 @@ import okhttp3.Response;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
- * 无菌包签收已确认
+ * 无菌包签收手动签收
  */
 
 public class WjbqssdFragment extends BaseFragment {
     private RefreshLayout refreshLayout;
     private StickyListHeadersListView stickyListHeadersListView;
     public  WjbqsDetailAdapter mainAdapter;
-    private  String Patient_no,name;
     private List<WjbqsBean.WjbqsBeanListBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbqsBean wjbqsBean;
     private View view;
@@ -104,12 +103,6 @@ public class WjbqssdFragment extends BaseFragment {
                 header.findViewById(R.id.item_sd_shaixuan).setVisibility(View.VISIBLE);
             }
         });
-    }
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Patient_no = "ZY040000469876";
-        name = "1231231";
     }
 
     @Override

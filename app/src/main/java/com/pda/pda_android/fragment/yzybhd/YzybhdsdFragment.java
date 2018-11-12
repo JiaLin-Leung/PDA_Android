@@ -5,47 +5,73 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.pda.pda_android.R;
-import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.adapter.wjbqs.WjbqsDetailAdapter;
+import com.pda.pda_android.adapter.yzybhd.YzybhdDetailAdapter;
+import com.pda.pda_android.base.network.LoadCallBack;
+import com.pda.pda_android.base.network.OkHttpManager;
+import com.pda.pda_android.base.others.ContentUrl;
+import com.pda.pda_android.bean.WjbqsBean;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.fragment.app.Fragment;
+import okhttp3.Call;
+import okhttp3.Response;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * 医嘱药包核对手动确认
  */
 public class YzybhdsdFragment extends Fragment {
-    //下拉控件
     private RefreshLayout refreshLayout;
     private StickyListHeadersListView stickyListHeadersListView;
-//    private List<JcBodybean> bodyList;
-//    private YzybhdAdapter yzybhdAdapter;
-    public YzybhdsdFragment() {
-        // Required empty public constructor
-    }
-
-
+    public YzybhdDetailAdapter mainAdapter;
+    private List<WjbqsBean.WjbqsBeanListBean> wjbqsBeanListBeans = new ArrayList<>();
+    private WjbqsBean wjbqsBean;
+    private View view;
+    private ImageView no_data;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view=inflater.inflate(R.layout.fragment_yzybhdsd, container, false);
-        init(view);
+        view=inflater.inflate(R.layout.fragment_yzybhdsd, container, false);
         return view;
     }
 
+    public void initData() {
+        Map<String, String> params = new HashMap<>(); //提交数据包
+        params.put("page", 1+""); //将姓名参数添加到数据包
+        OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getNotSignedList, new LoadCallBack<String>(getActivity()) {
+            @Override
+            protected void onFailure(Call call, IOException e) {
+            }
+            @Override
+            protected void onSuccess(Call call, Response response, String s) throws IOException {
+                Gson gson = new Gson();
+                wjbqsBean = gson.fromJson(s,WjbqsBean.class);
+                wjbqsBeanListBeans = wjbqsBean.getData();
+                if (wjbqsBeanListBeans.size()==0){
+                    no_data.setVisibility(View.VISIBLE);
+                }
+                mainAdapter = new YzybhdDetailAdapter(getActivity(),wjbqsBeanListBeans);
+                stickyListHeadersListView.setAdapter(mainAdapter);
+            }
+        },params);
+    }
     private void init(View view) {
-        stickyListHeadersListView =  view.findViewById(R.id.yzybhd_sd_list);
-        refreshLayout = view.findViewById(R.id.refreshLayout1);
+        refreshLayout=view.findViewById(R.id.refreshLayout1);
+        stickyListHeadersListView=view.findViewById(R.id.wsjqs_sd_list);
+        no_data=view.findViewById(R.id.no_data);
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
@@ -55,89 +81,22 @@ public class YzybhdsdFragment extends Fragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-        initdata();
-    }
-
-    private void initdata() {
-        //设置内容的数据
-//        bodyList = new ArrayList<>();
-//        List<JcBodybean.Body> list = null;
-//        for (int i = 0; i < 3; i++) {
-//            JcBodybean bodybean=new JcBodybean();
-//            bodybean.setTitle("题目"+i);
-//            list=new ArrayList<>();
-//            if (i==1){
-//                for (int j=0;j<5;j++){
-//                    JcBodybean.Body body= new JcBodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6-" + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }else if (i==2){
-//                for (int j=0;j<8;j++){
-//                    JcBodybean.Body body=  new JcBodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6- " + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }else if (i==3){
-//                for (int j=0;j<2;j++){
-//                    JcBodybean.Body body=  new JcBodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6- " + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }else {
-//                for (int j=0;j<5;j++){
-//                    JcBodybean.Body body=  new JcBodybean.Body();
-//                    body.setName("找小虎"+i);
-//                    body.setData("2018-6- " + j);
-//                    body.setProject("项目"+j);
-//                    body.setShebei("设备"+j);
-//                    list.add(body);
-//                }
-//                bodybean.setBodyList(list);
-//            }
-//            bodyList.add(bodybean);
-//        }
-//        LogUtils.showLog("dbj",bodyList.toString());
-//        yzybhdAdapter = new YzybhdAdapter(getActivity(),bodyList);
-        //设置头部的点击事件
-        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
-            @Override
-            public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky) {
-                Toast.makeText(getActivity(), "headerId:" + headerId, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //设置内容的点击事件
-        stickyListHeadersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), "i:" + i, Toast.LENGTH_SHORT).show();
-            }
-        });
-        //默认滑动一段距离   适配筛选图标显示隐藏
         stickyListHeadersListView.setStickyHeaderTopOffset(1);
         //设置头部改变的监听
         stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
             @Override
             public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-//                Toast.makeText(getActivity(), "itemPosition:" + itemPosition, Toast.LENGTH_SHORT).show();
-                header.findViewById(R.id.ydybhd_sd_shaixuan).setVisibility(View.VISIBLE);
+                header.findViewById(R.id.item_sd_shaixuan).setVisibility(View.VISIBLE);
             }
         });
-
-//        stickyListHeadersListView.setAdapter(yzybhdAdapter);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser){
+            init(view);
+            initData();
+        }
+    }
 }
