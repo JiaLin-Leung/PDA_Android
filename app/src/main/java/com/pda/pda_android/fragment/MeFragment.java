@@ -76,8 +76,8 @@ public class MeFragment extends BaseFragment {
         final Gson gson = new Gson();
         OkHttpManager.getInstance().getRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getNurseProfile, new LoadCallBack<String>(getActivity()) {
             @Override
-            protected void onFailure(Call call, IOException e) {
-
+            protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
+                showCenterToastCenter("网络不可用，请检查网络");
             }
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {

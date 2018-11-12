@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.pda.pda_android.R;
 import com.pda.pda_android.adapter.wjbqs.WjbqsDetailAdapter;
 import com.pda.pda_android.adapter.wjbqs.WjbqsEndDetailAdapter;
+import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
@@ -42,7 +43,7 @@ import static com.pda.pda_android.adapter.wjbqs.WjbqsDetailAdapter.ITEM_SIZE;
  * 无菌包签收已确认
  */
 
-public class WjbqsendFragment extends Fragment {
+public class WjbqsendFragment extends BaseFragment {
     private RefreshLayout refreshLayout;
     private StickyListHeadersListView stickyListHeadersListView;
     private WjbqsEndDetailAdapter mainAdapter;
@@ -52,33 +53,36 @@ public class WjbqsendFragment extends Fragment {
     private View view;
     private ImageView no_data;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.fragment_wjbqsend, container, false);
-        return view;
-    }
-    private void initData() {
+    public void initData() {
         Map<String, String> params = new HashMap<>(); //提交数据包
 //        params.put("page", 1+""); //将姓名参数添加到数据包
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.sign_list, new LoadCallBack<String>(getActivity()) {
             @Override
-            protected void onFailure(Call call, IOException e) {
+            protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
+                showCenterToastCenter("网络不可用，请检查网络");
             }
             @Override
             protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
-                wjbEndBean = gson.fromJson(s,WjbEndBean.class);
-                wjbqsBeanListBeans = wjbEndBean.getData();
-                if (wjbqsBeanListBeans.size()==0){
-                    no_data.setVisibility(View.VISIBLE);
+                if (s.contains("\"response\": \"ok\"")){
+                    wjbEndBean = gson.fromJson(s,WjbEndBean.class);
+                    wjbqsBeanListBeans = wjbEndBean.getData();
+                    if (wjbqsBeanListBeans.size()==0){
+                        no_data.setVisibility(View.VISIBLE);
+                    }
+                    mainAdapter = new WjbqsEndDetailAdapter(getActivity(),wjbqsBeanListBeans);
+                    stickyListHeadersListView.setAdapter(mainAdapter);
+                }else {
+                    wjbEndBean = gson.fromJson(s,WjbEndBean.class);
+                    showCenterToastCenter(wjbEndBean.getMessage());
                 }
-                mainAdapter = new WjbqsEndDetailAdapter(getActivity(),wjbqsBeanListBeans);
-                stickyListHeadersListView.setAdapter(mainAdapter);
+
             }
         },params);
     }
 
-    private void init(View view) {
+    @Override
+    public void initView(View view) {
         refreshLayout=view.findViewById(R.id.refreshLayout1);
         stickyListHeadersListView=view.findViewById(R.id.wsjqs_end_list);
         no_data=view.findViewById(R.id.no_data);
@@ -100,6 +104,13 @@ public class WjbqsendFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public int getlayout() {
+        return R.layout.fragment_wjbqsend;
+    }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -111,7 +122,7 @@ public class WjbqsendFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            init(view);
+            initView(view);
             initData();
         }
     }

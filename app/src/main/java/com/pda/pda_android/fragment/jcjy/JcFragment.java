@@ -115,21 +115,26 @@ public class JcFragment extends BaseFragment {
         params.put("record_no", cw); //病历号
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getUsersCheckList, new LoadCallBack<String>(getActivity()) {
             @Override
-            protected void onFailure(Call call, IOException e) {
-                showCenterToastCenter("请求失败，请稍后重试");
+            protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
+                showCenterToastCenter("网络不可用，请检查网络");
             }
             @Override
             protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
-                LogUtils.showLog(s.toString());
-                jcBean = gson.fromJson(s,JcBean.class);
-                list = jcBean.getData();
-                if (list.size() == 0){
-                    no_data.setVisibility(View.VISIBLE);
-                }else
-                    no_data.setVisibility(View.GONE);
-                mainAdapter = new JcDetailAdapter(getActivity(),list,name);
-                stickyListHeadersListView.setAdapter(mainAdapter);
+                if (s.contains("\"response\": \"ok\"")){
+                    LogUtils.showLog(s.toString());
+                    jcBean = gson.fromJson(s,JcBean.class);
+                    list = jcBean.getData();
+                    if (list.size() == 0){
+                        no_data.setVisibility(View.VISIBLE);
+                    }else
+                        no_data.setVisibility(View.GONE);
+                    mainAdapter = new JcDetailAdapter(getActivity(),list,name);
+                    stickyListHeadersListView.setAdapter(mainAdapter);
+                }else {
+                    jcBean = gson.fromJson(s,JcBean.class);
+                    showCenterToastCenter(jcBean.getMessage());
+                }
             }
         },params);
     }

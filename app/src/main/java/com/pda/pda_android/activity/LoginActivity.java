@@ -87,8 +87,8 @@ public class LoginActivity extends BaseActivity {
         params.put("password", password); //将密码参数添加到数据包
         OkHttpManager.getInstance().postRequest(LoginActivity.this, ContentUrl.TestUrl_local + ContentUrl.login, new LoadCallBack<String>(LoginActivity.this) {
             @Override
-            protected void onFailure(Call call, IOException e) {
-
+            protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
+                showCenterToastCenter("网络不可用，请检查网络");
             }
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {

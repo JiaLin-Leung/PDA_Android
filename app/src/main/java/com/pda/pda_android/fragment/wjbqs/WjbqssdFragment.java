@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import com.google.gson.Gson;
 import com.pda.pda_android.R;
 import com.pda.pda_android.adapter.wjbqs.WjbqsDetailAdapter;
+import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
@@ -34,7 +35,7 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  * 无菌包签收已确认
  */
 
-public class WjbqssdFragment extends Fragment {
+public class WjbqssdFragment extends BaseFragment {
     private RefreshLayout refreshLayout;
     private StickyListHeadersListView stickyListHeadersListView;
     public  WjbqsDetailAdapter mainAdapter;
@@ -43,33 +44,45 @@ public class WjbqssdFragment extends Fragment {
     private WjbqsBean wjbqsBean;
     private View view;
     private ImageView no_data;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.fragment_wjbqssd, container, false);
-        return view;
-    }
 
     public void initData() {
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("page", 1+""); //将姓名参数添加到数据包
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getNotSignedList, new LoadCallBack<String>(getActivity()) {
             @Override
-            protected void onFailure(Call call, IOException e) {
+            protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
+                showCenterToastCenter("网络不可用，请检查网络");
             }
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 Gson gson = new Gson();
-                wjbqsBean = gson.fromJson(s,WjbqsBean.class);
-                wjbqsBeanListBeans = wjbqsBean.getData();
-                if (wjbqsBeanListBeans.size()==0){
-                    no_data.setVisibility(View.VISIBLE);
+                if (s.contains("\"response\": \"ok\"")){
+                    wjbqsBean = gson.fromJson(s,WjbqsBean.class);
+                    wjbqsBeanListBeans = wjbqsBean.getData();
+                    if (wjbqsBeanListBeans.size()==0){
+                        no_data.setVisibility(View.VISIBLE);
+                    }
+                    mainAdapter = new WjbqsDetailAdapter(getActivity(),wjbqsBeanListBeans);
+                    stickyListHeadersListView.setAdapter(mainAdapter);
+                }else {
+                    wjbqsBean = gson.fromJson(s,WjbqsBean.class);
+                    showCenterToastCenter(wjbqsBean.getMessage());
                 }
-                mainAdapter = new WjbqsDetailAdapter(getActivity(),wjbqsBeanListBeans);
-                stickyListHeadersListView.setAdapter(mainAdapter);
+
             }
         },params);
     }
+
+    @Override
+    public void initView(View view) {
+
+    }
+
+    @Override
+    public int getlayout() {
+        return R.layout.fragment_wjbqssd;
+    }
+
     private void init(View view) {
         refreshLayout=view.findViewById(R.id.refreshLayout1);
         stickyListHeadersListView=view.findViewById(R.id.wsjqs_sd_list);

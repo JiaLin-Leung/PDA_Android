@@ -1,6 +1,6 @@
 [
    {
-        "ico": "srsc",
+        "ico": "jcjy",
         "id": "JCGX",
         "sort": "1",
         "num": "0",
@@ -8,7 +8,7 @@
       },
 
       {
-        "ico": "srsc",
+        "ico": "jcjy",
         "id": "WJBQS",
         "sort": "1",
         "num": "0",
@@ -16,21 +16,28 @@
 
       },
         {
-          "ico": "app_wdrw_ico",
+          "ico": "jcjy",
           "id": "YZYBHD",
           "sort": "1",
           "num": "0",
           "title": "医嘱药包核对"
         },
              {
-                  "ico": "app_wdrw_ico",
-                  "id": "SHS",
+                  "ico": "yzzx",
+                  "id": "YZZX",
                   "sort": "1",
                   "num": "0",
-                  "title": "手术室"
+                  "title": "医嘱执行"
                 },
+                {
+                 "ico": "syxs",
+                  "id": "SYXS",
+                  "sort": "1",
+                  "num": "0",
+                  "title": "输液巡视"
+                  },
         {
-            "ico": "smtz",
+            "ico": "ssxx",
             "id": "SSXX",
             "sort": "1",
             "num": "0",

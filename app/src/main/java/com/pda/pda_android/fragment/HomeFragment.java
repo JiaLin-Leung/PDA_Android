@@ -179,19 +179,24 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     }
 
     private void postdata() {
-        OkHttpManager.getInstance().getRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getNurseProfile, new LoadCallBack<String>(getActivity()) {
+        OkHttpManager.getInstance().getRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getNurseProfile, new LoadCallBack<String>(getActivity(),true) {
             @Override
-            protected void onFailure(Call call, IOException e) throws RuntimeException{
-                showCenterToastCenter("请求失败，请稍后重试");
+            protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
+                showCenterToastCenter("网络不可用，请检查网络");
             }
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 Gson gson = new Gson();
-                Nursebean  nursebean = gson.fromJson(s,Nursebean.class);
-                if(nursebean.response.equals("ok")){
-                    hszlist=nursebean.getData().getWards();
-                    hsz_name.setText(hszlist.get(0).getWard_name());
-                    initHszPopWindow();
+                if (s.contains("\"response\": \"ok\"")){
+                    Nursebean  nursebean = gson.fromJson(s,Nursebean.class);
+                    if(nursebean.response.equals("ok")){
+                        hszlist=nursebean.getData().getWards();
+                        hsz_name.setText(hszlist.get(0).getWard_name());
+                        initHszPopWindow();
+                    }
+                }else {
+                    Nursebean  nursebean = gson.fromJson(s,Nursebean.class);
+                    showCenterToastCenter(nursebean.message);
                 }
             }
 

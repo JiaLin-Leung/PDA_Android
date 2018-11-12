@@ -50,7 +50,7 @@ public class MenuParentAdapter extends BaseExpandableListAdapter
         // if (convertView == null) {
 
         convertView = inflater.inflate(R.layout.items_cate_grid_child, null);
-        toolbarGrid = (MyGridView) convertView.findViewById(R.id.gv_toolbar);
+        toolbarGrid =  convertView.findViewById(R.id.gv_toolbar);
         toolbarGrid.setNumColumns(4);// 设置每行列数
         toolbarGrid.setGravity(Gravity.CENTER);// 位置居中
         // toolbarGrid.setHorizontalSpacing(10);// 水平间隔
@@ -94,7 +94,7 @@ public class MenuParentAdapter extends BaseExpandableListAdapter
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.items_cate_parent, null);
             groupViewHolde = new GroupViewHolde();
-            groupViewHolde.tv_item_cate_name = (TextView) convertView.findViewById(R.id.tv_item_cate_name);
+            groupViewHolde.tv_item_cate_name =  convertView.findViewById(R.id.tv_item_cate_name);
             convertView.setTag(groupViewHolde);
         } else {
             groupViewHolde = (GroupViewHolde) convertView.getTag();

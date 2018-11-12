@@ -66,7 +66,10 @@ public abstract class LoadCallBack<T> extends BaseCallBack<T> {
     protected void onEror(Call call, int statusCode, Exception e) {
 
     }
-
+    @Override
+    protected void onFailure(Call call, IOException e) {
+        hideDialog();
+    }
     @Override
     protected void inProgress(int progress, long total, int id) {
 

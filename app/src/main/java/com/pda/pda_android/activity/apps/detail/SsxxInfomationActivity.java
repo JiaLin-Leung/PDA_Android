@@ -103,16 +103,21 @@ public class SsxxInfomationActivity extends BaseActivity {
             @Override
             protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
-                LogUtils.showLog(s.toString());
-                com.pda.pda_android.bean.SsxxBean ssxxBean = gson.fromJson(s,com.pda.pda_android.bean.SsxxBean.class);
-                list = ssxxBean.getData();
-                if (list.size() == 0){
-                    no_data.setVisibility(View.VISIBLE);
-                }else{
-                    String name=userBean.getBed_no()+"  "+userBean.getPatient_name();
-                    user_info.setText(name);
-                    adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,name);
-                    stickyListHeadersListView.setAdapter(adapter);}
+                if (s.contains("\"response\": \"ok\"")){
+                    LogUtils.showLog(s.toString());
+                    com.pda.pda_android.bean.SsxxBean ssxxBean = gson.fromJson(s,com.pda.pda_android.bean.SsxxBean.class);
+                    list = ssxxBean.getData();
+                    if (list.size() == 0){
+                        no_data.setVisibility(View.VISIBLE);
+                    }else{
+                        String name=userBean.getBed_no()+"  "+userBean.getPatient_name();
+                        user_info.setText(name);
+                        adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,name);
+                        stickyListHeadersListView.setAdapter(adapter);}
+                }else {
+                    com.pda.pda_android.bean.SsxxBean ssxxBean = gson.fromJson(s,com.pda.pda_android.bean.SsxxBean.class);
+                    showCenterToastCenter(ssxxBean.getMessage());
+                }
             }
         },params);
     }

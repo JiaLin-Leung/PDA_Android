@@ -112,30 +112,35 @@ public class JyFragment extends BaseFragment {
         params.put("patient_no", Patient_no); //住院号
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getUsersAssayList, new LoadCallBack<String>(getActivity()) {
             @Override
-            protected void onFailure(Call call, IOException e) {
-                showCenterToastCenter("请求失败，请稍后重试");
+            protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
+                showCenterToastCenter("网络不可用，请检查网络");
             }
             @Override
             protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
                 LogUtils.showLog(s.toString());
-                jyBean = gson.fromJson(s,JyBean.class);
-                beanList = jyBean.getData();
-                if (beanList.size() == 0){
-                    no_data.setVisibility(View.VISIBLE);
-                }else
-                    no_data.setVisibility(View.GONE);
-                mainAdapter = new JyDetailAdapter(getActivity(),beanList,name);
-                stickyListHeadersListView.setAdapter(mainAdapter);
-                //默认滑动一段距离   适配筛选图标显示隐藏
-                stickyListHeadersListView.setStickyHeaderTopOffset(1);
-                //设置头部改变的监听
-                stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
-                    @Override
-                    public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
-                        header.findViewById(R.id.jy_shaixuan).setVisibility(View.VISIBLE);
-                    }
-                });
+                if (s.contains("\"response\": \"ok\"")){
+                    jyBean = gson.fromJson(s,JyBean.class);
+                    beanList = jyBean.getData();
+                    if (beanList.size() == 0){
+                        no_data.setVisibility(View.VISIBLE);
+                    }else
+                        no_data.setVisibility(View.GONE);
+                    mainAdapter = new JyDetailAdapter(getActivity(),beanList,name);
+                    stickyListHeadersListView.setAdapter(mainAdapter);
+                    //默认滑动一段距离   适配筛选图标显示隐藏
+                    stickyListHeadersListView.setStickyHeaderTopOffset(1);
+                    //设置头部改变的监听
+                    stickyListHeadersListView.setOnStickyHeaderChangedListener(new StickyListHeadersListView.OnStickyHeaderChangedListener() {
+                        @Override
+                        public void onStickyHeaderChanged(StickyListHeadersListView l, View header, int itemPosition, long headerId) {
+                            header.findViewById(R.id.jy_shaixuan).setVisibility(View.VISIBLE);
+                        }
+                    });
+                }else {
+                    jyBean = gson.fromJson(s,JyBean.class);
+                    showCenterToastCenter(jyBean.getMessage());
+                }
             }
         },params);
     }

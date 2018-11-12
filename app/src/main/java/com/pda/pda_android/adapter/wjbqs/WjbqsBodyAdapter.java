@@ -90,19 +90,21 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
         final Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("sterile_code", code); //将姓名参数添加到数据包
         OkHttpManager.getInstance().postRequest(context, ContentUrl.TestUrl_local + ContentUrl.sign, new LoadCallBack<String>(context) {
+
             @Override
-            protected void onFailure(Call call, IOException e) {
+            protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
                 PostCacheBean postCacheBean = new PostCacheBean();
                 postCacheBean.setCode("500");
                 postCacheBean.setParameter(JSON.toJSONString(params));
                 postCacheBean.setUrl(ContentUrl.TestUrl_local + ContentUrl.sign);
                 PostCacheDaoOpe.insertData(context,postCacheBean);
+                Toast.makeText(context,"网络不可用，请检查网络",Toast.LENGTH_SHORT).show();
             }
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 Gson gson = new Gson();
                 ResultBean resultBean= gson.fromJson(s,ResultBean.class);
-                if (resultBean.response.equals("ok")){
+                if (s.contains("\"response\": \"ok\"")){
                     int size=listBeans.size();
                     int index=-1;
                     for (int i=0;i<size;i++){
@@ -117,7 +119,8 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
                     Toast.makeText(context,resultBean.getMessage(),Toast.LENGTH_SHORT).show();
                     list.remove(position);
                     notifyDataSetChanged();
-
+                }else {
+                    Toast.makeText(context,resultBean.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             }
         },params);

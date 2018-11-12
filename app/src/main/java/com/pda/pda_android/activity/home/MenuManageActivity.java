@@ -74,7 +74,6 @@ public class MenuManageActivity extends BaseActivity {
 		tv_top_sure =  findViewById(R.id.tv_top_sure);
 		tv_top_title.setText("全部应用");
 		tv_top_sure.setText("编辑");
-//		tv_top_sure.setTextColor(getResources().getColor(R.color.text_red));
 		tv_top_sure.setVisibility(View.VISIBLE);
 		tv_drag_tip=  findViewById(R.id.tv_drag_tip);
 		sv_index= findViewById(R.id.sv_index);
@@ -270,7 +269,6 @@ public class MenuManageActivity extends BaseActivity {
 
 			menuParentAdapter = new MenuParentAdapter(MenuManageActivity.this, menuList);
 			expandableListView.setAdapter(menuParentAdapter);
-
 			// expandableListView.expandGroup(6); // 在分组列表视图中 展开一组
 			// expandableListView.isGroupExpanded(0); //判断此组是否展开
 			for (int i = 0; i < menuParentAdapter.getGroupCount(); i++) {
