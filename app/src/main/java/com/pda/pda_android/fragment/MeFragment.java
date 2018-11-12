@@ -1,16 +1,24 @@
 package com.pda.pda_android.fragment;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.LoginActivity;
 import com.pda.pda_android.activity.me.ChangePasswordActivity;
 import com.pda.pda_android.base.BaseFragment;
+import com.pda.pda_android.base.utils.SpUtils;
+import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.Nursebean;
 import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
@@ -50,6 +58,7 @@ public class MeFragment extends BaseFragment {
     private  LinearLayout btnQuit;
 
     private Nursebean nursebean;
+    private LoginBeanFail loginBeanFail;
     private TextView tv_xingming;
     private TextView tv_gonghao;
     private TextView tv_bingqu;
@@ -64,7 +73,7 @@ public class MeFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
+        final Gson gson = new Gson();
         OkHttpManager.getInstance().getRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getNurseProfile, new LoadCallBack<String>(getActivity()) {
             @Override
             protected void onFailure(Call call, IOException e) {
@@ -73,13 +82,16 @@ public class MeFragment extends BaseFragment {
 
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
-
-                Gson gson = new Gson();
-                nursebean = gson.fromJson(s,Nursebean.class);
-                LogUtils.showLog("22222222",nursebean.toString());
-                tv_xingming.setText("姓名："+nursebean.getData().getName());
-                tv_gonghao.setText("工号："+nursebean.getData().getCode());
-                tv_bingqu.setText("病区："+nursebean.getData().getWards().get(0).getWard_name());
+                if (s.contains("\"response\": \"ok\"")) {
+                    nursebean = gson.fromJson(s, Nursebean.class);
+                    LogUtils.showLog("22222222", nursebean.toString());
+                    tv_xingming.setText("姓名：" + nursebean.getData().getName());
+                    tv_gonghao.setText("工号：" + nursebean.getData().getCode());
+                    tv_bingqu.setText("病区：" + nursebean.getData().getWards().get(0).getWard_name());
+                }else{
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    Toast.makeText(getActivity(),loginBeanFail.getMessage(),Toast.LENGTH_LONG).show();
+                }
             }
 
         });
@@ -120,6 +132,10 @@ public class MeFragment extends BaseFragment {
             case R.id.layout_check_version:
                 showVersionDialog(getActivity(),null,1);
                 break;
+            case R.id.btn_quit:
+                LogOut(getActivity());
+                break;
         }
     }
+
 }

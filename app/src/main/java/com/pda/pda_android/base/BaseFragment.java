@@ -3,6 +3,7 @@ package com.pda.pda_android.base;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.LoginActivity;
+import com.pda.pda_android.base.utils.SpUtils;
 
 /**
  * 梁佳霖创建于：2018/10/15 15:54
@@ -98,7 +101,45 @@ public abstract class BaseFragment extends androidx.fragment.app.Fragment implem
 //            }
 //        });
     }
+    /**
+     * 注销登录的方法
+     */
+    public void LogOut(Context context) {
+        final AlertDialog dialog = new AlertDialog.Builder(context, R.style.MyDialog).setCancelable(true).create();
+        dialog.show();
+        Window window = dialog.getWindow();
+        assert window != null;
+        window.setGravity(Gravity.CENTER);  //此处可以设置dialog显示的位置
+        View view = View.inflate(context, R.layout.dialog_quit, null);
+        window.setContentView(view);
 
+        TextView tvTitle = view.findViewById(R.id.tv_title);
+        TextView tvContent = view.findViewById(R.id.tv_content);
+        TextView tvCancel = view.findViewById(R.id.cancel);
+        TextView tvOk = view.findViewById(R.id.ok);
+        tvTitle.setText("提示");
+        tvContent.setText("确定退出登录吗？");
+        tvCancel.setText("取消");
+        tvOk.setText("确定");
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                AppManager.getAppManager().finishAllActivity();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),LoginActivity.class);
+                startActivity(intent);
+                SpUtils.getInstance(getActivity()).clear(getActivity());
+            }
+        });
+    }
     /**
      * Toast 公共Toast方法
      *
