@@ -44,6 +44,7 @@ public class MenuManageActivity extends BaseActivity {
 	private LinearLayout ll_top_sure;
 	private TextView tv_top_title;
 	private TextView tv_top_sure;
+	private TextView tv_item_cate_name;
 	private static AppContext appContext;
 	private TextView tv_drag_tip;
 	private DragForScrollView sv_index;
@@ -60,35 +61,40 @@ public class MenuManageActivity extends BaseActivity {
 		String key = AppConfig.KEY_USER;
 		//防止空指针
 		if (null!=indexDataList)
-		appContext.saveObject((Serializable) indexDataList, key);
+			appContext.saveObject((Serializable) indexDataList, key);
 	}
 
 	public void initView() {
 		appContext = (AppContext) getApplication();
+		tv_item_cate_name=findViewById(R.id.tv_item_cate_name);
 		dragGridView = findViewById(R.id.gridview);
-		ll_top_back = (LinearLayout) findViewById(R.id.ll_top_back);
-		ll_top_sure = (LinearLayout) findViewById(R.id.ll_top_sure);
-		tv_top_title = (TextView) findViewById(R.id.tv_top_title);
-		tv_top_sure = (TextView) findViewById(R.id.tv_top_sure);
+		ll_top_back =  findViewById(R.id.ll_top_back);
+		ll_top_sure = findViewById(R.id.ll_top_sure);
+		tv_top_title =  findViewById(R.id.tv_top_title);
+		tv_top_sure =  findViewById(R.id.tv_top_sure);
 		tv_top_title.setText("全部应用");
 		tv_top_sure.setText("编辑");
 //		tv_top_sure.setTextColor(getResources().getColor(R.color.text_red));
 		tv_top_sure.setVisibility(View.VISIBLE);
-		tv_drag_tip= (TextView) findViewById(R.id.tv_drag_tip);
-		sv_index= (DragForScrollView)findViewById(R.id.sv_index);
+		tv_drag_tip=  findViewById(R.id.tv_drag_tip);
+		sv_index= findViewById(R.id.sv_index);
 		ll_top_sure.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (tv_top_sure.getText().toString().equals("编辑")) {
 					tv_top_sure.setText("完成");
+					tv_item_cate_name.setText("拖拽可以排序");
+					menuList.get(0).setTitle("点击添加应用");
 					adapterSelect.setEdit();
 					if(menuParentAdapter!=null){
 						menuParentAdapter.setEdit();
 					}
-					tv_drag_tip.setVisibility(View.VISIBLE);
+//					tv_drag_tip.setVisibility(View.VISIBLE);
 				} else {
 					tv_top_sure.setText("编辑");
-					tv_drag_tip.setVisibility(View.GONE);
+					tv_item_cate_name.setText("我的应用");
+					menuList.get(0).setTitle("其他应用");
+//					tv_drag_tip.setVisibility(View.GONE);
 					adapterSelect.endEdit();
 					if(menuParentAdapter!=null){
 						menuParentAdapter.endEdit();
@@ -146,11 +152,13 @@ public class MenuManageActivity extends BaseActivity {
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				if (tv_top_sure.getText().toString().equals("编辑")) {
 					tv_top_sure.setText("完成");
+					tv_item_cate_name.setText("拖拽可以排序");
+					menuList.get(0).setTitle("点击添加应用");
 					adapterSelect.setEdit();
 					if(menuParentAdapter!=null){
 						menuParentAdapter.setEdit();
 					}
-					tv_drag_tip.setVisibility(View.VISIBLE);
+//					tv_drag_tip.setVisibility(View.VISIBLE);
 				}
 				dragGridView.startDrag(position);
 				return false;
@@ -162,15 +170,22 @@ public class MenuManageActivity extends BaseActivity {
 	public void initData() {
 		// TODO Auto-generated method stub
 		List<MenuEntity> indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_All);
+		for (int i=0;i<indexSelect.size();i++){
+			 for (int j=0;j<indexDataList.size();j++){
+			 	if (indexSelect.get(i).getId().equals(indexDataList.get(j).getId())){
+			 		indexDataList.remove(j);
+				}
+			 }
+		}
 		init(indexDataList);
 	}
 	private void init(List<MenuEntity> indexAll) {
-		expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+		expandableListView = findViewById(R.id.expandableListView);
 		expandableListView.setGroupIndicator(null);
 		menuList.clear();
 		try {
 			MenuEntity index = new MenuEntity();
-			index.setTitle("点击添加应用");
+			index.setTitle("其他应用");
 			index.setId("1");
 			List<MenuEntity> indexLC=new ArrayList<MenuEntity>();
 			for (int i = 0; i < indexAll.size(); i++) {
@@ -249,10 +264,10 @@ public class MenuManageActivity extends BaseActivity {
 //			}
 //			index2.setChilds(indexQT);
 //			menuList.add(index2);
-			
+
 			menuParentAdapter = new MenuParentAdapter(MenuManageActivity.this, menuList);
 			expandableListView.setAdapter(menuParentAdapter);
-	
+
 			// expandableListView.expandGroup(6); // 在分组列表视图中 展开一组
 			// expandableListView.isGroupExpanded(0); //判断此组是否展开
 			for (int i = 0; i < menuParentAdapter.getGroupCount(); i++) {
@@ -306,11 +321,14 @@ public class MenuManageActivity extends BaseActivity {
 	}
 
 	public  void DelMeun(MenuEntity indexData, int position) {
+
+//		menuList.get(0).setChilds(menuList.add(indexData));
 		// TODO Auto-generated method stub
 		for (int i = 0; i < menuList.size(); i++) {
 			for (int k = 0; k < menuList.get(i).getChilds().size(); k++) {
 				if (menuList.get(i).getChilds().get(k).getTitle().equals(indexData.getTitle())) {
 					menuList.get(i).getChilds().get(k).setSelect(false);
+
 				}
 			}
 		}
@@ -325,7 +343,7 @@ public class MenuManageActivity extends BaseActivity {
 		indexSelect.add(menuEntity);
 		String key = AppConfig.KEY_USER_TEMP;
 		appContext.saveObject((Serializable) indexSelect, key);
-		
+
 		for (int i = 0; i < menuList.size(); i++) {
 			for (int k = 0; k < menuList.get(i).getChilds().size(); k++) {
 				if (menuList.get(i).getChilds().get(k).getTitle().equals(menuEntity.getTitle())) {

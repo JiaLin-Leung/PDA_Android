@@ -24,7 +24,8 @@
                 android:id="@+id/icon_img"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                />
 
             <TextView
                 android:id="@+id/name_tv"
@@ -37,11 +38,13 @@
                 android:textSize="12sp"/>
         </LinearLayout>
         <ImageView
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center_horizontal"
             android:id="@+id/delete_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
             android:paddingLeft="10dp"
+            android:paddingTop="10dp"
             android:src="@mipmap/dele_menu"
             android:visibility="visible"/>
     </FrameLayout>

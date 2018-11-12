@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
                 break;
             case 2:
 //                vibrator.vibrate(100);
-                //点击患者Fragment
+                //点击我的Fragment
                 if (meFragment == null) {
                     meFragment = MeFragment.newInstance(getString(R.string.item_home));
                 }

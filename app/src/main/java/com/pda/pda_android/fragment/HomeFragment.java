@@ -112,9 +112,8 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         }
         appContext.delFileData(AppConfig.KEY_All);
 //        appContext.delFileData(AppConfig.KEY_USER);
-        String key = AppConfig.KEY_All;
-        String keyUser = AppConfig.KEY_USER;
-        indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
+
+//        indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
         appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_All);
         List<MenuEntity> indexDataUser = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
         if (indexDataUser == null || indexDataUser.size() == 0) {
@@ -165,9 +164,9 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         });
         hszlist=new ArrayList<>();
         hszlist.add("北京护士站");
-//        hszlist.add("郑州护士站");
-//        hszlist.add("新乡护士站");
-//        hszlist.add("上海护士站");
+        hszlist.add("郑州护士站");
+        hszlist.add("新乡护士站");
+        hszlist.add("上海护士站");
         hsz_name.setText(hszlist.get(0));
         ln_hsz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -388,18 +387,18 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
             if (convertView == null) {
                 holder = new ViewHolder();
                 convertView = inflater.inflate(R.layout.pop_hsz_item, null);
-                holder.tvSchool = convertView.findViewById(R.id.item_hsz_name);
+                holder.tvhsz = convertView.findViewById(R.id.item_hsz_name);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.tvSchool.setText(hszlist.get(position));
-            holder.tvSchool.setSelected(true);
+            holder.tvhsz.setText(hszlist.get(position));
+            holder.tvhsz.setSelected(true);
             return convertView;
         }
 
         class ViewHolder {
-            TextView tvSchool;
+            TextView tvhsz;
         }
     }
 }

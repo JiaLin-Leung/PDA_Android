@@ -86,9 +86,9 @@ public class SsxxDetailAdapter extends BaseAdapter implements StickyListHeadersA
     //绑定头部的数据
     @Override
     public View getHeaderView(final int position, View convertView, ViewGroup parent) {
-
         HeadHolder headHolder = null;
         if (convertView == null) {
+
             convertView = LayoutInflater.from(context).inflate(R.layout.ssxx_head, parent, false);
             headHolder = new HeadHolder(convertView);
             convertView.setTag(headHolder);

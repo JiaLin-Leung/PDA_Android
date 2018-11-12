@@ -31,7 +31,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:text="拖拽可以排序"
+                    android:text="我的应用"
                     android:textColor="#333333"
                     android:textSize="14dp" />
 

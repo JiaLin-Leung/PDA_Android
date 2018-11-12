@@ -22,6 +22,13 @@
           "num": "0",
           "title": "医嘱药包核对"
         },
+             {
+                  "ico": "app_wdrw_ico",
+                  "id": "SHS",
+                  "sort": "1",
+                  "num": "0",
+                  "title": "手术室"
+                },
         {
             "ico": "smtz",
             "id": "SSXX",
