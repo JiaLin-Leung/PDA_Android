@@ -98,6 +98,7 @@ public class LoginActivity extends BaseActivity {
                     SpUtils.save("nis_token",loginBean.getData().getNis_token());
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(intent);
+                    LoginActivity.this.finish();
                     Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_LONG).show();
                 }else{
                     LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);

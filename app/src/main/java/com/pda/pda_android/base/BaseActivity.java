@@ -1,14 +1,22 @@
 package com.pda.pda_android.base;
 
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.LoginActivity;
+import com.pda.pda_android.base.utils.SpUtils;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * 功能：Activity基类
  */
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+    protected AppManager appManager = AppManager.getAppManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(setLayoutId());
+        appManager.addActivity(this);
         initView();
     }
 
@@ -34,6 +44,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         initData();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 从栈中移除activity
+        appManager.finishActivity(this);
+    }
     /**
      * 布局文件引入方法
      *
@@ -62,6 +78,24 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                 break;
         }
     }
+
+    /**
+     * 修改toast显示到中间位置
+     *
+     * @param message 需要展示的信息
+     */
+    public void showCenterToastCenter(String message) {
+        LayoutInflater inflater = getLayoutInflater();
+        LinearLayout linear = (LinearLayout) inflater.inflate(R.layout.layout_toast, null);
+        TextView tvToast = linear.findViewById(R.id.tv_toast);
+        tvToast.setText(message);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setView(linear);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
     /**
      * 设置标题,不包含右边完成按钮
      *

@@ -21,7 +21,7 @@ public class SpUtils {
      * @param context
      */
     public SpUtils(Context context) {
-        sp =   context.getSharedPreferences("tbkt",Context.MODE_PRIVATE);
+        sp =   context.getSharedPreferences("nis_main",Context.MODE_PRIVATE);
         mEditor = sp.edit();
     }
 
@@ -62,7 +62,7 @@ public class SpUtils {
      */
     public static SharedPreferences get(Context context){
         if (sp==null){
-            return context.getSharedPreferences("tbkt", Context.MODE_PRIVATE);
+            return context.getSharedPreferences("nis_main", Context.MODE_PRIVATE);
         }
         return sp;
     }
@@ -98,7 +98,7 @@ public class SpUtils {
      * @param context
      */
     public static void clear(Context context) {
-        SharedPreferences sp = context.getSharedPreferences("tbkt",
+        SharedPreferences sp = context.getSharedPreferences("nis_main",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.clear().commit();

@@ -1,8 +1,11 @@
 package com.pda.pda_android.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -31,6 +34,7 @@ import com.pda.pda_android.service.UsersSsxxListService;
  */
 public class MainActivity extends BaseActivity implements BottomNavigationBar.OnTabSelectedListener{
 
+    private static final int FINISHMYSELF = 12221;
     private BottomNavigationBar bottom_navigation_bar;
     private HomeFragment mHomeFragment;
     private UserFragment userFragment;
@@ -59,6 +63,19 @@ public class MainActivity extends BaseActivity implements BottomNavigationBar.On
         bottom_navigation_bar.setTabSelectedListener(this);
         setDefaultFragment();
     }
+
+    @SuppressLint("HandlerLeak")
+    public Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case FINISHMYSELF:
+                    MainActivity.this.finish();
+                break;
+            }
+        }
+    };
 
 
     /**
