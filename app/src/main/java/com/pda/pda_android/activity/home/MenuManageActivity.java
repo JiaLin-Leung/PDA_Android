@@ -83,6 +83,7 @@ public class MenuManageActivity extends BaseActivity {
 			public void onClick(View v) {
 				if (tv_top_sure.getText().toString().equals("编辑")) {
 					tv_top_sure.setText("完成");
+					tv_top_sure.setTextColor(getResources().getColor(R.color.text_red));
 					tv_item_cate_name.setText("拖拽可以排序");
 					menuList.get(0).setTitle("点击添加应用");
 					adapterSelect.setEdit();
@@ -92,6 +93,7 @@ public class MenuManageActivity extends BaseActivity {
 //					tv_drag_tip.setVisibility(View.VISIBLE);
 				} else {
 					tv_top_sure.setText("编辑");
+					tv_top_sure.setTextColor(getResources().getColor(R.color.lanse));
 					tv_item_cate_name.setText("我的应用");
 					menuList.get(0).setTitle("其他应用");
 //					tv_drag_tip.setVisibility(View.GONE);
@@ -152,6 +154,7 @@ public class MenuManageActivity extends BaseActivity {
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 				if (tv_top_sure.getText().toString().equals("编辑")) {
 					tv_top_sure.setText("完成");
+					tv_top_sure.setTextColor(getResources().getColor(R.color.text_red));
 					tv_item_cate_name.setText("拖拽可以排序");
 					menuList.get(0).setTitle("点击添加应用");
 					adapterSelect.setEdit();

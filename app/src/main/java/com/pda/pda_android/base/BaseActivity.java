@@ -85,14 +85,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * @param message 需要展示的信息
      */
     public void showCenterToastCenter(String message) {
-        LayoutInflater inflater = getLayoutInflater();
-        LinearLayout linear = (LinearLayout) inflater.inflate(R.layout.layout_toast, null);
-        TextView tvToast = linear.findViewById(R.id.tv_toast);
-        tvToast.setText(message);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setView(linear);
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.show();
+        try{
+            LayoutInflater inflater = getLayoutInflater();
+            LinearLayout linear = (LinearLayout) inflater.inflate(R.layout.layout_toast, null);
+            TextView tvToast = linear.findViewById(R.id.tv_toast);
+            tvToast.setText(message);
+            Toast toast = new Toast(getApplicationContext());
+            toast.setView(linear);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -106,12 +110,5 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         baseTitle.setText(title);
     }
 
-    /**
-     * Toast 公共Toast方法
-     *
-     * @param message 需要展示的信息
-     */
-    public void showShortToast(String message) {
-        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-    }
+
 }

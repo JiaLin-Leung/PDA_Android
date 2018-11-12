@@ -99,10 +99,10 @@ public class LoginActivity extends BaseActivity {
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(intent);
                     LoginActivity.this.finish();
-                    Toast.makeText(LoginActivity.this,"登录成功！",Toast.LENGTH_LONG).show();
+                    showCenterToastCenter("登录成功！");
                 }else{
                     LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
-                    Toast.makeText(LoginActivity.this,loginBeanFail.getMessage(),Toast.LENGTH_LONG).show();
+                    showCenterToastCenter(loginBeanFail.getMessage());
                 }
             }
         },params);

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -141,11 +142,22 @@ public abstract class BaseFragment extends androidx.fragment.app.Fragment implem
         });
     }
     /**
-     * Toast 公共Toast方法
+     * 修改toast显示到中间位置
      *
      * @param message 需要展示的信息
      */
-    public void showShortToast(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    public void showCenterToastCenter(String message) {
+        try{
+            LayoutInflater inflater = getLayoutInflater();
+            LinearLayout linear = (LinearLayout) inflater.inflate(R.layout.layout_toast, null);
+            TextView tvToast = linear.findViewById(R.id.tv_toast);
+            tvToast.setText(message);
+            Toast toast = new Toast(getActivity());
+            toast.setView(linear);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

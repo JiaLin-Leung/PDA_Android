@@ -98,7 +98,7 @@ public class SsxxInfomationActivity extends BaseActivity {
         OkHttpManager.getInstance().postRequest(SsxxInfomationActivity.this, ContentUrl.TestUrl_local + ContentUrl.getUsersSsxx, new LoadCallBack<String>(SsxxInfomationActivity.this) {
             @Override
             protected void onFailure(Call call, IOException e) {
-                showShortToast("请求失败，请稍后重试");
+                showCenterToastCenter("请求失败，请稍后重试");
             }
             @Override
             protected void onSuccess(Call call, Response response, String s)  {

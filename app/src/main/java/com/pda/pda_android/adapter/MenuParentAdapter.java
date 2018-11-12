@@ -125,6 +125,7 @@ public class MenuParentAdapter extends BaseExpandableListAdapter
         MenuEntity indexData = (MenuEntity) adapterView.getItemAtPosition(position);
         if (indexData != null) {
             mContext.initUrl(indexData);
+
         }
     }
 

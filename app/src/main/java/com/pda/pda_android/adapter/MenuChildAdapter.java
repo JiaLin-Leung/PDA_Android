@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,32 +47,30 @@ public class MenuChildAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(R.layout.items_cate_child, null);
 			viewHodler = new ViewHodler();
-			viewHodler.tv_item_cate_child_name = (TextView) convertView.findViewById(R.id.tv_item_cate_child_name);
-
-			viewHodler.deleteImg = (ImageView) convertView.findViewById(R.id.delete_img);
-			viewHodler.iconImg = (ImageView) convertView.findViewById(R.id.icon_img);
-
+			viewHodler.tv_item_cate_child_name =  convertView.findViewById(R.id.tv_item_cate_child_name);
+			viewHodler.item_container=convertView.findViewById(R.id.item_container);
+			viewHodler.deleteImg =   convertView.findViewById(R.id.delete_img);
+			viewHodler.iconImg =   convertView.findViewById(R.id.icon_img);
 			convertView.setTag(viewHodler);
 		} else {
 			viewHodler = (ViewHodler) convertView.getTag();
 		}
 		final MenuEntity menuEntity = menuList.get(position);
 
-//		if (IsEdit) {
-//			viewHodler.deleteImg.setVisibility(View.VISIBLE);
-//			if (menuEntity.isSelect()) {
-//				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_select);
-//			} else {
-//				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_add);
-//			}
-//		} else {
-//			viewHodler.deleteImg.setVisibility(View.GONE);
-//		}
+		if (IsEdit) {
+			viewHodler.deleteImg.setVisibility(View.VISIBLE);
+			if (menuEntity.isSelect()) {
+				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_select);
+			} else {
+				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_add);
+			}
+		} else {
+			viewHodler.deleteImg.setVisibility(View.GONE);
+		}
 
 		viewHodler.deleteImg.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 				if (!menuEntity.isSelect()) {
 					MenuManageActivity.AddMenu(menuEntity);
 				}
@@ -92,6 +91,7 @@ public class MenuChildAdapter extends BaseAdapter {
 	private class ViewHodler {
 		private TextView tv_item_cate_child_name;
 		private ImageView deleteImg, iconImg;
+		private FrameLayout item_container;
 	}
 
 }
