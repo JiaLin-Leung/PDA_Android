@@ -68,7 +68,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="稍后"
-                android:textColor="#3fcefe"
+                android:textColor="@color/themeColor"
                 android:textSize="16sp" />
 
             <View
@@ -84,7 +84,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="立即更新"
-                android:textColor="#3fcefe"
+                android:textColor="@color/themeColor"
                 android:textSize="16sp" />
 
         </LinearLayout>

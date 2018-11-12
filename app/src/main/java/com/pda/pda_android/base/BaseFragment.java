@@ -20,13 +20,16 @@ import com.pda.pda_android.base.utils.SpUtils;
 
 /**
  * 梁佳霖创建于：2018/10/15 15:54
- * 功能：
+ * 功能：基础fragment
  */
 public abstract class BaseFragment extends androidx.fragment.app.Fragment implements View.OnClickListener {
+
+    protected AppManager appManager = AppManager.getAppManager();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(getlayout(), container, false);
+        appManager.addActivity(getActivity());
         initView(view);
         initData();
         return view;
