@@ -22,6 +22,7 @@ import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.bean.FlagBean;
 
 import org.greenrobot.eventbus.EventBus;
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,6 +37,7 @@ public class TimeSelectActivity extends BaseActivity {
     private RadioGroup rg;
     private String flag;
     private  TimePickerView pvTime;
+    private int index=1;     //1 时间   2  范围
     @Override
     public int setLayoutId() {
         return R.layout.activity_time_select;
@@ -51,7 +53,6 @@ public class TimeSelectActivity extends BaseActivity {
         time_text=findViewById(R.id.time_text);
         start_time=findViewById(R.id.start_time);
         end_time=findViewById(R.id.end_time);
-        ShowTimePop();
     }
 
     @Override
@@ -64,10 +65,12 @@ public class TimeSelectActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId){
                     case R.id.rb_time:
+                        index=1;
                         range_ln.setVisibility(View.GONE);
                         time_ln.setVisibility(View.VISIBLE);
                         break;
                     case R.id.rb_range:
+                        index=2;
                         range_ln.setVisibility(View.VISIBLE);
                         time_ln.setVisibility(View.GONE);
                         break;
@@ -84,10 +87,49 @@ public class TimeSelectActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 FlagBean flagBean=new FlagBean();
-                if (flag.equals("jc")){
-                    flagBean.setFlag("jc");
-                    flagBean.setEnd_time("");
-                    flagBean.setStart_time("2018-11-13");
+                if (flag.equals("JC")){
+                    flagBean.setFlag("JC");
+                    if (index==1){
+                        flagBean.setEnd_time("");
+                        flagBean.setStart_time(time_text.getText().toString());
+                    }else if (index==2){
+                        flagBean.setEnd_time(end_time.getText().toString());
+                        flagBean.setStart_time(start_time.getText().toString());
+                    }
+                    EventBus.getDefault().post(flagBean);
+                    finish();
+                }else if (flag.equals("WJBQSEND")){
+                    flagBean.setFlag("WJBQSEND");
+                    if (index==1){
+                        flagBean.setEnd_time("");
+                        flagBean.setStart_time(time_text.getText().toString());
+                    }else if (index==2){
+                        flagBean.setEnd_time(end_time.getText().toString());
+                        flagBean.setStart_time(start_time.getText().toString());
+                    }
+                    EventBus.getDefault().post(flagBean);
+                    finish();
+                }else if (flag.equals("JY")){
+                    flagBean.setFlag("JY");
+                    if (index==1){
+                        flagBean.setEnd_time("");
+                        flagBean.setStart_time(time_text.getText().toString());
+                    }else if (index==2){
+                        flagBean.setEnd_time(end_time.getText().toString());
+                        flagBean.setStart_time(start_time.getText().toString());
+                    }
+                    EventBus.getDefault().post(flagBean);
+                    finish();
+                }
+                else if (flag.equals("WJBQSSD")){
+                    flagBean.setFlag("WJBQSSD");
+                    if (index==1){
+                        flagBean.setEnd_time("");
+                        flagBean.setStart_time(time_text.getText().toString());
+                    }else if (index==2){
+                        flagBean.setEnd_time(end_time.getText().toString());
+                        flagBean.setStart_time(start_time.getText().toString());
+                    }
                     EventBus.getDefault().post(flagBean);
                     finish();
                 }
@@ -100,46 +142,43 @@ public class TimeSelectActivity extends BaseActivity {
         time_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ShowTimePop(time_text);
                 pvTime.show();
             }
         });
         start_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ShowTimePop(time_text);
+                pvTime.show();
             }
         });
         end_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ShowTimePop(time_text);
+                pvTime.show();
             }
         });
     }
-    public void ShowTimePop(){
+    public void ShowTimePop(final TextView view){
         //时间选择器
-        Calendar startDate = Calendar.getInstance();
-        Calendar endDate = Calendar.getInstance();
+//        Calendar startDate = Calendar.getInstance();
+//        Calendar endDate = Calendar.getInstance();
 
         //正确设置方式 原因：注意事项有说明
-        startDate.set(2013,0,1);
-        endDate.set(2018,11,13);
+//        startDate.set(2018,0,1);
+//        endDate.set(2018,11,13);
 
         pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                Toast.makeText(TimeSelectActivity.this, getTime(date), Toast.LENGTH_SHORT).show();
+                view.setText(getTime(date));
             }
         })
-                .setTimeSelectChangeListener(new OnTimeSelectChangeListener() {
-                    @Override
-                    public void onTimeSelectChanged(Date date) {
-                        Log.i("pvTime", "onTimeSelectChanged");
-                    }
-                })
                 .setType(new boolean[]{true, true, true, false, false, false})
                 .isDialog(true) //默认设置false ，内部实现将DecorView 作为它的父控件。
-                .setRangDate(startDate,endDate)
+//                .setRangDate(startDate,endDate)
                 .build();
         Dialog mDialog = pvTime.getDialog();
         if (mDialog != null) {
@@ -151,7 +190,6 @@ public class TimeSelectActivity extends BaseActivity {
             params.leftMargin = 0;
             params.rightMargin = 0;
             pvTime.getDialogContainerLayout().setLayoutParams(params);
-
             Window dialogWindow = mDialog.getWindow();
             if (dialogWindow != null) {
                 dialogWindow.setWindowAnimations(com.bigkoo.pickerview.R.style.picker_view_slide_anim);//修改动画样式

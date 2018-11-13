@@ -20,12 +20,17 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.FlagBean;
 import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.WjbEndBean;
 import com.pda.pda_android.bean.WjbqsBean;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,6 +60,9 @@ public class WjbqsendFragment extends BaseFragment {
     private ImageView no_data;
     @Override
     public void initData() {
+
+    }
+    public void PostData(String start_time,String end_time ){
         Map<String, String> params = new HashMap<>(); //提交数据包
 //        params.put("page", 1+""); //将姓名参数添加到数据包
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.sign_list, new LoadCallBack<String>(getActivity()) {
@@ -81,7 +89,6 @@ public class WjbqsendFragment extends BaseFragment {
             }
         },params);
     }
-
     @Override
     public void initView(View view) {
         refreshLayout=view.findViewById(R.id.refreshLayout1);
@@ -123,7 +130,22 @@ public class WjbqsendFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            initData();
+           PostData("","");
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(FlagBean flag) {
+        if (flag.getFlag().equals("WJBQSEND")){
+            PostData(flag.getStart_time(),"");
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
         }
     }
 }

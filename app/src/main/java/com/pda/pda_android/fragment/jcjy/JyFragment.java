@@ -108,7 +108,7 @@ public class JyFragment extends BaseFragment {
         Patient_no = ((JcjyListActivity) context).getPatient_no();
         name = ((JcjyListActivity) context).getname();
     }
-    public void postdata(){
+    public void postdata(String start_time,String end_time){
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("patient_no", Patient_no); //住院号
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getUsersAssayList, new LoadCallBack<String>(getActivity()) {
@@ -150,7 +150,7 @@ public class JyFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            postdata();
+            postdata("","");
         }
     }
 }

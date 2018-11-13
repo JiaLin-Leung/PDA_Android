@@ -93,7 +93,7 @@ public class JcFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        postdata("","");
+        PostData("","");
         //设置头部的点击事件
 //        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
 //            @Override
@@ -124,7 +124,7 @@ public class JcFragment extends BaseFragment {
      * @param start_time 起始时间
      * @param end_time 结束时间
      */
-    public void postdata(String start_time,String end_time){
+    public void PostData(String start_time,String end_time){
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("record_no", cw); //病历号
         if (!Util.isEmpty(start_time)){
@@ -168,8 +168,8 @@ public class JcFragment extends BaseFragment {
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(FlagBean flag) {
-        if (flag.getFlag().equals("jc")){
-            postdata(flag.getStart_time(),"");
+        if (flag.getFlag().equals("JC")){
+            PostData(flag.getStart_time(),"");
         }
     }
 

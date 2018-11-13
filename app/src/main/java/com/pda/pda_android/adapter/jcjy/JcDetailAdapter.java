@@ -104,9 +104,8 @@ public class JcDetailAdapter extends BaseAdapter implements StickyListHeadersAda
         headHolder.item_shaixuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,bodyList.get(position).getDate(),Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(context, TimeSelectActivity.class);
-                intent.putExtra("flag","jc");
+                intent.putExtra("flag","JC");
                 context.startActivity(intent);
             }
         });
