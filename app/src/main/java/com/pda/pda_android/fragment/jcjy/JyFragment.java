@@ -105,10 +105,13 @@ public class JyFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Patient_no = ((JcjyListActivity) context).getPatient_no();
-        name = ((JcjyListActivity) context).getname();
+
     }
+
+
     public void postdata(String start_time,String end_time){
+            Patient_no = ((JcjyListActivity) getActivity()).getPatient_no();
+            name = ((JcjyListActivity) getActivity()).getname();
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("patient_no", Patient_no); //住院号
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getUsersAssayList, new LoadCallBack<String>(getActivity()) {

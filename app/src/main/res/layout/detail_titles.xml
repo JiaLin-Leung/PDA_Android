@@ -19,6 +19,7 @@
             android:layout_width="170dp"
             android:layout_height="match_parent">
             <ImageView
+                android:onClick="onClick"
                 android:id="@+id/user_name_up"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
@@ -35,6 +36,7 @@
                 android:layout_width="140dp"
                 android:layout_height="match_parent" />
             <ImageView
+                android:onClick="onClick"
                 android:id="@+id/user_name_down"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
