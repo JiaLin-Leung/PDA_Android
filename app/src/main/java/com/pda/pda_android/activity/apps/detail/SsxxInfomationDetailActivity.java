@@ -12,8 +12,13 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.FlagBean;
 import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.SsxxDetailBean;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -81,10 +86,10 @@ public class SsxxInfomationDetailActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        postdata();
+        PostData();
     }
 
-    public void postdata(){
+    public void PostData(){
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("oper_id", id);
         OkHttpManager.getInstance().postRequest(this, ContentUrl.TestUrl_local + ContentUrl.getUsersSsxxDetail, new LoadCallBack<String>(this) {
@@ -171,4 +176,6 @@ public class SsxxInfomationDetailActivity extends BaseActivity {
             }
         },params);
     }
+
+
 }

@@ -13,6 +13,7 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.FlagBean;
 import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.SsxxBean;
@@ -21,6 +22,10 @@ import com.pda.pda_android.db.dbutil.SsxxBeanOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +50,6 @@ public class SsxxInfomationActivity extends BaseActivity {
     private SsxxDetailAdapter adapter;
     private UserBean userBean;
     private String record_no;
-//    private List<SsxxBean> list;
     private ImageView no_data;
     private TextView user_info;
     private List<com.pda.pda_android.bean.SsxxBean.DataBean> list;
@@ -87,12 +91,10 @@ public class SsxxInfomationActivity extends BaseActivity {
         userBean = (UserBean) getIntent().getSerializableExtra("userBean");
         record_no = userBean.getRecord_no();
         patient_no=userBean.getPatient_no();
-//        list = SsxxBeanOpe.queryRecord_no(SsxxInfomationActivity.this,record_no);
-
-        postdata();
+        PostData("","");
     }
 
-    public void postdata(){
+    public void PostData(String start_time,String end_times){
         Map<String, String> params = new HashMap<>();
         params.put("patient_no", "ZY010000505789"); //住院号
         params.put("record_no", "0000505789"); //病历号
@@ -124,5 +126,25 @@ public class SsxxInfomationActivity extends BaseActivity {
                 }
             }
         },params);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(FlagBean flag) {
+        if (flag.getFlag().equals("SSXX")){
+            PostData(flag.getStart_time(),flag.getEnd_time());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

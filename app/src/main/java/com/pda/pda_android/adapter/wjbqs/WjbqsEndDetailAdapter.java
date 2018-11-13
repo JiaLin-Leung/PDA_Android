@@ -1,6 +1,7 @@
 package com.pda.pda_android.adapter.wjbqs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.TimeSelectActivity;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.WjbEndBean;
 import com.pda.pda_android.bean.WjbqsBean;
@@ -99,7 +101,9 @@ public class WjbqsEndDetailAdapter extends BaseAdapter implements StickyListHead
         headHolder.item_end_shaixuan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(context, TimeSelectActivity.class);
+                intent.putExtra("flag","WJBQSEND");
+                context.startActivity(intent);
             }
         });
         return convertView;

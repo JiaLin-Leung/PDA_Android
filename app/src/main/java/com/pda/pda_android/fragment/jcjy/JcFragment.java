@@ -171,7 +171,7 @@ public class JcFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(FlagBean flag) {
         if (flag.getFlag().equals("JC")){
-            PostData(flag.getStart_time(),"");
+            PostData(flag.getStart_time(),flag.getEnd_time());
         }
     }
 
@@ -181,5 +181,10 @@ public class JcFragment extends BaseFragment {
         if (!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this);
         }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }
