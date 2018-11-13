@@ -62,6 +62,13 @@ public class SsxxInfomationActivity extends BaseActivity {
     public void initView() {
         stickyListHeadersListView =  findViewById(R.id.ssxx_list_ssxx);
         refreshLayout = findViewById(R.id.refreshLayout1_ssxx);
+        ImageView title_back = findViewById(R.id.title_back);
+        title_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SsxxInfomationActivity.this.finish();
+            }
+        });
         no_data = findViewById(R.id.no_data);
         user_info=findViewById(R.id.user_info);
         refreshLayout.setEnableRefresh(false);
