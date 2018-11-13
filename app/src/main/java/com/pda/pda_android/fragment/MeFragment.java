@@ -83,7 +83,6 @@ public class MeFragment extends BaseFragment {
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 if (s.contains("\"response\": \"ok\"")) {
                     nursebean = gson.fromJson(s, Nursebean.class);
-                    LogUtils.showLog("22222222", nursebean.toString());
                     tv_xingming.setText("姓名：" + nursebean.getData().getName());
                     tv_gonghao.setText("工号：" + nursebean.getData().getCode());
                     tv_bingqu.setText("病区：" + nursebean.getData().getWards().get(0).getWard_name());

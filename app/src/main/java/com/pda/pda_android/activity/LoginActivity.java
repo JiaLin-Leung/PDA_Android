@@ -6,6 +6,7 @@ import android.media.Image;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ public class LoginActivity extends BaseActivity {
     private Gson gson;
     private ImageView iv_clear_phone;
     private ImageView iv_clear_pasw;
+    private long firstTime=0;
 
     @Override
     public int setLayoutId() {
@@ -164,5 +166,20 @@ public class LoginActivity extends BaseActivity {
                 ed_username.setText("");
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode== android.view.KeyEvent.KEYCODE_BACK && event.getAction()== android.view.KeyEvent.ACTION_DOWN){
+            if (System.currentTimeMillis()-firstTime>2000){
+                Toast.makeText(LoginActivity.this,"再按一次退出程序",Toast.LENGTH_SHORT).show();
+                firstTime=System.currentTimeMillis();
+            }else{
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
