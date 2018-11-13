@@ -88,7 +88,7 @@ public class YzybhdDetailActivity extends BaseActivity {
         tablayout = findViewById(R.id.tablayout_yzybhd);
         viewpager = findViewById(R.id.viewpager_yzybhd);
         TextView tv_top_title = findViewById(R.id.tv_top_title);
-        tv_top_title.setText("医嘱药包执行");
+        tv_top_title.setText("医嘱药包核对");
         title_back = findViewById(R.id.iv_top_back);
         FragmentManager fragmentManager=getSupportFragmentManager();
         user_info=findViewById(R.id.user_info);
