@@ -60,9 +60,8 @@ public class UsersListActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 LogUtils.showLog("跳转标记",from);
                 if (from.equals("JCJY")){ //检查检验过来的
-                    UserBean userBean = adapter.user_list.get(i);
                     Intent intent = new Intent(UsersListActivity.this,JcjyListActivity.class);
-                    intent.putExtra("userBean",userBean);
+                    intent.putExtra("position",i);
                     startActivity(intent);
                 }else if(from.equals("SSXX")){//手术信息过来的
                     UserBean userBean = adapter.user_list.get(i);

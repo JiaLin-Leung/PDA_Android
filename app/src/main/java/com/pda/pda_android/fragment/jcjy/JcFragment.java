@@ -87,8 +87,6 @@ public class JcFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        cw = ((JcjyListActivity) context).getcw();
-        name = ((JcjyListActivity) context).getname();
     }
 
     @Override
@@ -125,6 +123,8 @@ public class JcFragment extends BaseFragment {
      * @param end_time 结束时间
      */
     public void postdata(String start_time,String end_time){
+        cw = ((JcjyListActivity) getActivity()).getcw();
+        name = ((JcjyListActivity) getActivity()).getname();
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("record_no", cw); //病历号
         if (!Util.isEmpty(start_time)){
