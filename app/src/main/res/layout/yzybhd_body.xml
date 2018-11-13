@@ -101,5 +101,10 @@
             android:text="核对"
             android:textColor="@color/white"
             android:textSize="15sp" />
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/huise"
+            android:layout_height="10dp"></View>
     </LinearLayout>
+
 </RelativeLayout>
