@@ -1,5 +1,6 @@
 package com.pda.pda_android.fragment.jcjy;
 
+import freemarker.template.utility.StringUtil;
 import okhttp3.Call;
 import okhttp3.Response;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -23,14 +24,21 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.FlagBean;
 import com.pda.pda_android.bean.JcBean;
 import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.WjbEndBean;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.dbutil.CheckBeanOpe;
+import com.pda.pda_android.utils.Util;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+
+import org.greenrobot.eventbus.EventBus;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,7 +55,7 @@ public class JcFragment extends BaseFragment {
     private JcDetailAdapter mainAdapter;
     //下拉控件
     private RefreshLayout refreshLayout;
-//    private  List<CheckBean> checkBeanList=new ArrayList<>();
+    //    private  List<CheckBean> checkBeanList=new ArrayList<>();
     //床位 患者名字
     private  String cw,name;
     private ImageView no_data;
@@ -85,7 +93,7 @@ public class JcFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        postdata();
+        postdata("","");
         //设置头部的点击事件
 //        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
 //            @Override
@@ -111,9 +119,20 @@ public class JcFragment extends BaseFragment {
             }
         });
     }
-    public void postdata(){
+
+    /**
+     * @param start_time 起始时间
+     * @param end_time 结束时间
+     */
+    public void postdata(String start_time,String end_time){
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("record_no", cw); //病历号
+        if (!Util.isEmpty(start_time)){
+            params.put("start_date", start_time);
+        }
+        if (!Util.isEmpty(end_time)){
+            params.put("end_date", end_time);
+        }
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getUsersCheckList, new LoadCallBack<String>(getActivity()) {
             @Override
             protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
@@ -141,9 +160,24 @@ public class JcFragment extends BaseFragment {
     }
     @Override
     public void initView(View view) {
+
     }
     @Override
     public int getlayout() {
         return R.layout.fragment_jc;
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(FlagBean flag) {
+        if (flag.getFlag().equals("jc")){
+            postdata(flag.getStart_time(),"");
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
     }
 }

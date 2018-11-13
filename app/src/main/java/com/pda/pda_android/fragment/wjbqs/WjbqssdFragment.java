@@ -42,7 +42,7 @@ public class WjbqssdFragment extends BaseFragment {
     public  WjbqsDetailAdapter mainAdapter;
     private List<WjbqsBean.WjbqsBeanListBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbqsBean wjbqsBean;
-    private View view;
+
     private ImageView no_data;
 
     public void initData() {
@@ -108,7 +108,6 @@ public class WjbqssdFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            initView(view);
             initData();
         }
     }

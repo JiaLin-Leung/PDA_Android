@@ -677,4 +677,13 @@ public class Util {
                 ((ip >> 16) & 0xFF) + "." +
                 (ip >> 24 & 0xFF);
     }
+
+    /**
+     * 非空判断
+     * @param str
+     * @return
+     */
+    public static boolean isEmpty(String str) {
+        return (str == null) || (str.equals(""));
+    }
 }

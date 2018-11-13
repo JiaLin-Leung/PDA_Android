@@ -123,7 +123,6 @@ public class WjbqsendFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            initView(view);
             initData();
         }
     }

@@ -14,6 +14,8 @@ import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.fragment.jcjy.JcFragment;
 import com.pda.pda_android.fragment.jcjy.JyFragment;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +86,7 @@ public class JcjyListActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
         tablayout = findViewById(R.id.tablayout);
         viewpager = findViewById(R.id.viewpager);
         users_all=findViewById(R.id.users_all);
@@ -170,5 +173,11 @@ public class JcjyListActivity extends BaseActivity {
     }
     public String  getPatient_no(){
         return  Patient_no;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

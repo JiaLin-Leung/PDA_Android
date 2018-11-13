@@ -1,6 +1,7 @@
 package com.pda.pda_android.adapter.jcjy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.TimeSelectActivity;
 import com.pda.pda_android.bean.JcBean;
 import com.pda.pda_android.db.Entry.CheckBean;
 
@@ -103,6 +105,9 @@ public class JcDetailAdapter extends BaseAdapter implements StickyListHeadersAda
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,bodyList.get(position).getDate(),Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(context, TimeSelectActivity.class);
+                intent.putExtra("flag","jc");
+                context.startActivity(intent);
             }
         });
         return convertView;

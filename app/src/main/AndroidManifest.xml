@@ -10,8 +10,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".widget.AppContext"
@@ -58,21 +58,24 @@
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name="com.pda.pda_android.service.PostCacheService"
+            android:name=".service.PostCacheService"
             android:enabled="true"
             android:exported="true" />
 
         <activity android:name=".activity.apps.detail.jcjydetail.JcDetailActivity" />
-        <activity android:name=".activity.apps.detail.jcjydetail.JyDetailActivity"></activity>
-<activity android:name=".activity.apps.detail.SsxxInfomationDetailActivity"></activity>
+        <activity android:name=".activity.apps.detail.jcjydetail.JyDetailActivity" />
+        <activity android:name=".activity.apps.detail.SsxxInfomationDetailActivity" />
+
         <service
-            android:name="com.pda.pda_android.service.UsersAssayListService"
+            android:name=".service.UsersAssayListService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <service
-            android:name="com.pda.pda_android.service.UsersAssayDetailListService"
+            android:name=".service.UsersAssayDetailListService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".activity.TimeSelectActivity"></activity>
     </application>
 
 </manifest>
