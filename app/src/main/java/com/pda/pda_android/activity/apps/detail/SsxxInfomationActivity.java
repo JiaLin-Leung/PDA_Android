@@ -13,15 +13,21 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.FlagBean;
 import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.SsxxBean;
 import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.dbutil.SsxxBeanOpe;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
+import com.pda.pda_android.utils.Util;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,17 +48,16 @@ public class SsxxInfomationActivity extends BaseActivity {
 
     private StickyListHeadersListView stickyListHeadersListView;
     private RefreshLayout refreshLayout;
-    private  String patient_no;
+    private String patient_no;
     private SsxxDetailAdapter adapter;
     private UserBean userBean;
     private String record_no;
-//    private List<SsxxBean> list;
     private ImageView no_data;
     private TextView user_info;
     private int position;
     private List<com.pda.pda_android.bean.SsxxBean.DataBean> list;
     private List<UserBean> user_list;
-
+    private ImageView title_back,users_all;
     @Override
     public int setLayoutId() {
         return R.layout.activity_ssxxinfomation;
@@ -60,6 +65,8 @@ public class SsxxInfomationActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        users_all=findViewById(R.id.users_all);
+        title_back=findViewById(R.id.title_back);
         stickyListHeadersListView =  findViewById(R.id.ssxx_list_ssxx);
         refreshLayout = findViewById(R.id.refreshLayout1_ssxx);
         ImageView title_back = findViewById(R.id.title_back);
@@ -89,8 +96,18 @@ public class SsxxInfomationActivity extends BaseActivity {
                 header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
             }
         });
-
-
+        title_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        users_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -100,15 +117,19 @@ public class SsxxInfomationActivity extends BaseActivity {
         userBean = user_list.get(position);
         record_no = userBean.getRecord_no();
         patient_no=userBean.getPatient_no();
-//        list = SsxxBeanOpe.queryRecord_no(SsxxInfomationActivity.this,record_no);
-
-        postdata();
+        PostData("","");
     }
 
-    public void postdata(){
+    public void PostData(String start_time,String end_time){
         Map<String, String> params = new HashMap<>();
         params.put("patient_no", "ZY010000505789"); //住院号
         params.put("record_no", "0000505789"); //病历号
+        if (!Util.isEmpty(start_time)){
+            params.put("start_date", start_time);
+        }
+        if (!Util.isEmpty(end_time)){
+            params.put("end_date", end_time);
+        }
         OkHttpManager.getInstance().postRequest(SsxxInfomationActivity.this, ContentUrl.TestUrl_local + ContentUrl.getUsersSsxx, new LoadCallBack<String>(SsxxInfomationActivity.this) {
 
             @Override
@@ -116,7 +137,6 @@ public class SsxxInfomationActivity extends BaseActivity {
                 super.onEror(call, statusCode, e);
                 showCenterToastCenter("请求失败，请稍后重试");
             }
-
             @Override
             protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
@@ -151,7 +171,7 @@ public class SsxxInfomationActivity extends BaseActivity {
                     userBean = user_list.get(position);
                     record_no = userBean.getRecord_no();
                     patient_no=userBean.getPatient_no();
-                    postdata();
+                    PostData("","");
                 }
                 break;
             case R.id.user_name_down://下一个患者
@@ -162,9 +182,29 @@ public class SsxxInfomationActivity extends BaseActivity {
                     userBean = user_list.get(position);
                     record_no = userBean.getRecord_no();
                     patient_no=userBean.getPatient_no();
-                    postdata();
+                    PostData("","");
                 }
                 break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(FlagBean flag) {
+        if (flag.getFlag().equals("SSXX")){
+            PostData(flag.getStart_time(),flag.getEnd_time());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

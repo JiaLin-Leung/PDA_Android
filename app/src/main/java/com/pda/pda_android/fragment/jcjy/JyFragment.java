@@ -19,14 +19,20 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.FlagBean;
 import com.pda.pda_android.bean.JcBean;
 import com.pda.pda_android.bean.JyBean;
 import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.db.Entry.AssayBean;
 import com.pda.pda_android.db.dbutil.AssayBeanOpe;
+import com.pda.pda_android.utils.Util;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,10 +55,13 @@ public class JyFragment extends BaseFragment {
     private RefreshLayout refreshLayout;
     //住院号  名字
     private  String Patient_no,name;
-    private List<AssayBean> assayBeans;
     private ImageView no_data;
     private JyBean jyBean;
     private List<JyBean.DataBean> beanList;
+    @Override
+    public int getlayout() {
+        return R.layout.fragment_jy;
+    }
     @Override
     public void initData() {
     }
@@ -71,49 +80,21 @@ public class JyFragment extends BaseFragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-//        assayBeans=  AssayBeanOpe.queryPATIENT_NO(getActivity(),Patient_no);
-//        LogUtils.showLog("jy_shuju",assayBeans.toString());
-//        if (assayBeans.size() == 0){
-//            no_data.setVisibility(View.VISIBLE);
-//        }else{
-//            mainAdapter = new JyDetailAdapter(getActivity(),assayBeans,name);
-//        }
-//         设置头部的点击事件
-//        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
-//            @Override
-//            public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky) {
-//                Toast.makeText(getActivity(), "headerId:" + headerId, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        //设置内容的点击事件
-//        stickyListHeadersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(getActivity(), "i:" + i, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-//        stickyListHeadersListView.setAdapter(mainAdapter);
-    }
-
-    @Override
-    public int getlayout() {
-        return R.layout.fragment_jy;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
 
     }
 
 
-    public void postdata(String start_time,String end_time){
-            Patient_no = ((JcjyListActivity) getActivity()).getPatient_no();
-            name = ((JcjyListActivity) getActivity()).getname();
+    public void PostData(String start_time,String end_time){
+        Patient_no = ((JcjyListActivity) getActivity()).getPatient_no();
+        name = ((JcjyListActivity) getActivity()).getname();
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("patient_no", Patient_no); //住院号
+        if (!Util.isEmpty(start_time)){
+            params.put("start_date", start_time);
+        }
+        if (!Util.isEmpty(end_time)){
+            params.put("end_date", end_time);
+        }
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getUsersAssayList, new LoadCallBack<String>(getActivity()) {
             @Override
             protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
@@ -153,7 +134,27 @@ public class JyFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            postdata("","");
+            PostData("","");
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(FlagBean flag) {
+        if (flag.getFlag().equals("JY")){
+            PostData(flag.getStart_time(),flag.getEnd_time());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }

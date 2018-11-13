@@ -30,10 +30,6 @@ import androidx.viewpager.widget.ViewPager;
 public class WjbqsInfomationActivity extends BaseActivity {
 
     private ImageView title_back;
-    private ImageView user_name_up;
-    private ImageView users_all;
-    private ImageView user_name_down;
-    private TextView user_info;
     private TabLayout tablayout;
     private ViewPager viewpager;
 

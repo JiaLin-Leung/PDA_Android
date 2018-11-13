@@ -24,6 +24,7 @@ import com.pda.pda_android.bean.FlagBean;
 import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.WjbEndBean;
 import com.pda.pda_android.bean.WjbqsBean;
+import com.pda.pda_android.utils.Util;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -53,10 +54,8 @@ public class WjbqsendFragment extends BaseFragment {
     private RefreshLayout refreshLayout;
     private StickyListHeadersListView stickyListHeadersListView;
     private WjbqsEndDetailAdapter mainAdapter;
-    private  String Patient_no,name;
     private List<WjbEndBean.DataBean> wjbqsBeanListBeans = new ArrayList<>();
     private WjbEndBean wjbEndBean;
-    private View view;
     private ImageView no_data;
     @Override
     public void initData() {
@@ -64,7 +63,12 @@ public class WjbqsendFragment extends BaseFragment {
     }
     public void PostData(String start_time,String end_time ){
         Map<String, String> params = new HashMap<>(); //提交数据包
-//        params.put("page", 1+""); //将姓名参数添加到数据包
+        if (!Util.isEmpty(start_time)){
+            params.put("start_date", start_time);
+        }
+        if (!Util.isEmpty(end_time)){
+            params.put("end_date", end_time);
+        }
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.sign_list, new LoadCallBack<String>(getActivity()) {
             @Override
             protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
@@ -119,12 +123,6 @@ public class WjbqsendFragment extends BaseFragment {
     }
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Patient_no = "ZY040000469876";
-        name = "1231231";
-    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -137,7 +135,7 @@ public class WjbqsendFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(FlagBean flag) {
         if (flag.getFlag().equals("WJBQSEND")){
-            PostData(flag.getStart_time(),"");
+            PostData(flag.getStart_time(),flag.getEnd_time());
         }
     }
 
@@ -147,5 +145,10 @@ public class WjbqsendFragment extends BaseFragment {
         if (!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this);
         }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }

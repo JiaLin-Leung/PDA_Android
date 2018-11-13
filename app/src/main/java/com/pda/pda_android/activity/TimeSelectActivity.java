@@ -20,6 +20,7 @@ import com.bigkoo.pickerview.view.TimePickerView;
 import com.pda.pda_android.R;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.bean.FlagBean;
+import com.pda.pda_android.utils.Util;
 
 import org.greenrobot.eventbus.EventBus;
 import org.w3c.dom.Text;
@@ -86,6 +87,17 @@ public class TimeSelectActivity extends BaseActivity {
         ll_top_sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (index==1){
+                    if (Util.isEmpty(time_text.getText().toString())){
+                        showCenterToastCenter("请选择时间");
+                        return;
+                    }
+                } else if (index==2){
+                    if (Util.isEmpty(start_time.getText().toString())||Util.isEmpty(end_time.getText().toString())){
+                        showCenterToastCenter("请选择时间");
+                        return;
+                    }
+                }
                 FlagBean flagBean=new FlagBean();
                 if (flag.equals("JC")){
                     flagBean.setFlag("JC");
@@ -120,9 +132,19 @@ public class TimeSelectActivity extends BaseActivity {
                     }
                     EventBus.getDefault().post(flagBean);
                     finish();
-                }
-                else if (flag.equals("WJBQSSD")){
+                }else if (flag.equals("WJBQSSD")){
                     flagBean.setFlag("WJBQSSD");
+                    if (index==1){
+                        flagBean.setEnd_time("");
+                        flagBean.setStart_time(time_text.getText().toString());
+                    }else if (index==2){
+                        flagBean.setEnd_time(end_time.getText().toString());
+                        flagBean.setStart_time(start_time.getText().toString());
+                    }
+                    EventBus.getDefault().post(flagBean);
+                    finish();
+                }else if (flag.equals("SSXX")){
+                    flagBean.setFlag("SSXX");
                     if (index==1){
                         flagBean.setEnd_time("");
                         flagBean.setStart_time(time_text.getText().toString());
@@ -149,14 +171,14 @@ public class TimeSelectActivity extends BaseActivity {
         start_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowTimePop(time_text);
+                ShowTimePop(start_time);
                 pvTime.show();
             }
         });
         end_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowTimePop(time_text);
+                ShowTimePop(end_time);
                 pvTime.show();
             }
         });

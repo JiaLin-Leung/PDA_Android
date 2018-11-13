@@ -15,11 +15,17 @@ import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
+import com.pda.pda_android.bean.FlagBean;
 import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.WjbqsBean;
+import com.pda.pda_android.utils.Util;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,8 +52,17 @@ public class WjbqssdFragment extends BaseFragment {
     private ImageView no_data;
 
     public void initData() {
+
+    }
+    public void PostData(String start_time,String end_time){
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("page", 1+""); //将姓名参数添加到数据包
+        if (!Util.isEmpty(start_time)){
+            params.put("start_date", start_time);
+        }
+        if (!Util.isEmpty(end_time)){
+            params.put("end_date", end_time);
+        }
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getNotSignedList, new LoadCallBack<String>(getActivity()) {
             @Override
             protected void onEror(okhttp3.Call call, int statusCode, Exception e) {
@@ -72,7 +87,6 @@ public class WjbqssdFragment extends BaseFragment {
             }
         },params);
     }
-
     @Override
     public void initView(View view) {
         refreshLayout=view.findViewById(R.id.refreshLayout1);
@@ -108,7 +122,27 @@ public class WjbqssdFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            initData();
+           PostData("","");
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(FlagBean flag) {
+        if (flag.getFlag().equals("WJBQSSD")){
+            PostData(flag.getStart_time(),flag.getEnd_time());
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
     }
 }
