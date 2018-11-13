@@ -124,8 +124,10 @@ public class MenuParentAdapter extends BaseExpandableListAdapter
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         MenuEntity indexData = (MenuEntity) adapterView.getItemAtPosition(position);
         if (indexData != null) {
-            mContext.initUrl(indexData);
-
+//            mContext.initUrl(indexData);
+            if (IsEdit){
+                MenuManageActivity.AddMenu(indexData);
+            }
         }
     }
 

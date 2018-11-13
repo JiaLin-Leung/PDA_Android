@@ -24,6 +24,7 @@ import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.JcBean;
+import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.WjbEndBean;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.dbutil.CheckBeanOpe;
@@ -132,8 +133,8 @@ public class JcFragment extends BaseFragment {
                     mainAdapter = new JcDetailAdapter(getActivity(),list,name);
                     stickyListHeadersListView.setAdapter(mainAdapter);
                 }else {
-                    jcBean = gson.fromJson(s,JcBean.class);
-                    showCenterToastCenter(jcBean.getMessage());
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    showCenterToastCenter(loginBeanFail.getMessage());
                 }
             }
         },params);

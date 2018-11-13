@@ -135,8 +135,9 @@ public class ChangePasswordActivity extends BaseActivity {
                     OkHttpManager.getInstance().postRequest(ChangePasswordActivity.this, ContentUrl.TestUrl_local +
                             ContentUrl.setPass, new LoadCallBack<String>(ChangePasswordActivity.this) {
                         @Override
-                        protected void onFailure(Call call, IOException e) {
-
+                        protected void onEror(Call call, int statusCode, Exception e) {
+                            super.onEror(call, statusCode, e);
+                            showCenterToastCenter("网络不可用，请检查网络");
                         }
 
                         @Override

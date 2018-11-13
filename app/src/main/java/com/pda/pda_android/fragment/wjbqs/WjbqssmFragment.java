@@ -130,8 +130,8 @@ public class WjbqssmFragment extends Fragment {
         params.put("barcode", code); //将code参数添加到数据包
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.postScanWjbqs, new LoadCallBack<String>(getActivity()) {
             @Override
-            protected void onFailure(Call call, IOException e) {
-
+            protected void onEror(Call call, int statusCode, Exception e) {
+                super.onEror(call, statusCode, e);
             }
 
             @Override

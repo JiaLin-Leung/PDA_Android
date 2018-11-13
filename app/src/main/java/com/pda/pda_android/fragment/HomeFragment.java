@@ -36,6 +36,7 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.Nursebean;
 import com.pda.pda_android.entity.MenuEntity;
 import com.pda.pda_android.widget.AppConfig;
@@ -195,8 +196,8 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                         initHszPopWindow();
                     }
                 }else {
-                    Nursebean  nursebean = gson.fromJson(s,Nursebean.class);
-                    showCenterToastCenter(nursebean.message);
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    showCenterToastCenter(loginBeanFail.getMessage());
                 }
             }
 

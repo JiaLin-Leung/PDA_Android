@@ -86,14 +86,17 @@ public class YzybhdBodyAdapter extends RecyclerView.Adapter<YzybhdBodyAdapter.Vi
         final Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("sterile_code", code); //将姓名参数添加到数据包
         OkHttpManager.getInstance().postRequest(context, ContentUrl.TestUrl_local + ContentUrl.sign, new LoadCallBack<String>(context) {
+
             @Override
-            protected void onFailure(Call call, IOException e) {
+            protected void onEror(Call call, int statusCode, Exception e) {
+                super.onEror(call, statusCode, e);
                 PostCacheBean postCacheBean = new PostCacheBean();
                 postCacheBean.setCode("500");
                 postCacheBean.setParameter(JSON.toJSONString(params));
                 postCacheBean.setUrl(ContentUrl.TestUrl_local + ContentUrl.sign);
                 PostCacheDaoOpe.insertData(context,postCacheBean);
             }
+
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 Gson gson = new Gson();

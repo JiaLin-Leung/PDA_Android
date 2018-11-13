@@ -12,6 +12,7 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.SsxxDetailBean;
 
 import java.io.IOException;
@@ -87,16 +88,19 @@ public class SsxxInfomationDetailActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("oper_id", id);
         OkHttpManager.getInstance().postRequest(this, ContentUrl.TestUrl_local + ContentUrl.getUsersSsxxDetail, new LoadCallBack<String>(this) {
+
             @Override
-            protected void onFailure(Call call, IOException e) {
+            protected void onEror(Call call, int statusCode, Exception e) {
+                super.onEror(call, statusCode, e);
                 showCenterToastCenter("请求失败，请稍后重试");
             }
+
             @Override
             protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
-                LogUtils.showLog(s.toString());
-                ssxxBeanListBean=gson.fromJson(s.toString(),SsxxDetailBean.class);
-                if (ssxxBeanListBean.getResponse().equals("ok")){
+                if (s.contains("\"response\": \"ok\"")){
+                    LogUtils.showLog(s.toString());
+                    ssxxBeanListBean=gson.fromJson(s.toString(),SsxxDetailBean.class);
                     if (null!=ssxxBeanListBean.getData().getOperxh()){
                         ops_num.setText(ssxxBeanListBean.getData().getOperxh());
                     }
@@ -160,6 +164,9 @@ public class SsxxInfomationDetailActivity extends BaseActivity {
                     if (null!=ssxxBeanListBean.getData().getInoper_time()){
                         ops_time.setText(ssxxBeanListBean.getData().getInoper_time());
                     }
+                }else {
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    showCenterToastCenter(loginBeanFail.getMessage());
                 }
             }
         },params);

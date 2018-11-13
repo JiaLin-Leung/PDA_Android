@@ -15,6 +15,7 @@ import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.JyBean;
 import com.pda.pda_android.bean.JyDetailBean;
+import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.db.Entry.AssayDetailBean;
 import com.pda.pda_android.db.dbutil.AssayDetailDaoOpe;
 
@@ -72,20 +73,27 @@ public class JyDetailActivity extends BaseActivity {
         Map<String, String> params = new HashMap<>(); //提交数据包
         params.put("sqxh", patient_no); //检查申请序号
         OkHttpManager.getInstance().postRequest(this, ContentUrl.TestUrl_local + ContentUrl.getUsersAssayListDetail, new LoadCallBack<String>(this) {
+
             @Override
-            protected void onFailure(Call call, IOException e) {
+            protected void onEror(Call call, int statusCode, Exception e) {
+                super.onEror(call, statusCode, e);
                 showCenterToastCenter("请求失败，请稍后重试");
             }
+
             @Override
             protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
-                LogUtils.showLog(s.toString());
-                JyDetailBean jyDetailBean=gson.fromJson(s.toString(),JyDetailBean.class);
-                if (jyDetailBean.getResponse().equals("ok")){
+                if (s.contains("\"response\": \"ok\"")){
+                    LogUtils.showLog(s.toString());
+                    JyDetailBean jyDetailBean=gson.fromJson(s.toString(),JyDetailBean.class);
                     jy_data.setText(jyDetailBean.getData().getJcdate());
                     sq_data.setText(jyDetailBean.getData().getSqdate());
                     bg_data.setText(jyDetailBean.getData().getBgdate());
+                    // TODO: 2018/11/13 没有结果
 //                    jy_detail.setText(jyDetailBean.getData().get(0).getJg());
+                }else {
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    showCenterToastCenter(loginBeanFail.getMessage());
                 }
 
             }

@@ -57,25 +57,25 @@ public class MenuChildAdapter extends BaseAdapter {
 		}
 		final MenuEntity menuEntity = menuList.get(position);
 
-		if (IsEdit) {
-			viewHodler.deleteImg.setVisibility(View.VISIBLE);
-			if (menuEntity.isSelect()) {
-				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_select);
-			} else {
-				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_add);
-			}
-		} else {
-			viewHodler.deleteImg.setVisibility(View.GONE);
-		}
-
-		viewHodler.deleteImg.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (!menuEntity.isSelect()) {
-					MenuManageActivity.AddMenu(menuEntity);
-				}
-			}
-		});
+//		if (IsEdit) {
+//			viewHodler.deleteImg.setVisibility(View.VISIBLE);
+//			if (menuEntity.isSelect()) {
+//				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_select);
+//			} else {
+//				viewHodler.deleteImg.setBackgroundResource(R.mipmap.menu_add);
+//			}
+//		} else {
+//			viewHodler.deleteImg.setVisibility(View.GONE);
+//		}
+//
+//		viewHodler.deleteImg.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				if (!menuEntity.isSelect()) {
+//					MenuManageActivity.AddMenu(menuEntity);
+//				}
+//			}
+//		});
 
 		//获取资源图片
 		int drawableId = context.getResources().getIdentifier(menuEntity.getIco(),"mipmap", context.getPackageName());

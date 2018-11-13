@@ -13,6 +13,7 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.SsxxBean;
 import com.pda.pda_android.db.Entry.UserBean;
@@ -92,14 +93,17 @@ public class SsxxInfomationActivity extends BaseActivity {
     }
 
     public void postdata(){
-        Map<String, String> params = new HashMap<>(); //提交数据包
+        Map<String, String> params = new HashMap<>();
         params.put("patient_no", "ZY010000505789"); //住院号
         params.put("record_no", "0000505789"); //病历号
         OkHttpManager.getInstance().postRequest(SsxxInfomationActivity.this, ContentUrl.TestUrl_local + ContentUrl.getUsersSsxx, new LoadCallBack<String>(SsxxInfomationActivity.this) {
+
             @Override
-            protected void onFailure(Call call, IOException e) {
+            protected void onEror(Call call, int statusCode, Exception e) {
+                super.onEror(call, statusCode, e);
                 showCenterToastCenter("请求失败，请稍后重试");
             }
+
             @Override
             protected void onSuccess(Call call, Response response, String s)  {
                 Gson gson = new Gson();
@@ -115,8 +119,8 @@ public class SsxxInfomationActivity extends BaseActivity {
                         adapter = new SsxxDetailAdapter(SsxxInfomationActivity.this,list,name);
                         stickyListHeadersListView.setAdapter(adapter);}
                 }else {
-                    com.pda.pda_android.bean.SsxxBean ssxxBean = gson.fromJson(s,com.pda.pda_android.bean.SsxxBean.class);
-                    showCenterToastCenter(ssxxBean.getMessage());
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    showCenterToastCenter(loginBeanFail.getMessage());
                 }
             }
         },params);

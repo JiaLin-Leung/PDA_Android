@@ -116,9 +116,10 @@ public class PostCacheService extends Service {
 
         OkHttpManager.getInstance().postRequest(context, url, new LoadCallBack<String>(context,false) {
             @Override
-            protected void onFailure(Call call, IOException e) {
-
+            protected void onEror(Call call, int statusCode, Exception e) {
+                super.onEror(call, statusCode, e);
             }
+
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 if (s.contains("\"response\": \"ok\"")){

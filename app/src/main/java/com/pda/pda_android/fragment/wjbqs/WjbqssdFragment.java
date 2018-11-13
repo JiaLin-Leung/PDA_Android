@@ -15,6 +15,7 @@ import com.pda.pda_android.base.BaseFragment;
 import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
+import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.WjbqsBean;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
@@ -64,8 +65,8 @@ public class WjbqssdFragment extends BaseFragment {
                     mainAdapter = new WjbqsDetailAdapter(getActivity(),wjbqsBeanListBeans);
                     stickyListHeadersListView.setAdapter(mainAdapter);
                 }else {
-                    wjbqsBean = gson.fromJson(s,WjbqsBean.class);
-                    showCenterToastCenter(wjbqsBean.getMessage());
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    showCenterToastCenter(loginBeanFail.getMessage());
                 }
 
             }
@@ -74,15 +75,6 @@ public class WjbqssdFragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-
-    }
-
-    @Override
-    public int getlayout() {
-        return R.layout.fragment_wjbqssd;
-    }
-
-    private void init(View view) {
         refreshLayout=view.findViewById(R.id.refreshLayout1);
         stickyListHeadersListView=view.findViewById(R.id.wsjqs_sd_list);
         no_data=view.findViewById(R.id.no_data);
@@ -106,10 +98,17 @@ public class WjbqssdFragment extends BaseFragment {
     }
 
     @Override
+    public int getlayout() {
+        return R.layout.fragment_wjbqssd;
+    }
+
+
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser){
-            init(view);
+            initView(view);
             initData();
         }
     }

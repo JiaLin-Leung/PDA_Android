@@ -20,6 +20,7 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.WjbEndBean;
 import com.pda.pda_android.bean.WjbqsBean;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -73,8 +74,8 @@ public class WjbqsendFragment extends BaseFragment {
                     mainAdapter = new WjbqsEndDetailAdapter(getActivity(),wjbqsBeanListBeans);
                     stickyListHeadersListView.setAdapter(mainAdapter);
                 }else {
-                    wjbEndBean = gson.fromJson(s,WjbEndBean.class);
-                    showCenterToastCenter(wjbEndBean.getMessage());
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    showCenterToastCenter(loginBeanFail.getMessage());
                 }
 
             }

@@ -21,6 +21,7 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.network.bean.ResultBean;
 import com.pda.pda_android.base.others.ContentUrl;
+import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.WjbqsBean;
 import com.pda.pda_android.db.Entry.PostCacheBean;
 import com.pda.pda_android.db.dbutil.PostCacheDaoOpe;
@@ -120,7 +121,8 @@ public class WjbqsBodyAdapter extends RecyclerView.Adapter<WjbqsBodyAdapter.View
                     list.remove(position);
                     notifyDataSetChanged();
                 }else {
-                    Toast.makeText(context,resultBean.getMessage(),Toast.LENGTH_SHORT).show();
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    Toast.makeText(context,loginBeanFail.getMessage(),Toast.LENGTH_SHORT).show();
                 }
             }
         },params);

@@ -53,8 +53,10 @@ public class YzybhdsdFragment extends Fragment {
         params.put("page", 1+""); //将姓名参数添加到数据包
         OkHttpManager.getInstance().postRequest(getActivity(), ContentUrl.TestUrl_local + ContentUrl.getNotSignedList, new LoadCallBack<String>(getActivity()) {
             @Override
-            protected void onFailure(Call call, IOException e) {
+            protected void onEror(Call call, int statusCode, Exception e) {
+                super.onEror(call, statusCode, e);
             }
+
             @Override
             protected void onSuccess(Call call, Response response, String s) throws IOException {
                 Gson gson = new Gson();

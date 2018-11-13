@@ -89,8 +89,10 @@ public class UsersCheckListService extends Service {
 
         OkHttpManager.getInstance().getRequest(context, ContentUrl.TestUrl_local + ContentUrl.getUsersCheckList,
                 new LoadCallBack<String>(context,false) {
+
                     @Override
-                    protected void onFailure(Call call, IOException e) {
+                    protected void onEror(Call call, int statusCode, Exception e) {
+                        super.onEror(call, statusCode, e);
                         handler.removeMessages(DOINTERNET);
                     }
 

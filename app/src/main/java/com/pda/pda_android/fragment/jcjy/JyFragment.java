@@ -21,6 +21,7 @@ import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
 import com.pda.pda_android.bean.JcBean;
 import com.pda.pda_android.bean.JyBean;
+import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.db.Entry.AssayBean;
 import com.pda.pda_android.db.dbutil.AssayBeanOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -138,8 +139,8 @@ public class JyFragment extends BaseFragment {
                         }
                     });
                 }else {
-                    jyBean = gson.fromJson(s,JyBean.class);
-                    showCenterToastCenter(jyBean.getMessage());
+                    LoginBeanFail loginBeanFail = gson.fromJson(s,LoginBeanFail.class);
+                    showCenterToastCenter(loginBeanFail.getMessage());
                 }
             }
         },params);

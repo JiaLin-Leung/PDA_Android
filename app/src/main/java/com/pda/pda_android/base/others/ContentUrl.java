@@ -9,8 +9,8 @@ public class ContentUrl {
     public static String ACTION = "com.scanner.broadcast";//PDA广播标记
 
     public static final String ARGS = "args";
-//    public static final String TestUrl_local = "http://114.116.19.253:8001";//线上接口地址
-    public static final String TestUrl_local = "http://192.168.7.136:8999";//本地接口地址
+    public static final String TestUrl_local = "http://114.116.19.253:8001";//线上接口地址
+//    public static final String TestUrl_local = "http://192.168.7.136:8999";//本地接口地址
     public static final String login = "/apps/login";//登录接口地址
     public static final String getUsersList = "/sync/patient/list"; //获取患者列表
     public static final String getUsersCheckList = "/apps/patient/checking/list"; //获取患者检查列表
