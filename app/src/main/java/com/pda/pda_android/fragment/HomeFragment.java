@@ -234,10 +234,10 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         list_path = new ArrayList<>();
         //放标题的集合
         list_title = new ArrayList<>();
-        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912582&di=c0f035086fd8c8bc7c0f1bef523c9f6a&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201301%2F29%2F20130129004107_AtQZK.jpeg");
-        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912582&di=9d371199e3504895f657e735fb163b07&imgtype=0&src=http%3A%2F%2Fimg.zybus.com%2Fuploads%2Fallimg%2F140929%2F1-140929155Z1.jpg");
-        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912582&di=3e3b79ae6cdf713a374e0a4e557a0640&imgtype=0&src=http%3A%2F%2Ftva2.sinaimg.cn%2Fcrop.0.55.1198.674%2F90eb2137ly1fke3qognq0j20y60ma40j.jpg");
-        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912579&di=355ed96ede1500a312128235d1962d28&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320144551_ZJAwB.jpeg");
+        list_path.add("https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1542031182&di=1b75a12d79133c442e5d72ce1f853f28&src=http://pic.58pic.com/58pic/17/81/87/559668325313c_1024.jpg");
+//        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912582&di=9d371199e3504895f657e735fb163b07&imgtype=0&src=http%3A%2F%2Fimg.zybus.com%2Fuploads%2Fallimg%2F140929%2F1-140929155Z1.jpg");
+//        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912582&di=3e3b79ae6cdf713a374e0a4e557a0640&imgtype=0&src=http%3A%2F%2Ftva2.sinaimg.cn%2Fcrop.0.55.1198.674%2F90eb2137ly1fke3qognq0j20y60ma40j.jpg");
+//        list_path.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539766912579&di=355ed96ede1500a312128235d1962d28&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201503%2F20%2F20150320144551_ZJAwB.jpeg");
         list_title.add("好好学习");
         list_title.add("天天向上");
         list_title.add("热爱劳动");
