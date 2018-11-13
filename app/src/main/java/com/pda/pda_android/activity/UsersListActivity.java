@@ -64,9 +64,8 @@ public class UsersListActivity extends BaseActivity {
                     intent.putExtra("position",i);
                     startActivity(intent);
                 }else if(from.equals("SSXX")){//手术信息过来的
-                    UserBean userBean = adapter.user_list.get(i);
                     Intent intent = new Intent(UsersListActivity.this,SsxxInfomationActivity.class);
-                    intent.putExtra("userBean",userBean);
+                    intent.putExtra("position",i);
                     startActivity(intent);
                 }else if(from.equals("WJBQS")){//无菌包签收过来的
                     UserBean userBean = adapter.user_list.get(i);

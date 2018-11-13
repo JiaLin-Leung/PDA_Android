@@ -18,6 +18,7 @@ import com.pda.pda_android.db.Entry.CheckBean;
 import com.pda.pda_android.db.Entry.SsxxBean;
 import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.dbutil.SsxxBeanOpe;
+import com.pda.pda_android.db.dbutil.UserDaoOpe;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -48,7 +49,10 @@ public class SsxxInfomationActivity extends BaseActivity {
 //    private List<SsxxBean> list;
     private ImageView no_data;
     private TextView user_info;
+    private int position;
     private List<com.pda.pda_android.bean.SsxxBean.DataBean> list;
+    private List<UserBean> user_list;
+
     @Override
     public int setLayoutId() {
         return R.layout.activity_ssxxinfomation;
@@ -84,7 +88,9 @@ public class SsxxInfomationActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        userBean = (UserBean) getIntent().getSerializableExtra("userBean");
+        user_list = UserDaoOpe.queryAll(SsxxInfomationActivity.this);
+        position = getIntent().getIntExtra("position",0);
+        userBean = user_list.get(position);
         record_no = userBean.getRecord_no();
         patient_no=userBean.getPatient_no();
 //        list = SsxxBeanOpe.queryRecord_no(SsxxInfomationActivity.this,record_no);
@@ -124,5 +130,34 @@ public class SsxxInfomationActivity extends BaseActivity {
                 }
             }
         },params);
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()){
+            case R.id.user_name_up: //上一个患者
+                if (position == 0){ //说明已经是第一个患者
+                    showCenterToastCenter("已经是第一个患者！");
+                }else{
+                    position = position -1;
+                    userBean = user_list.get(position);
+                    record_no = userBean.getRecord_no();
+                    patient_no=userBean.getPatient_no();
+                    postdata();
+                }
+                break;
+            case R.id.user_name_down://下一个患者
+                if (position == user_list.size()-1){//说明已经是最后一个患者
+                    showCenterToastCenter("已经是最后一个患者！");
+                }else{
+                    position = position + 1;
+                    userBean = user_list.get(position);
+                    record_no = userBean.getRecord_no();
+                    patient_no=userBean.getPatient_no();
+                    postdata();
+                }
+                break;
+        }
     }
 }
