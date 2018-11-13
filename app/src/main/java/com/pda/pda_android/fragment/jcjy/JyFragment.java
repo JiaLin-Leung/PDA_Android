@@ -80,28 +80,6 @@ public class JyFragment extends BaseFragment {
         });
         //设置 Header 为 ClassicsHeader
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
-//        assayBeans=  AssayBeanOpe.queryPATIENT_NO(getActivity(),Patient_no);
-//        LogUtils.showLog("jy_shuju",assayBeans.toString());
-//        if (assayBeans.size() == 0){
-//            no_data.setVisibility(View.VISIBLE);
-//        }else{
-//            mainAdapter = new JyDetailAdapter(getActivity(),assayBeans,name);
-//        }
-//         设置头部的点击事件
-//        stickyListHeadersListView.setOnHeaderClickListener(new StickyListHeadersListView.OnHeaderClickListener() {
-//            @Override
-//            public void onHeaderClick(StickyListHeadersListView l, View header, int itemPosition, long headerId, boolean currentlySticky) {
-//                Toast.makeText(getActivity(), "headerId:" + headerId, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-        //设置内容的点击事件
-//        stickyListHeadersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(getActivity(), "i:" + i, Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
     }
 

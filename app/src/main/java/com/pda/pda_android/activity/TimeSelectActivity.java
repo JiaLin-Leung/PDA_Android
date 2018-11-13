@@ -132,9 +132,19 @@ public class TimeSelectActivity extends BaseActivity {
                     }
                     EventBus.getDefault().post(flagBean);
                     finish();
-                }
-                else if (flag.equals("WJBQSSD")){
+                }else if (flag.equals("WJBQSSD")){
                     flagBean.setFlag("WJBQSSD");
+                    if (index==1){
+                        flagBean.setEnd_time("");
+                        flagBean.setStart_time(time_text.getText().toString());
+                    }else if (index==2){
+                        flagBean.setEnd_time(end_time.getText().toString());
+                        flagBean.setStart_time(start_time.getText().toString());
+                    }
+                    EventBus.getDefault().post(flagBean);
+                    finish();
+                }else if (flag.equals("SSXX")){
+                    flagBean.setFlag("SSXX");
                     if (index==1){
                         flagBean.setEnd_time("");
                         flagBean.setStart_time(time_text.getText().toString());
