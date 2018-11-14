@@ -18,6 +18,7 @@ import com.pda.pda_android.activity.apps.detail.YzybhdDetailActivity;
 import com.pda.pda_android.adapter.UserAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.dbutil.SsxxBeanOpe;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
@@ -60,22 +61,24 @@ public class UsersListActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 LogUtils.showLog("跳转标记",from);
                 if (from.equals("JCJY")){ //检查检验过来的
+                    UserBean userBean = adapter.user_list.get(i);
+                    SpUtils.save("user_record_no",userBean.getRecord_no());
                     Intent intent = new Intent(UsersListActivity.this,JcjyListActivity.class);
                     intent.putExtra("position",i);
                     startActivity(intent);
+                    finish();
                 }else if(from.equals("SSXX")){//手术信息过来的
+                    UserBean userBean = adapter.user_list.get(i);
+                    SpUtils.save("user_record_no",userBean.getRecord_no());
                     Intent intent = new Intent(UsersListActivity.this,SsxxInfomationActivity.class);
                     intent.putExtra("position",i);
                     startActivity(intent);
+                    finish();
                 }else if(from.equals("WJBQS")){//无菌包签收过来的
-                    UserBean userBean = adapter.user_list.get(i);
                     Intent intent = new Intent(UsersListActivity.this,WjbqsInfomationActivity.class);
-                    intent.putExtra("userBean",userBean);
                     startActivity(intent);
                 }else if(from.equals("YZYBHD")){//医嘱药包核对过来的
-                    UserBean userBean = adapter.user_list.get(i);
                     Intent intent = new Intent(UsersListActivity.this,YzybhdDetailActivity.class);
-                    intent.putExtra("userBean",userBean);
                     startActivity(intent);
                 }
             }
