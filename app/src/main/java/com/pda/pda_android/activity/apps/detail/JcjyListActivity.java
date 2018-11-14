@@ -70,7 +70,7 @@ public class JcjyListActivity extends BaseActivity {
                Util.setIndicatorWidth(tablayout,100);
             }
         });
-        //getChildFragmentManager() 防止内层Fragment数据丢失
+
         viewpager.setAdapter(new TabAdapter(fragmentManager));
         tablayout.setupWithViewPager(viewpager);
 

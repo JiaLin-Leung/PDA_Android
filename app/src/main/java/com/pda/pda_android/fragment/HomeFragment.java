@@ -31,6 +31,7 @@ import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
 import com.pda.pda_android.activity.apps.detail.SsxxInfomationActivity;
 import com.pda.pda_android.activity.apps.detail.WjbqsInfomationActivity;
 import com.pda.pda_android.activity.apps.detail.YzybhdDetailActivity;
+import com.pda.pda_android.activity.apps.detail.YzzxActivity;
 import com.pda.pda_android.activity.home.MenuManageActivity;
 import com.pda.pda_android.adapter.IndexDataAdapter;
 import com.pda.pda_android.base.BaseFragment;
@@ -95,7 +96,6 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
         return homeFragment;
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -122,20 +122,14 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
             indexDataAll.add(menuEntity);
         }
         appContext.delFileData(AppConfig.KEY_All);
-//        appContext.delFileData(AppConfig.KEY_USER);
 
-//        indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
         appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_All);
         List<MenuEntity> indexDataUser = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
         if (indexDataUser == null || indexDataUser.size() == 0) {
             appContext.saveObject((Serializable) indexDataAll, AppConfig.KEY_USER);
         }
         indexDataList = (List<MenuEntity>) appContext.readObject(AppConfig.KEY_USER);
-//        MenuEntity allMenuEntity = new MenuEntity();
-//        allMenuEntity.setIco("");
-//        allMenuEntity.setId("all");
-//        allMenuEntity.setTitle("全部");
-//        indexDataList.add(allMenuEntity);
+
         adapter = new IndexDataAdapter(getActivity(), indexDataList);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -179,11 +173,13 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                         intent.putExtra("title",title);
                         startActivity(intent);
                         break;
+                    case "YZZX": //医嘱执行
+                        intent.setClass(getActivity(),YzzxActivity.class);
+                        intent.putExtra("title",title);
+                        startActivity(intent);
+                        break;
                 }
-//                if (strId.equals("all")) {// 更多
-//                    intent.setClass(getActivity(), MenuManageActivity.class);
-//                    startActivity(intent);
-//                }
+
             }
         });
         postdata();
