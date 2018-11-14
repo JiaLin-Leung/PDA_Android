@@ -2,6 +2,7 @@ package com.pda.pda_android.activity.apps.detail;
 
 
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,7 +13,9 @@ import com.pda.pda_android.R;
 import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.activity.apps.JcjyActivity;
 import com.pda.pda_android.base.BaseActivity;
+import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.db.Entry.UserBean;
+import com.pda.pda_android.db.dao.UserBeanDao;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 import com.pda.pda_android.fragment.jcjy.JcFragment;
 import com.pda.pda_android.fragment.jcjy.JyFragment;
@@ -123,9 +126,17 @@ public class JcjyListActivity extends BaseActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-        position = getIntent().getIntExtra("position",0);
         user_list = UserDaoOpe.queryAll(JcjyListActivity.this);
-        userBean_positon = user_list.get(position);
+        String type = getIntent().getStringExtra("type");
+        if (!TextUtils.isEmpty(type) && type.equals("1")){//说明从首页进来的，已经设置过患者
+            String user_record_no = SpUtils.getInstance(JcjyListActivity.this).getString("user_record_no","");
+            List<UserBean> userBeans = UserDaoOpe.queryRecord_no(JcjyListActivity.this,user_record_no);
+            userBean_positon = userBeans.get(0);
+            position = user_list.indexOf(userBean_positon);
+        }else{//说明从患者列表过来的，没有设置过患者
+            position = getIntent().getIntExtra("position",0);
+            userBean_positon = user_list.get(position);
+        }
         cw=userBean_positon.getRecord_no();
         name=userBean_positon.getBed_no()+"  "+userBean_positon.getPatient_name();
         Patient_no=userBean_positon.getPatient_no();
@@ -133,7 +144,13 @@ public class JcjyListActivity extends BaseActivity {
         users_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                users_all.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UsersListActivity.go_UsersListActivity(JcjyListActivity.this,"JCJY");
+                        JcjyListActivity.this.finish();
+                    }
+                });
             }
         });
         title_back.setOnClickListener(new View.OnClickListener() {

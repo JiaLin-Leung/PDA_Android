@@ -27,6 +27,8 @@ import com.google.gson.JsonParser;
 import com.pda.pda_android.R;
 import com.pda.pda_android.activity.apps.JcjyActivity;
 import com.pda.pda_android.activity.apps.SSXXActivity;
+import com.pda.pda_android.activity.apps.detail.JcjyListActivity;
+import com.pda.pda_android.activity.apps.detail.SsxxInfomationActivity;
 import com.pda.pda_android.activity.apps.detail.WjbqsInfomationActivity;
 import com.pda.pda_android.activity.apps.detail.YzybhdDetailActivity;
 import com.pda.pda_android.activity.home.MenuManageActivity;
@@ -36,6 +38,7 @@ import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.bean.Nursebean;
 import com.pda.pda_android.entity.MenuEntity;
@@ -81,6 +84,8 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
     private List<MenuEntity> indexDataList = new ArrayList<MenuEntity>();
     private final static String fileName = "menulist";
     private ListPopupWindow listPopupWindow;
+    private String user_record_no;//SP存储的用户信息
+
     private List<Nursebean.NursebeanDataBean.NursebeanDataBeanWardsBean> hszlist;
     public static HomeFragment newInstance(String s) {
         HomeFragment homeFragment = new HomeFragment();
@@ -141,14 +146,28 @@ public class HomeFragment extends BaseFragment implements OnBannerListener {
                 String strId = indexDataList.get(position).getId();
                 switch (strId){
                     case "JCGX": //检查检验
-                        intent.setClass(getActivity(),JcjyActivity.class);
-                        intent.putExtra("title",title);
-                        startActivity(intent);
+                        user_record_no = SpUtils.getInstance(getActivity()).getString("user_record_no","");
+                        if (user_record_no.equals("")){ //说明用户没有设置患者
+                            intent.setClass(getActivity(),JcjyActivity.class);
+                            intent.putExtra("title",title);
+                            startActivity(intent);
+                        }else{//说明已经有患者
+                            intent.setClass(getActivity(),JcjyListActivity.class);
+                            intent.putExtra("type","1");
+                            startActivity(intent);
+                        }
                         break;
                     case "SSXX": //手术信息
-                        intent.setClass(getActivity(),SSXXActivity.class);
-                        intent.putExtra("title",title);
-                        startActivity(intent);
+                        user_record_no = SpUtils.getInstance(getActivity()).getString("user_record_no","");
+                        if (user_record_no.equals("")){ //说明用户没有设置患者
+                            intent.setClass(getActivity(),SSXXActivity.class);
+                            intent.putExtra("title",title);
+                            startActivity(intent);
+                        }else{//说明已经有患者
+                            intent.setClass(getActivity(),SsxxInfomationActivity.class);
+                            intent.putExtra("type","1");
+                            startActivity(intent);
+                        }
                         break;
                     case "WJBQS": //无菌包签收
                         intent.setClass(getActivity(),WjbqsInfomationActivity.class);

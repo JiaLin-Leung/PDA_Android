@@ -83,7 +83,6 @@ public class WjbqsInfomationActivity extends BaseActivity {
 
     @Override
     public void initView() {
-//        UserBean userBean = (UserBean) getIntent().getSerializableExtra("userBean");
         TextView tv_top_title = findViewById(R.id.tv_top_title);
         tv_top_title.setText("无菌包签收");
         title_back = findViewById(R.id.iv_top_back);

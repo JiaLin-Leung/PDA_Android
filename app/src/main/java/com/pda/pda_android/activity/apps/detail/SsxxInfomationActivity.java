@@ -1,5 +1,7 @@
 package com.pda.pda_android.activity.apps.detail;
 
+import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -7,12 +9,14 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.pda.pda_android.R;
+import com.pda.pda_android.activity.UsersListActivity;
 import com.pda.pda_android.adapter.ssxx.SsxxDetailAdapter;
 import com.pda.pda_android.base.BaseActivity;
 import com.pda.pda_android.base.network.LoadCallBack;
 import com.pda.pda_android.base.network.OkHttpManager;
 import com.pda.pda_android.base.others.ContentUrl;
 import com.pda.pda_android.base.utils.LogUtils;
+import com.pda.pda_android.base.utils.SpUtils;
 import com.pda.pda_android.bean.FlagBean;
 import com.pda.pda_android.bean.LoginBeanFail;
 import com.pda.pda_android.db.Entry.CheckBean;
@@ -58,6 +62,8 @@ public class SsxxInfomationActivity extends BaseActivity {
     private List<com.pda.pda_android.bean.SsxxBean.DataBean> list;
     private List<UserBean> user_list;
     private ImageView title_back,users_all;
+    private String type;
+
     @Override
     public int setLayoutId() {
         return R.layout.activity_ssxxinfomation;
@@ -66,14 +72,13 @@ public class SsxxInfomationActivity extends BaseActivity {
     @Override
     public void initView() {
         users_all=findViewById(R.id.users_all);
-        title_back=findViewById(R.id.title_back);
         stickyListHeadersListView =  findViewById(R.id.ssxx_list_ssxx);
         refreshLayout = findViewById(R.id.refreshLayout1_ssxx);
-        ImageView title_back = findViewById(R.id.title_back);
+        title_back = findViewById(R.id.title_back);
         title_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SsxxInfomationActivity.this.finish();
+                finish();
             }
         });
         no_data = findViewById(R.id.no_data);
@@ -96,15 +101,10 @@ public class SsxxInfomationActivity extends BaseActivity {
                 header.findViewById(R.id.item_shaixuan).setVisibility(View.VISIBLE);
             }
         });
-        title_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         users_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UsersListActivity.go_UsersListActivity(SsxxInfomationActivity.this,"SSXX");
                 finish();
             }
         });
@@ -112,9 +112,17 @@ public class SsxxInfomationActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        user_list = UserDaoOpe.queryAll(SsxxInfomationActivity.this);
-        position = getIntent().getIntExtra("position",0);
-        userBean = user_list.get(position);
+        type = getIntent().getStringExtra("type");
+        if (!TextUtils.isEmpty(type) && type.equals("1")) {//说明从首页进来的，已经设置过患者
+            String user_record_no = SpUtils.getInstance(SsxxInfomationActivity.this).getString("user_record_no","");
+            user_list = UserDaoOpe.queryRecord_no(SsxxInfomationActivity.this,user_record_no);
+            userBean = user_list.get(0);
+            position = user_list.indexOf(userBean);
+        }else{ //说明没有设置过患者
+            user_list = UserDaoOpe.queryAll(SsxxInfomationActivity.this);
+            position = getIntent().getIntExtra("position",0);
+            userBean = user_list.get(position);
+        }
         record_no = userBean.getRecord_no();
         patient_no=userBean.getPatient_no();
         PostData("","");
