@@ -46,7 +46,9 @@ import okhttp3.Response;
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
- * 检验
+ * @author：DBJ
+ * @data: 2018/11/14 11:50
+ * @Description:检验
  */
 public class JyFragment extends BaseFragment {
     private StickyListHeadersListView stickyListHeadersListView;

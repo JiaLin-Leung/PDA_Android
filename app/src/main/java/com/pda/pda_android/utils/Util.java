@@ -35,16 +35,19 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.tabs.TabLayout;
 import com.pda.pda_android.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -686,4 +689,49 @@ public class Util {
     public static boolean isEmpty(String str) {
         return (str == null) || (str.equals(""));
     }
+
+    /**
+     * 设置下划线宽度
+     * @param tabLayout
+     * @param margin
+     */
+    public static void setIndicatorWidth(@NonNull final TabLayout tabLayout, final int margin) {
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // 拿到tabLayout的slidingTabIndicator属性
+                    Field slidingTabIndicatorField = tabLayout.getClass().getDeclaredField("slidingTabIndicator");
+                    slidingTabIndicatorField.setAccessible(true);
+                    LinearLayout mTabStrip = (LinearLayout) slidingTabIndicatorField.get(tabLayout);
+                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
+                        View tabView = mTabStrip.getChildAt(i);
+                        //拿到tabView的mTextView属性
+                        Field textViewField = tabView.getClass().getDeclaredField("textView");
+                        textViewField.setAccessible(true);
+                        TextView mTextView = (TextView) textViewField.get(tabView);
+                        tabView.setPadding(0, 0, 0, 0);
+                        // 因为想要的效果是字多宽线就多宽，所以测量mTextView的宽度
+                        int width = mTextView.getWidth();
+                        if (width == 0) {
+                            mTextView.measure(0, 0);
+                            width = mTextView.getMeasuredWidth();
+                        }
+                        // 设置tab左右间距,注意这里不能使用Padding,因为源码中线的宽度是根据tabView的宽度来设置的
+                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+                        params.width = width;
+                        params.leftMargin = margin;
+                        params.rightMargin = margin;
+                        tabView.setLayoutParams(params);
+                        tabView.invalidate();
+                    }
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }

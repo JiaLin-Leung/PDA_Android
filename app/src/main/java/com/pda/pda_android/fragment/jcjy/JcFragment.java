@@ -47,7 +47,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 检查
+ * @author：DBJ
+ * @data: 2018/11/14 11:50
+ * @Description:检验
  */
 public class JcFragment extends BaseFragment {
 

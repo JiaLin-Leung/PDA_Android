@@ -16,6 +16,7 @@ import com.pda.pda_android.db.Entry.UserBean;
 import com.pda.pda_android.db.dbutil.UserDaoOpe;
 import com.pda.pda_android.fragment.jcjy.JcFragment;
 import com.pda.pda_android.fragment.jcjy.JyFragment;
+import com.pda.pda_android.utils.Util;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -48,49 +49,6 @@ public class JcjyListActivity extends BaseActivity {
         return R.layout.activity_jcjy_list;
     }
 
-    /**
-     * 设置下划线宽度
-     * @param tabLayout
-     * @param margin
-     */
-    public void setIndicatorWidth(@NonNull final TabLayout tabLayout, final int margin) {
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // 拿到tabLayout的slidingTabIndicator属性
-                    Field slidingTabIndicatorField = tabLayout.getClass().getDeclaredField("slidingTabIndicator");
-                    slidingTabIndicatorField.setAccessible(true);
-                    LinearLayout mTabStrip = (LinearLayout) slidingTabIndicatorField.get(tabLayout);
-                    for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-                        View tabView = mTabStrip.getChildAt(i);
-                        //拿到tabView的mTextView属性
-                        Field textViewField = tabView.getClass().getDeclaredField("textView");
-                        textViewField.setAccessible(true);
-                        TextView mTextView = (TextView) textViewField.get(tabView);
-                        tabView.setPadding(0, 0, 0, 0);
-                        // 因为想要的效果是字多宽线就多宽，所以测量mTextView的宽度
-                        int width = mTextView.getWidth();
-                        if (width == 0) {
-                            mTextView.measure(0, 0);
-                            width = mTextView.getMeasuredWidth();
-                        }
-                        // 设置tab左右间距,注意这里不能使用Padding,因为源码中线的宽度是根据tabView的宽度来设置的
-                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();
-                        params.width = width;
-                        params.leftMargin = margin;
-                        params.rightMargin = margin;
-                        tabView.setLayoutParams(params);
-                        tabView.invalidate();
-                    }
-                } catch (NoSuchFieldException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     @Override
     public void initView() {
@@ -106,23 +64,13 @@ public class JcjyListActivity extends BaseActivity {
             @Override
             public void run() {
                 //设置tablayout下标线
-                setIndicatorWidth(tablayout,100);
+               Util.setIndicatorWidth(tablayout,100);
             }
         });
         //getChildFragmentManager() 防止内层Fragment数据丢失
         viewpager.setAdapter(new TabAdapter(fragmentManager));
         tablayout.setupWithViewPager(viewpager);
-        tablayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
+
         position = getIntent().getIntExtra("position",0);
         user_list = UserDaoOpe.queryAll(JcjyListActivity.this);
         userBean_positon = user_list.get(position);

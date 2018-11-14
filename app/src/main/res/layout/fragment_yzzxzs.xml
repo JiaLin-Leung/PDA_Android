@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.yzzx.YzzxzsFragment"
+    >
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:id="@+id/refreshLayout1">
+
+            <se.emilsjolander.stickylistheaders.StickyListHeadersListView
+                android:id="@+id/yzzxzs_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:overScrollMode="never"/>
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/empty"
+            android:id="@+id/no_data"
+            />
+
+
+</FrameLayout>
